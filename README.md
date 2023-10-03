@@ -2,9 +2,10 @@
 
 For the impatient:
 1. Get a suitable environment:
-    * [Use a GitHub Codespace](#use-a-github-codespace)
-    * [Use VSCode](#use-vscode)
-    * [Use a Docker container](#use-a-docker-container)
+    * Use VSCode (on your machine)
+        * [... connected to a GitHub Codespace](#use-vscode-connected-to-a-github-codespace)
+        * [... with a local Dev Container](#use-vscode-with-a-local-dev-container)
+    * [Use a Docker Container](#use-a-docker-container) _(Coming soon)_
     * [Install prerequisites manually](#install-prerequisites-manually)
 2. [Run the application](#run-the-application)
 
@@ -16,34 +17,39 @@ The '.proto' files can be found in the `api/` directory, grouped into
 subdirectories by proto package, while backend specific code can be
 found in `backend/` and web specific code in `web/`.
 
-<a id="use-a-github-codespace"></a>
-## Use a GitHub Codespace
-
-GitHub's Codespaces are [Dev Containers](https://containers.dev/) that
-get hosted for you in the cloud.
+This repository includes a [Dev Container](https://containers.dev/) that _has all of the dependencies you need to build and run code in this repository already installed_.
 
 > [!NOTE]
-> The Dev Container's configuration is found in
+> The Dev Container's configuration for this repository is found in
 > [`.devcontainer/devcontainer.json`](main/.devcontainer/devcontainer.json). You
 > may expand on it to customize your development environment to your
 > liking.
+
+You can start the Dev Container in two different ways.
+
+<a id="use-vscode-connected-to-a-github-codespace"></a>
+## Use VSCode connected to a GitHub Codespace
+
+GitHub's [Codespaces](https://github.com/features/codespaces) are machines that
+are hosted in the cloud for you. 
+
+> [!IMPORTANT]
+> You must connect your local VSCode to the codespace, you can not use VSCode in a browser window.
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/reboot-dev/resemble-hello-world)
 <br>
 (Right-Click to open in new tab or window)
 
-Now you're ready to [Run the application](#run-the-application)!
+Now you're ready to [run the application](#run-the-application)!
 
-<a id="use-vscode"></a>
-## Use VSCode
+<a id="use-vscode-with-a-local-dev-container"></a>
+## Use VSCode with a local Dev Container
 
 > [!IMPORTANT]
-> Currently, our Dev Container at
-> [`.devcontainer/devcontainer.json`](.devcontainer/devcontainer.json)
-> only works on x86 CPU architectures. <br>
-> **Apple-silicon (M1/M2/...) Mac users**: we will be providing support for your machines soon!
+> Currently, our Dev Container at [`.devcontainer/devcontainer.json`](main/.devcontainer/devcontainer.json) **only works on x86 CPU architectures**.
 
-VSCode has built-in support for Dev Containers.
+If your machine meets the required specifications, you can start this
+repository's Dev Container with VSCode locally rather than using a GitHub Codespace.
 
 Clone this repository:
 
@@ -59,10 +65,10 @@ Open the Dev Container:
 - Press: Ctrl+Shift+P (Linux / Windows) or Command+Shift+P (Mac)
 - Type/Select: `Dev Containers: Reopen In Container`
 
-VSCode will now start the Dev Container, and restart VSCode to be running
+VSCode will now start the Dev Container and restart VSCode to be running
 inside of that container.
 
-Now you're ready to [Run the application](#run-the-application)!
+Now you're ready to [run the application](#run-the-application)!
 
 <a id="use-a-docker-container"></a>
 ## Use a Docker container
@@ -76,8 +82,7 @@ COMING SOON!
 > Currently, Resemble backends can only run on x86 Linux machines with
 > `glibc>=2.35` (Ubuntu Jammy and other equivalent-generation Linux
 > distributions). If you have a machine that doesn't fit this requirement, we
-> suggest using one of the Dev Container approaches discussed above.
-
+> suggest using one of the approaches discussed above.
 ### Prerequisites
 
 You must have the following tools installed:
@@ -99,8 +104,8 @@ Create a new Python virtual environment in which to install Resemble
 requirements and run an application:
 
 ```sh
-python -m venv ./.resemble-examples-venv
-source ./.resemble-examples-venv/bin/activate
+python -m venv ./.resemble-hello-world-venv
+source ./.resemble-hello-world-venv/bin/activate
 ```
 
 For extra environment isolation, you can make a virtual environment for each
@@ -119,14 +124,14 @@ Resemble definitions, and the `grpcio-tools` package that provides `protoc`.
 pip install reboot-resemble-cli
 ```
 
-Now you're ready to [Run the application](#run-the-application)!
+Now you're ready to [run the application](#run-the-application)!
 
 <a id="run-the-application"></a>
 ## Run the application
 
 ### Install Python Requirements
 
-As with most Python applications, these examples have requirements that must be
+As with most Python applications, this example has requirements that must be
 installed before the application can run successfully. These Python
 requirements include the Resemble backend library, `reboot-resemble`.
 
@@ -159,10 +164,13 @@ If not using VSCode, visit `http://127.0.0.1:3000/`.
 
 ### Tests
 
-The application comes with backend tests. Before you run the tests
-you'll need to ensure you've run `rsm protoc`, which will have
-happened for you if you've already run `rsm dev` without modifying
-`.rsmrc`, otherwise, you can do it manually via:
+The application comes with backend tests. 
+
+Before you run the tests, you'll
+need to ensure you've run `rsm protoc`.  If you've already run `rsm dev`
+without modifying `.rsmrc`, `rsm protoc` will have been run for you as
+part of that command.
+Otherwise, you can do it manually.
 
 ```sh
 rsm protoc
