@@ -6,10 +6,11 @@ from resemble.aio.workflows import Workflow
 
 logging.basicConfig(level=logging.INFO)
 
+
 async def main():
-    application = Application(
-        servicers=[GreeterServicer],
-    )
+    application = Application(servicers=[
+        GreeterServicer,
+    ])
 
     logging.info('👋 Hello, World? Hello, Resemble! 👋')
 

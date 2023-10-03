@@ -9,11 +9,13 @@ import "resemble/v1alpha1/options.proto";
 service Greeter {
   option (resemble.v1alpha1.service).state = "GreeterState";
 
+  // Returns the current list of recorded greetings.
   rpc Greetings(GreetingsRequest) returns (GreetingsResponse) {
     option (resemble.v1alpha1.method).reader = {
     };
   }
 
+  // Adds a new greeting to the list of recorded greetings.
   rpc Greet(GreetRequest) returns (GreetResponse) {
     option (resemble.v1alpha1.method).writer = {
     };
@@ -35,5 +37,4 @@ message GreetRequest {
 }
 
 message GreetResponse {
-  string greeting = 1;
 }

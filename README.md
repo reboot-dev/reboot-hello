@@ -12,7 +12,7 @@ For the impatient:
 
 This repository contains an example application written using Resemble.
 
-A '.proto' files can be found in the `api/` directory, grouped into
+The '.proto' files can be found in the `api/` directory, grouped into
 subdirectories by proto package, while backend specific code can be
 found in `backend/` and web specific code in `web/`.
 
@@ -145,6 +145,8 @@ rsm dev
 Running `rsm dev` will watch for file modifications and restart the
 application if necessary. See the `.rsmrc` file for flags and
 arguments that get expanded when running `rsm dev`.
+
+<!-- TODO: instructions on how to build and run the frontend (e.g. `rsm dev --config=run-npm`). -->
 
 ### Tests
 
