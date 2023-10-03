@@ -101,7 +101,7 @@ docker run \
 
 Explanation of flags:
 * We mount in our git cloned directory so that we won't lose any of our changes.
-* We bind port `3000` so that we can access the web front end and port `9991` so the web front end can access the backend.
+* We bind port `3000` so that we can access the web front end (e.g., from a browser), and port `9991` so the web front end can access the backend.
 * `--privileged` so that we can run Docker inside of the container.
 * `--interactive` and `--tty` (often abbreviated `-it`) lets us interact with the created container.
 
