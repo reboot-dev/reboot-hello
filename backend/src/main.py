@@ -6,16 +6,14 @@ from resemble.aio.workflows import Workflow
 
 logging.basicConfig(level=logging.INFO)
 
-
-async def initialize(workflow: Workflow):
-    logging.info(f"Greeter is ready... Try recording a greeting!")
-
-
 async def main():
-    await Application(
+    application = Application(
         servicers=[GreeterServicer],
-        initialize=initialize,
-    ).run()
+    )
+
+    logger.info('👋🏿 👋🏾 👋🏽 👋🏼 👋🏻 Hello, World? Hello, Resemble! 👋🏻 👋🏼 👋🏽 👋🏾 👋🏿')
+
+    await application.run()
 
 
 if __name__ == '__main__':
