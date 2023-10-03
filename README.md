@@ -82,8 +82,8 @@ We've created a [Docker container](ghcr.io/reboot-dev/resemble-standalone) that 
 Clone this repository:
 
 ```shell
-git clone https://github.com/reboot-dev/resemble-examples.git
-cd resemble-examples/
+git clone https://github.com/reboot-dev/resemble-hello-world.git
+cd resemble-hello-world/
 ```
 
 Run the container:
