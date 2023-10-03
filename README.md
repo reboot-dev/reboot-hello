@@ -160,19 +160,16 @@ Now you're ready to [run the application](#run-the-application)!
 <a id="run-the-application"></a>
 ## Run the application
 
-### Install Python Requirements
+### Backend via `rsm dev`
 
-As with most Python applications, this example has requirements that must be
-installed before the application can run successfully. These Python
-requirements include the Resemble backend library, `reboot-resemble`.
+Our backend is implemented in Python and we must install its dependencies 
+before running it. These dependencies include the Resemble backend library, `reboot-resemble`.
 
 ```sh
 pip install -r backend/src/requirements.txt
 ```
 
-### `rsm dev`
-
-To run the application, use the `rsm` CLI:
+To run the application, use the Resemble CLI `rsm`:
 
 ```shell
 rsm dev
@@ -184,7 +181,7 @@ arguments that get expanded when running `rsm dev`.
 
 ### Front end
 
-To run the front end, open a separate terminal and do:
+Similar to the backend, the front end has dependencies that need to be installed before running it. Open a separate terminal/shell and do:
 ```shell
 cd web/
 npm install
