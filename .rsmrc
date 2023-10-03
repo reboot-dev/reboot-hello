@@ -34,19 +34,19 @@ protoc --output-directory=api/
 protoc api/
 
 # Watch if any generated files are modified.
-dev:hello-world --watch=api/**/*.py
+dev --watch=api/**/*.py
 
 # Watch if any of our source files are modified.
-dev:hello-world --watch=hello-world/backend/src/**/*.py
+dev --watch=backend/src/**/*.py
 
 # PYTHONPATH must be explicitly set to pick up generated code.
-dev:hello-world --env=PYTHONPATH=api/
+dev --env=PYTHONPATH=api/
 
 # Tell `rsm` that this is a Python application.
-dev:hello-world --python
+dev --python
 
 # Save state between chaos restarts.
-dev:hello-world --name=hello-world
+dev --name=hello-world
 
-# Run hello-world application!
-dev:hello-world hello-world/backend/src/main.py
+# Run the application!
+dev backend/src/main.py
