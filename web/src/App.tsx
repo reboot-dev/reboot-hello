@@ -25,6 +25,7 @@ const App = () => {
         type="text"
         className={css.textInput}
         onChange={(e) => setGreetingMessage(e.target.value)}
+        value={greetingMessage}
       />
       <button
         className={css.button}
