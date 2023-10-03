@@ -5,7 +5,7 @@ For the impatient:
     * Use VSCode (on your machine)
         * [... connected to a GitHub Codespace](#use-vscode-connected-to-a-github-codespace)
         * [... with a local Dev Container](#use-vscode-with-a-local-dev-container)
-    * [Use a Docker Container](#use-a-docker-container) _(Coming soon)_
+    * [Use a Docker Container](#use-a-docker-container)
     * [Install prerequisites manually](#install-prerequisites-manually)
 2. [Run the application](#run-the-application)
 
@@ -75,7 +75,37 @@ Now you're ready to [run the application](#run-the-application)!
 <a id="use-a-docker-container"></a>
 ## Use a Docker container
 
-COMING SOON!
+We've created a [Docker container](ghcr.io/reboot-dev/resemble-standalone) that _has all of the dependencies you need to build and run code in this repository already installed_.
+> [!IMPORTANT]
+> The Docker container currently **only works on x86 CPU architectures**. Check back soon for more supported architectures.
+
+Clone this repository:
+
+```shell
+git clone https://github.com/reboot-dev/resemble-examples.git
+cd resemble-examples/
+```
+
+Now we can run the container:
+
+```shell
+docker run \
+  --mount type=bind,source=$PWD,target=/workspaces/resemble \
+  -p 127.0.0.1:3000:3000/tcp \
+  -p 127.0.0.1:9991:9991/tcp \
+  --privileged \
+  --interactive \
+  --tty \
+  ghcr.io/reboot-dev/resemble-standalone:latest
+```
+
+Explanation of flags:
+* We mount in our git cloned directory so that we won't lose any of our changes.
+* We bind port `3000` so that we can access the web front end and port `9991` so the web front end can access the backend.
+* `--privileged` so that we can run Docker inside of the container.
+* `--interactive` and `--tty` (often abbreviated `-it`) lets us interact with the created container.
+
+Now you're ready to [run the application](#run-the-application)!
 
 <a id="install-prerequisites-manually"></a>
 ## Install prerequisites manually
