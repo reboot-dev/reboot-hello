@@ -40,6 +40,8 @@ are hosted in the cloud for you.
 <br>
 (Right-Click to open in new tab or window)
 
+If you haven't [set your default editor to VSCode for codespaces](https://docs.github.com/en/codespaces/customizing-your-codespace/setting-your-default-editor-for-github-codespaces), then the above link will end up opening VSCode in the browser. You can close that browser tab because _YOU MUST_ [open the existing codespace](https://docs.github.com/en/codespaces/developing-in-codespaces/opening-an-existing-codespace?tool=vscode) using the VSCode on your machine. You can also go to [https://github.com/codespaces](https://github.com/codespaces) and click the three dots next to the codespace you just created and then click `Open in ...` then `Open in Visual Studio Code`.
+
 Now you're ready to [run the application](#run-the-application)!
 
 <a id="use-vscode-with-a-local-dev-container"></a>
