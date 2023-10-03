@@ -49,3 +49,4 @@ dev --python
 dev --name=hello-world
 
 # Run the application!
+dev backend/src/main.py
