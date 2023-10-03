@@ -11,7 +11,7 @@ const Greeting: FC<{ text: string }> = ({ text }) => {
 
 const App = () => {
   // State of the input component.
-  const [greetingMessage, setGreetingMessage] = useState("");
+  const [greetingMessage, setGreetingMessage] = useState("Hello, World!");
 
   const { useGreetings } = Greeter({ actorId: GREETER_ID });
   const {
@@ -23,7 +23,6 @@ const App = () => {
     <div className={css.greetings}>
       <input
         type="text"
-        placeholder="Hello, World!"
         className={css.textInput}
         onChange={(e) => setGreetingMessage(e.target.value)}
       />
