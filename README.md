@@ -2,10 +2,10 @@
 
 For the impatient:
 1. Get a suitable environment:
-    * Use VSCode
-        * [Use a GitHub Codespace with Local VSCode](#use-a-github-codespace)
-        * [Start a local Dev Container with VSCode](#local-dev-container-with-vscode)
-    * In a Docker Container _(Coming soon)_
+    * Use VSCode (on your machine)
+        * [... connected to a GitHub Codespace](#use-vscode-connected-to-a-github-codespace)
+        * [... with a local Dev Container](#use-vscode-with-a-local-dev-container)
+    * [Use a Docker Container](#use-a-docker-container) _(Coming soon)_
     * [Install prerequisites manually](#install-prerequisites-manually)
 2. [Run the application](#run-the-application)
 
@@ -17,9 +17,7 @@ The '.proto' files can be found in the `api/` directory, grouped into
 subdirectories by proto package, while backend specific code can be
 found in `backend/` and web specific code in `web/`.
 
-This repository also contains a [Dev Container](https://containers.dev/) configuration that will install Resemble
-requirements automatically. This configuration is designed to be run with
-VSCode, which has built-in Dev Container support.
+This repository includes a [Dev Container](https://containers.dev/) that _has all of the dependencies you need to build and run code in this repository already installed_.
 
 > [!NOTE]
 > The Dev Container's configuration for this repository is found in
@@ -29,15 +27,14 @@ VSCode, which has built-in Dev Container support.
 
 You can start the Dev Container in two different ways.
 
-<a id="use-a-github-codespace"></a>
-## Use a GitHub Codespace with Local VSCode
+<a id="use-vscode-connected-to-a-github-codespace"></a>
+## Use VSCode connected to a GitHub Codespace
 
 GitHub's [Codespaces](https://github.com/features/codespaces) are machines that
-are hosted in the cloud for you. They are based on a Dev Container that includes
-all of the dependencies you need to build and run code in this repository.
+are hosted in the cloud for you. 
 
 > [!IMPORTANT]
-> Codespaces for this repository must be run through your local VSCode, not in a browser window.
+> You must connect your local VSCode to the codespace, you can not use VSCode in a browser window.
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/reboot-dev/resemble-hello-world)
 <br>
@@ -45,12 +42,11 @@ all of the dependencies you need to build and run code in this repository.
 
 Now you're ready to [run the application](#run-the-application)!
 
-<a id="local-dev-container-with-vscode"></a>
-## Start a local Dev Container with VSCode
+<a id="use-vscode-with-a-local-dev-container"></a>
+## Use VSCode with a local Dev Container
 
-Currently, our Dev Container at
-[`.devcontainer/devcontainer.json`](.devcontainer/devcontainer.json)
-only works on x86 CPU architectures. <br>
+> [!IMPORTANT]
+> Currently, our Dev Container at [`.devcontainer/devcontainer.json`](main/.devcontainer/devcontainer.json) **only works on x86 CPU architectures**.
 
 If your machine meets the required specifications, you can start this
 repository's Dev Container with VSCode locally rather than using a GitHub Codespace.
