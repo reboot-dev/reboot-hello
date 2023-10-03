@@ -108,9 +108,6 @@ python -m venv ./.resemble-hello-world-venv
 source ./.resemble-hello-world-venv/bin/activate
 ```
 
-For extra environment isolation, you can make a virtual environment for each
-application you want to run.
-
 To learn more about why virtual environments are a best practice for Python
 projects, see [the Python documentation for the `venv` module.](https://docs.python.org/3/library/venv.html)
 
@@ -160,7 +157,7 @@ npm install
 npm start
 ```
 If using VSCode, the page will load automatically.    
-If not using VSCode, visit `http://127.0.0.1:3000/`.
+If not using VSCode, visit [http://127.0.0.1:3000](http://127.0.0.1:3000)`.
 
 ### Tests
 
