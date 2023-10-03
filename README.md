@@ -148,16 +148,14 @@ arguments that get expanded when running `rsm dev`.
 
 ### Front end
 
-To run the front end, use the `run-npm` config option:
+To run the frontend example, in a separate terminal from the running `rsm dev` type:
 ```shell
-rsm dev --config=run-npm
+cd web/
+npm install
+npm start
 ```
-
-This config adds a `--background-command` that installs the npm dependencies 
-and starts the React DevServer. 
-
-If you want to see separate log output, you can run `npm install` and 
-`npm start` in a separate terminal without the `run-npm` config option.
+If using VSCode, the page will load automatically.    
+If not using VSCode, visit `http://127.0.0.1:3000/`.
 
 ### Tests
 
