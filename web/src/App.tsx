@@ -19,6 +19,10 @@ const App = () => {
     mutations: { Greet },
   } = useGreetings();
 
+  const handleClick = () => {
+    Greet({ greeting: greetingMessage }).then(() => setGreetingMessage(""));
+  };
+
   return (
     <div className={css.greetings}>
       <input
@@ -27,10 +31,7 @@ const App = () => {
         onChange={(e) => setGreetingMessage(e.target.value)}
         value={greetingMessage}
       />
-      <button
-        className={css.button}
-        onClick={() => Greet({ greeting: greetingMessage })}
-      >
+      <button className={css.button} onClick={handleClick}>
         Greet
       </button>
       {response !== undefined &&
