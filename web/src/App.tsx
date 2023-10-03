@@ -11,7 +11,7 @@ const Greeting: FC<{ text: string }> = ({ text }) => {
 
 const App = () => {
   // State of the input component.
-  const [greetingMessage, setGreetingMessage] = useState("Hello, World!");
+  const [greetingMessage, setGreetingMessage] = useState("Hello, Resemble!");
 
   const { useGreetings } = Greeter({ actorId: GREETER_ID });
   const {

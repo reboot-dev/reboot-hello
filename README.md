@@ -146,7 +146,18 @@ Running `rsm dev` will watch for file modifications and restart the
 application if necessary. See the `.rsmrc` file for flags and
 arguments that get expanded when running `rsm dev`.
 
-<!-- TODO: instructions on how to build and run the frontend (e.g. `rsm dev --config=run-npm`). -->
+### Front end
+
+To run the front end, use the `run-npm` config option:
+```shell
+rsm dev --config=run-npm
+```
+
+This config adds a `--background-command` that installs the npm dependencies 
+and starts the React DevServer. 
+
+If you want to see separate log output, you can run `npm install` and 
+`npm start` in a separate terminal without the `run-npm` config option.
 
 ### Tests
 
