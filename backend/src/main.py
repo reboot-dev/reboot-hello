@@ -7,7 +7,7 @@ from resemble.aio.workflows import Workflow
 
 logging.basicConfig(level=logging.INFO)
 
-EXAMPLE_GREETER_ID = 'my-greeter'
+EXAMPLE_GREETER_ID = 'greeter-hello-world'
 
 
 async def initialize(workflow: Workflow):
