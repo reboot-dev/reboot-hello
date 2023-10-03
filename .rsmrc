@@ -50,3 +50,11 @@ dev --name=hello-world
 
 # Run the application!
 dev backend/src/main.py
+
+# We run 'npm install/start' in the background but we still want the
+# output printed to the terminal. Unfortunatley, to get 'npm' to _not_
+# clear the terminal we need to pipe it's output to 'cat' which makes
+# it think it doesn't have a tty while simultaneously telling it to
+# print in color if we actually do have a tty. See
+# https://github.com/facebook/create-react-app/issues/2495.
+dev:run-npm --background-command='cd web; npm install && if [ -t 1 ]; then export FORCE_COLOR=true; fi; npm start | cat'

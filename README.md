@@ -24,15 +24,15 @@ get hosted for you in the cloud.
 
 > [!NOTE]
 > The Dev Container's configuration is found in
-> [`.devcontainer/devcontainer.json`](.devcontainer/devcontainer.json). You
+> [`.devcontainer/devcontainer.json`](main/.devcontainer/devcontainer.json). You
 > may expand on it to customize your development environment to your
 > liking.
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/reboot-dev/resemble-examples)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/reboot-dev/resemble-hello-world)
 <br>
 (Right-Click to open in new tab or window)
 
-Now you're ready to [Run an example](#run-an-example)!
+Now you're ready to [Run the application](#run-the-application)!
 
 <a id="use-vscode"></a>
 ## Use VSCode
@@ -62,7 +62,7 @@ Open the Dev Container:
 VSCode will now start the Dev Container, and restart VSCode to be running
 inside of that container.
 
-Now you're ready to [Run an example](#run-an-example)!
+Now you're ready to [Run the application](#run-the-application)!
 
 <a id="use-a-docker-container"></a>
 ## Use a Docker container
@@ -119,7 +119,7 @@ Resemble definitions, and the `grpcio-tools` package that provides `protoc`.
 pip install reboot-resemble-cli
 ```
 
-Now you're ready to [Run an example](#run-an-example)!
+Now you're ready to [Run the application](#run-the-application)!
 
 <a id="run-the-application"></a>
 ## Run the application

@@ -11,7 +11,7 @@ async def main():
         servicers=[GreeterServicer],
     )
 
-    logger.info('👋🏿 👋🏾 👋🏽 👋🏼 👋🏻 Hello, World? Hello, Resemble! 👋🏻 👋🏼 👋🏽 👋🏾 👋🏿')
+    logging.info('👋 Hello, World? Hello, Resemble! 👋')
 
     await application.run()
 
