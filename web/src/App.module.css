@@ -1,0 +1,46 @@
+/* Styles by @sowg: https://codepen.io/sowg/pen/qBXexaZ */
+
+.greetings {
+  width: 255px;
+  margin: 0 auto;
+}
+
+.textInput {
+  margin: 1em;
+  appearance: none;
+  border: none;
+  outline: none;
+  border-bottom: 0.2em solid #e91e63;
+  background: rgba(#e91e63, 0.2);
+  border-radius: 0.2em 0.2em 0 0;
+  padding: 0.4em;
+  color: #e91e63;
+}
+
+.greeting {
+  appearance: none;
+  border: 0.2em solid #e91e63;
+  background: hsl(0 0 0/0);
+  padding: 0.85em 1.5em;
+  color: #e91e63;
+  border-radius: 2em;
+  transition: 1s;
+  margin: 1em 0;
+  font-family: sans-serif;
+}
+
+.button {
+  appearance: none;
+  border: 0.2em solid #e91e63;
+  background: hsl(0 0 0/0);
+  padding: 0.85em 1.5em;
+  color: #e91e63;
+  border-radius: 2em;
+  transition: 1s;
+  &:hover,
+  &:focus,
+  &:active {
+    background: #e91e63;
+    color: #fff;
+  }
+}
