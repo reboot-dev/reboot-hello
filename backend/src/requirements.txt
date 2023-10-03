@@ -1,0 +1,2 @@
+reboot-resemble>=0.0.6
+pytest>=7.4.2
