@@ -52,7 +52,7 @@ dev --name=hello-world
 dev backend/src/main.py
 
 # We run 'npm install/start' in the background but we still want the
-# output printed to the terminal. Unfortunatley, to get 'npm' to _not_
+# output printed to the terminal. Unfortunately, to get 'npm' to _not_
 # clear the terminal we need to pipe it's output to 'cat' which makes
 # it think it doesn't have a tty while simultaneously telling it to
 # print in color if we actually do have a tty. See

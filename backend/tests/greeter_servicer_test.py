@@ -21,6 +21,15 @@ class TestGreeter(unittest.IsolatedAsyncioTestCase):
         greeter = Greeter("testing-greeter")
 
         await greeter.Greet(workflow, greeting="Hello, World")
-        
+
         response: GreetingsResponse = await greeter.Greetings(workflow)
-        self.assertEqual(response.message, "Hello, World")
+        self.assertEqual(response.greetings, ["Hello, World"])
+
+        await greeter.Greet(workflow, greeting="Hello, Resemble!")
+        await greeter.Greet(workflow, greeting="Hello, Peace of Mind!")
+        response: GreetingsResponse = await greeter.Greetings(workflow)
+        self.assertEqual(response.greetings, [
+            "Hello, World",
+            "Hello, Resemble!",
+            "Hello, Peace of Mind!",
+        ])

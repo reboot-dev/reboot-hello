@@ -12,10 +12,8 @@ from resemble.aio.contexts import ReaderContext, WriterContext
 
 class GreeterServicer(Greeter.Interface):
 
-    async def Greetings(
-        self, context: ReaderContext, state: GreeterState,
-        request: GreetingsRequest
-    ) -> GreetingsResponse:
+    async def Greetings(self, context: ReaderContext, state: GreeterState,
+                        request: GreetingsRequest) -> GreetingsResponse:
         return GreetingsResponse(greetings=state.greetings)
 
     async def Greet(
@@ -26,6 +24,4 @@ class GreeterServicer(Greeter.Interface):
     ) -> Greeter.GreetEffects:
         greeting = request.greeting
         state.greetings.extend([greeting])
-        return Greeter.GreetEffects(
-            state=state, response=GreetResponse(greeting=greeting)
-        )
+        return Greeter.GreetEffects(state=state, response=GreetResponse())
