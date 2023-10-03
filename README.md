@@ -63,7 +63,7 @@ git clone https://github.com/reboot-dev/resemble-hello-world.git
 
 Open the Dev Container:
 
-- In VSCode, open the `resemble-examples` folder you've cloned.
+- In VSCode, open the `resemble-hello-world` folder you've cloned.
 - Press: Ctrl+Shift+P (Linux / Windows) or Command+Shift+P (Mac)
 - Type/Select: `Dev Containers: Reopen In Container`
 
