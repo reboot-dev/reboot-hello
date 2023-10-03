@@ -86,7 +86,7 @@ git clone https://github.com/reboot-dev/resemble-examples.git
 cd resemble-examples/
 ```
 
-Now we can run the container:
+Run the container:
 
 ```shell
 docker run \
