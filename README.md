@@ -88,6 +88,8 @@ COMING SOON!
 You must have the following tools installed:
 
 - Python (including `pip` and `venv`) >= 3.10
+- Node.js (including `npm`)
+- Docker
 
 ### Clone Repository
 
