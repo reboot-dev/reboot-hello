@@ -79,7 +79,7 @@ COMING SOON!
 ## Install prerequisites manually
 
 > [!IMPORTANT]
-> Currently, Resemble backends can only run on x86 Linux machines with
+> Resemble backends currently can **only run on x86 Linux** machines with
 > `glibc>=2.35` (Ubuntu Jammy and other equivalent-generation Linux
 > distributions). If you have a machine that doesn't fit this requirement, we
 > suggest using one of the approaches discussed above.
