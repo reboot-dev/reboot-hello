@@ -148,7 +148,7 @@ arguments that get expanded when running `rsm dev`.
 
 ### Front end
 
-To run the front end example, in a separate terminal from the running `rsm dev` type:
+To run the front end, open a separate terminal and do:
 ```shell
 cd web/
 npm install
