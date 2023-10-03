@@ -58,7 +58,7 @@ Clone this repository:
 <!-- TODO: fetch this snippet from a test. -->
 
 ```shell
-git clone https://github.com/reboot-dev/resemble-examples.git
+git clone https://github.com/reboot-dev/resemble-hello-world.git
 ```
 
 Open the Dev Container:
@@ -128,8 +128,8 @@ You must have the following tools installed:
 Clone this repository:
 
 ```shell
-git clone https://github.com/reboot-dev/resemble-examples.git
-cd resemble-examples/
+git clone https://github.com/reboot-dev/resemble-hello-world.git
+cd resemble-hello-world/
 ```
 
 ### Create and activate a virtual environment
