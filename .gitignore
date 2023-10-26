@@ -12,3 +12,6 @@
 # Temporary directories produced by `pytest`.
 __pycache__/
 .pytest_cache/
+
+# /gen folder in /web/src
+/web/src/gen

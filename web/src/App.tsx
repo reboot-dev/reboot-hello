@@ -1,46 +1,57 @@
-import { FC, useState } from "react";
-import { Greeter } from "../../api/hello_world/v1/greeter_rsm_react";
-import css from "./App.module.css";
-// We can choose any id we want because the state will be constructed when we
-// make the first .writer call.
-const GREETER_ID = "greeter-hello-world";
+import {  SetStateAction , useState } from "react";
+import { useChat } from "./gen/chat/v1/chat_rsm_react";
+import styles from "./ChatContainer.module.css";
+import ChatContainer from "./ChatContainer";
 
-const Greeting: FC<{ text: string }> = ({ text }) => {
-  return <div className={css.greeting}>{text}</div>;
-};
+function App() {
+  const [message, setMessage] = useState("");
+  const { useGetAll, mutators } = useChat({ id: "(singleton)" });
+  const RECIEVER = 'ed';
 
-const App = () => {
-  // State of the input component.
-  const [greetingMessage, setGreetingMessage] = useState("Hello, Resemble!");
-
-  const { useGreetings } = Greeter({ id: GREETER_ID });
   const {
     response,
-    mutations: { Greet },
-  } = useGreetings();
+    isLoading,
+  } = useGetAll();
 
-  const handleClick = () => {
-    Greet({ greeting: greetingMessage }).then(() => setGreetingMessage(""));
+  const handleChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
+    setMessage(event.target.value);
+  };
+
+  function getRandomInt(max: number) {
+    return Math.floor(Math.random() * max);
+  }
+
+  const handleSendMessage = () => {
+    let num = getRandomInt(5); // using a random number to mock another user
+
+    if (message) {
+      if (num === 2) {
+        mutators.post({ fromUser: 'other user', message });
+      } else if ( num === 3){
+        mutators.post({ fromUser: 'rare user', message });
+      } else {
+        mutators.post({ fromUser: RECIEVER, message });
+      }
+      setMessage("");
+    }
   };
 
   return (
-    <div className={css.greetings}>
-      <input
-        type="text"
-        className={css.textInput}
-        onChange={(e) => setGreetingMessage(e.target.value)}
-        value={greetingMessage}
-      />
-      <button className={css.button} onClick={handleClick}>
-        Greet
-      </button>
-      {response !== undefined &&
-        response.greetings.length > 0 &&
-        response.greetings.map((greeting: string) => (
-          <Greeting text={greeting} key={greeting} />
-        ))}
+    <div className={styles.chatContainer}>
+      {response && response.chats.length > 0 && (
+        <ChatContainer chats={response.chats} receiver={RECIEVER} />
+      )}
+      <div className={styles.messageInput}>
+        <input
+          type="text"
+          value={message}
+          onChange={handleChange}
+          placeholder="Enter message"
+        />
+        <button onClick={handleSendMessage}>Send</button>
+      </div>
     </div>
   );
-};
+}
 
 export default App;

@@ -26,12 +26,16 @@
 # below are relative to it.
 protoc --working-directory=.
 dev --working-directory=.
+dev --protoc-watch
 
 # Generate code from our '.proto' files in 'api/'.
 protoc --output-directory=api/
 
 # Find '.proto' files in 'api/'.
 protoc api/
+
+# Tell `rsm` to output react generated files into web app src.
+protoc -- --resemble_react_out=web/src/gen
 
 # Watch if any generated files are modified.
 dev --watch=api/**/*.py
@@ -46,7 +50,7 @@ dev --env=PYTHONPATH=api/
 dev --python
 
 # Save state between chaos restarts.
-dev --name=hello-world
+def --name=chat
 
 # Run the application!
 dev backend/src/main.py
