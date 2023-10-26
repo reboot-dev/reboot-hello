@@ -26,6 +26,7 @@
 # below are relative to it.
 protoc --working-directory=.
 dev --working-directory=.
+dev --protoc-watch
 
 # Generate code from our '.proto' files in 'api/'.
 protoc --output-directory=api/

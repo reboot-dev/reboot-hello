@@ -31,7 +31,7 @@ You can start the Dev Container in two different ways.
 ## Use VSCode connected to a GitHub Codespace
 
 GitHub's [Codespaces](https://github.com/features/codespaces) are machines that
-are hosted in the cloud for you. 
+are hosted in the cloud for you.
 
 > [!IMPORTANT]
 > You must connect your local VSCode to the codespace, you can not use VSCode in a browser window.
@@ -145,16 +145,6 @@ source ./.resemble-hello-world-venv/bin/activate
 To learn more about why virtual environments are a best practice for Python
 projects, see [the Python documentation for the `venv` module.](https://docs.python.org/3/library/venv.html)
 
-### Install Resemble tooling
-
-Install the Resemble command line tool (`rsm`) via `pip`. This package includes
-the `rsm` CLI, the Resemble `protoc` plugin, the proto dependencies required for
-Resemble definitions, and the `grpcio-tools` package that provides `protoc`.
-
-```sh
-pip install reboot-resemble-cli
-```
-
 Now you're ready to [run the application](#run-the-application)!
 
 <a id="run-the-application"></a>
@@ -162,14 +152,16 @@ Now you're ready to [run the application](#run-the-application)!
 
 ### Backend via `rsm dev`
 
-Our backend is implemented in Python and we must install its dependencies 
-before running it. These dependencies include the Resemble backend library, `reboot-resemble`.
+Our backend is implemented in Python and we must install its dependencies before
+running it. The most notable of those dependencies is the `reboot-resemble` PyPI
+distribution, which contains both the Resemble CLI (`rsm`) and the `resemble`
+Python package.
 
 ```sh
 pip install -r backend/src/requirements.txt
 ```
 
-To run the application, use the Resemble CLI `rsm`:
+To run the application, you can now use the Resemble CLI `rsm`:
 
 ```shell
 rsm dev
@@ -187,12 +179,12 @@ cd web/
 npm install
 npm start
 ```
-If using VSCode, the page will load automatically.    
+If using VSCode, the page will load automatically.
 If not using VSCode, visit [http://127.0.0.1:3000](http://127.0.0.1:3000)`.
 
 ### Tests
 
-The application comes with backend tests. 
+The application comes with backend tests.
 
 Before you run the tests, you'll
 need to ensure you've run `rsm protoc`.  If you've already run `rsm dev`
