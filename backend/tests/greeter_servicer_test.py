@@ -1,6 +1,6 @@
 import unittest
-from hello_world.v1.greeter_rsm import Greeter, GreetResponse
 from greeter_servicer import GreeterServicer
+from hello_world.v1.greeter_rsm import Greeter, GreetResponse
 from resemble.aio.tests import Resemble
 from resemble.aio.workflows import Workflow
 
@@ -28,8 +28,11 @@ class TestGreeter(unittest.IsolatedAsyncioTestCase):
         await greeter.Greet(workflow, greeting="Hello, Resemble!")
         await greeter.Greet(workflow, greeting="Hello, Peace of Mind!")
         response: GreetingsResponse = await greeter.Greetings(workflow)
-        self.assertEqual(response.greetings, [
-            "Hello, World",
-            "Hello, Resemble!",
-            "Hello, Peace of Mind!",
-        ])
+        self.assertEqual(
+            response.greetings,
+            [
+                "Hello, World",
+                "Hello, Resemble!",
+                "Hello, Peace of Mind!",
+            ],
+        )
