@@ -16,7 +16,7 @@ class TestGreeter(unittest.IsolatedAsyncioTestCase):
     async def test_hello_world(self) -> None:
         await self.rsm.up(servicers=[GreeterServicer])
 
-        workflow: Workflow = self.rsm.create_workflow(name=self.id())
+        workflow: Workflow = self.rsm.create_workflow(name=f"test-{self.id()}")
 
         greeter = Greeter("testing-greeter")
 
@@ -27,7 +27,7 @@ class TestGreeter(unittest.IsolatedAsyncioTestCase):
 
         await greeter.Greet(workflow, greeting="Hello, Resemble!")
         await greeter.Greet(workflow, greeting="Hello, Peace of Mind!")
-        response: GreetResponse = await greeter.Greetings(workflow)
+        response = await greeter.Greetings(workflow)
         self.assertEqual(
             response.greetings,
             [

@@ -30,8 +30,15 @@ const App = () => {
         className={css.textInput}
         onChange={(e) => setGreetingMessage(e.target.value)}
         value={greetingMessage}
+        placeholder="<your message here>"
       />
-      <button className={css.button} onClick={handleClick}>
+      <button
+        className={
+          greetingMessage === "" ? css.buttonDisabled : css.buttonEnabled
+        }
+        onClick={handleClick}
+        disabled={greetingMessage === ""}
+      >
         Greet
       </button>
       {response !== undefined &&

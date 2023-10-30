@@ -29,15 +29,25 @@
   font-family: sans-serif;
 }
 
-.button {
+.buttonDisabled,
+.buttonEnabled {
   float: right;
   appearance: none;
-  border: 0.2em solid #e91e63;
+  border: 0.2em solid;
   background: hsl(0 0 0/0);
   padding: 0.85em 1.5em;
-  color: #e91e63;
   border-radius: 2em;
   transition: 1s;
+}
+
+.buttonDisabled {
+  color: gray;
+  border-color: darkgray;
+}
+
+.buttonEnabled {
+  color: #e91e63;
+  border-color: #e91e63;
   &:hover,
   &:focus,
   &:active {
