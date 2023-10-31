@@ -31,6 +31,8 @@ pip install -r backend/src/requirements.txt
 
 rsm protoc
 
+mypy backend/
+
 pytest backend/
 
 # Clean up
