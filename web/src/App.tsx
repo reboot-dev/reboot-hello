@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
-import { Greeter } from "../../api/hello_world/v1/greeter_rsm_react";
 import css from "./App.module.css";
+import { Greeter } from "./gen/hello_world/v1/greeter_rsm_react";
 // We can choose any id we want because the state will be constructed when we
 // make the first .writer call.
 const GREETER_ID = "greeter-hello-world";
