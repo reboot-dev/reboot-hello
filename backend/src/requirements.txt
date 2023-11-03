@@ -1,2 +1,2 @@
-reboot-resemble>=0.1.0
+reboot-resemble>=0.2.0
 pytest>=7.4.2
