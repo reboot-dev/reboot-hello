@@ -89,21 +89,33 @@ cd resemble-hello-world/
 Run the container:
 
 ```shell
+export HOST_WORKING_DIRECTORY="$(pwd)"
+export CONTAINER_WORKSPACE_DIRECTORY="/workspaces/$(basename $HOST_WORKING_DIRECTORY)"
 docker run \
-  --mount type=bind,source=$PWD,target=/workspaces/resemble \
+  --mount type=bind,source="$HOST_WORKING_DIRECTORY",target="$CONTAINER_WORKSPACE_DIRECTORY" \
+  --workdir "$CONTAINER_WORKSPACE_DIRECTORY" \
+  --env "HOST_UID=$(id -u)" \
+  --env "HOST_GID=$(id -g)" \
   -p 127.0.0.1:3000:3000/tcp \
   -p 127.0.0.1:9991:9991/tcp \
   --privileged \
   --interactive \
   --tty \
-  ghcr.io/reboot-dev/resemble-standalone:latest
+  ghcr.io/reboot-dev/resemble-standalone:latest \
+  /bin/bash
 ```
 
 Explanation of flags:
-* We mount in our git cloned directory so that we won't lose any of our changes.
-* We bind port `3000` so that we can access the web front end (e.g., from a browser), and port `9991` so the web front end can access the backend.
+* We --mount our --workdir (working directory), so we can work with it from the container.
+* We tell the container about our user's UID and GID so that the container's
+  user can match them, providing the same permissions inside and outside the
+  container.
+* We bind port 3000 so that we can access a React web front end (e.g., from a browser), and port 9991 so the web front end can access the Resemble backend.
 * `--privileged` so that we can run Docker inside of the container.
-* `--interactive` and `--tty` (often abbreviated `-it`) lets us interact with the created container.
+* `--interactive` and `--tty` (often abbreviated `-it`) lets us interact with
+  the created container.
+* `ghcr.io/reboot-dev/resemble-standalone:latest` is the name of the container we'll be running.
+* `/bin/bash` is the shell we'd like to run.
 
 Now you're ready to [run the application](#run-the-application)!
 
