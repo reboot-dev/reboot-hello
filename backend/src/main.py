@@ -7,11 +7,11 @@ from resemble.aio.workflows import Workflow
 
 logging.basicConfig(level=logging.INFO)
 
-EXAMPLE_GREETER_ID = 'greeter-hello-world'
+EXAMPLE_CHAT_ID = 'greeter-hello-world'
 
 
 async def initialize(workflow: Workflow):
-    greeter = Greeter(EXAMPLE_GREETER_ID)
+    greeter = Chat(EXAMPLE_CHAT_ID)
 
     # Implicitly construct greeter upon first write.
     await greeter.Greet(workflow, greeting="Hello, World!")
@@ -19,7 +19,7 @@ async def initialize(workflow: Workflow):
 
 async def main():
     application = Application(
-        servicers=[GreeterServicer],
+        servicers=[ChatServicer],
         initialize=initialize,
     )
 

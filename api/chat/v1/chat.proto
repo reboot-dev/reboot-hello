@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package chat.v1;
+
+import "resemble/v1alpha1/options.proto";
+
+service Chat {
+  option (resemble.v1alpha1.service).state = "ChatState";
+
+  rpc GetAll(GetAllRequest) returns (GetAllResponse) {
+    option (resemble.v1alpha1.method).reader = {
+    };
+  }
+
+  rpc Post(PostRequest) returns (PostResponse) {
+    option (resemble.v1alpha1.method).writer = {
+    };
+  }
+
+  rpc Create(CreateRequest) returns (CreateResponse) {
+    option (resemble.v1alpha.method).writer = {
+      constructor: true,
+    };
+  }
+}
+
+message CreateRequest {}
+
+message CreateResponse {}
+
+message ChatState {
+  repeated string chats = 1;
+}
+
+message GetAllRequest {
+}
+
+message GetAllResponse {
+  repeated string chats = 1;
+}
+
+message PostRequest {
+  string message = 1;
+}
+
+message PostResponse {
+}

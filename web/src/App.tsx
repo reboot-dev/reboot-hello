@@ -1,18 +1,9 @@
-<<<<<<< HEAD
-import { FC, useState } from "react";
-import css from "./App.module.css";
-import { Greeter } from "./gen/hello_world/v1/greeter_rsm_react";
-// We can choose any id we want because the state will be constructed when we
-// make the first .writer call.
-const GREETER_ID = "greeter-hello-world";
-=======
 import { useEffect } from "react";
 import css from "./App.module.css";
 import { Chat } from "./Chat";
 import ChatBox from "./ChatBox";
 import MessageComp from "./Message";
 import { ClearRequest, PostRequest } from "./gen/chat_pb";
->>>>>>> 27211cf (first commit)
 
 function App() {
   const { useGetAll } = Chat("chatroom");
@@ -20,7 +11,7 @@ function App() {
   const {
     response,
     isLoading,
-    mutations: { Post, Clear },
+    mutations: { Post },
     pendingPostMutations,
     failedPostMutations,
     recoveredPostMutations,
@@ -38,38 +29,9 @@ function App() {
     await Post(postRequest);
   };
 
-  const clearMessages = async () => {
-    const clearRequest = new ClearRequest();
-    await Clear(clearRequest);
-  };
-
   if (response === undefined) return <div>Loading...</div>;
 
   return (
-<<<<<<< HEAD
-    <div className={css.greetings}>
-      <input
-        type="text"
-        className={css.textInput}
-        onChange={(e) => setGreetingMessage(e.target.value)}
-        value={greetingMessage}
-        placeholder="<your message here>"
-      />
-      <button
-        className={
-          greetingMessage === "" ? css.buttonDisabled : css.buttonEnabled
-        }
-        onClick={handleClick}
-        disabled={greetingMessage === ""}
-      >
-        Greet
-      </button>
-      {response !== undefined &&
-        response.greetings.length > 0 &&
-        response.greetings.map((greeting: string) => (
-          <Greeting text={greeting} key={greeting} />
-        ))}
-=======
     <div>
       {isLoading ? "Loading..." : ""}
       <div className={css.messagesPage}>
@@ -103,9 +65,7 @@ function App() {
             ))}
         </div>
         <ChatBox postMessage={postMessage} />
-        <button onClick={clearMessages}>Clear Messages</button>
       </div>
->>>>>>> 27211cf (first commit)
     </div>
   );
 }
