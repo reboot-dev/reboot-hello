@@ -1,0 +1,75 @@
+.messageRow {
+  display: inline-flex;
+  position: relative;
+  width: 100%;
+}
+
+.messageContainer {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: smaller;
+  border-radius: 10px 10px 10px 0;
+  position: relative;
+  display: inline-block;
+  max-width: 270px;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.07), 0 10px 10px rgba(0, 0, 0, 0.05);
+}
+
+.messagesContainer {
+  left: 0;
+  right: 0;
+  overflow: auto;
+  top: 60px;
+  bottom: 80px;
+  position: absolute;
+  height: calc(100% - 160px);
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.messageHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.you {
+  border-radius: 10px 10px 0 10px;
+  margin-left: auto;
+  right: 0;
+  background-color: #6c63ff;
+  color: white;
+}
+
+.youOptimistic {
+  border-radius: 10px 10px 0 10px;
+  margin-left: auto;
+  right: 0;
+  background-color: green;
+  color: white;
+}
+
+.youOptimisticError {
+  border-radius: 10px 10px 0 10px;
+  margin-left: auto;
+  right: 0;
+  background-color: red;
+  color: white;
+}
+
+.youOptimisticRetry {
+  border-radius: 10px 10px 0 10px;
+  margin-left: auto;
+  right: 0;
+  background-color: orange;
+  color: white;
+}
+
+.youOptimisticQueued {
+  border-radius: 10px 10px 0 10px;
+  margin-left: auto;
+  right: 0;
+  background-color: grey;
+  color: white;
+}

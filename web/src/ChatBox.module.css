@@ -1,0 +1,36 @@
+.textArea {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+  padding-left: 20px;
+  padding-right: 10px;
+  padding-top: 12px;
+  border: none;
+  background-color: #f2f2f2;
+  width: calc(100% - 100px);
+  border-radius: 20px;
+  resize: none;
+  max-height: 90px;
+}
+
+.send {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #6c63ff;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.footer {
+  padding: 10px;
+  position: absolute;
+  overflow: hidden;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  /* background-color: #fdfdfd; */
+  min-height: 60px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
