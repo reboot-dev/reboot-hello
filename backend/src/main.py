@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from greeter_servicer import GreeterServicer
+from chat_servicer import ChatServicer
 from hello_world.v1.greeter_rsm import Greeter
 from resemble.aio.applications import Application
 from resemble.aio.workflows import Workflow
