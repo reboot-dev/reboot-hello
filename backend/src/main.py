@@ -1,7 +1,7 @@
 import asyncio
 import logging
 from chat_servicer import ChatServicer
-from hello_world.v1.greeter_rsm import Greeter
+from chat.v1.chat_rsm import Chat
 from resemble.aio.applications import Application
 from resemble.aio.workflows import Workflow
 
