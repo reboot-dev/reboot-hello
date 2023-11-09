@@ -26,11 +26,10 @@ import {
 } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
-  ChatState, 
+  ChatRoomState, 
+	Message, 
 	GetAllRequest, 
-	GetAllResponse, 
-	PostRequest, 
-	PostResponse,
+	GetAllResponse,
 } from "./chat_pb";
 
 // Check if safari. Print warning, if yes.
@@ -61,35 +60,12 @@ if (isSafari) {
 export interface ChatApi {
   GetAll: (partialRequest?: __bufbuildProtobufPartialMessage<GetAllRequest>) =>
   Promise<GetAllResponse>;
-  Post: (partialRequest?: __bufbuildProtobufPartialMessage<PostRequest>) =>
-  Promise<PostResponse>;
   useGetAll: (partialRequest?: __bufbuildProtobufPartialMessage<GetAllRequest>) => {
    response: GetAllResponse | undefined;
     isLoading: boolean;
     error: unknown;
     mutations: {
-       Post: (request: __bufbuildProtobufPartialMessage<PostRequest>,
-       optimistic_metadata?: any ) =>
-      Promise<__resembleResponseOrError<PostResponse>>;
     };
-      pendingPostMutations: {
-        request: PostRequest;
-        idempotencyKey: string;
-        isLoading: boolean;
-        error?: unknown;
-        optimistic_metadata?: any;
-      }[];
-      failedPostMutations: {
-        request: PostRequest;
-        idempotencyKey: string;
-        isLoading: boolean;
-        error?: unknown;
-      }[];
-      recoveredPostMutations: {
-        request: PostRequest;
-        idempotencyKey: string;
-        run: () => void;
-      }[];
   };
 }
 
@@ -207,158 +183,7 @@ export const Chat = ({ id, storeMutationsLocallyInNamespace}: SettingsParams): C
 
     const queuedMutations = useRef<Array<() => void>>([]);
 
-function hasRunningMutations(): boolean {
-      if (
-      runningPostMutations.current.length > 0) {
-        return true;
-      }
-      return false;
-    }
 
-
-    const runningPostMutations = useRef<__resembleMutation<PostRequest>[]>([]);
-    const recoveredPostMutations = useRef<
-      [__resembleMutation<PostRequest>, () => void][]
-    >([]);
-    const shouldClearFailedPostMutations = useRef(false);
-    const [failedPostMutations, setFailedPostMutations] = useState<
-      __resembleMutation<PostRequest>[]
-    >([]);
-    const queuedPostMutations = useRef<[__resembleMutation<PostRequest>, () => void][]>(
-      []
-    );
-    const recoverAndPurgePostMutations = (): [
-      __resembleMutation<PostRequest>,
-      () => void
-    ][] => {
-      if (localStorageKeyRef.current === undefined) {
-        return [];
-      }
-      const suffix = Post
-      const value = localStorage.getItem(localStorageKeyRef.current + suffix);
-      if (value === null) {
-        return [];
-      }
-
-      localStorage.removeItem(localStorageKeyRef.current);
-      const mutations: __resembleMutation<PostRequest>[] = JSON.parse(value);
-      const recoveredPostMutations: [
-        __resembleMutation<PostRequest>,
-        () => void
-      ][] = [];
-      for (const mutation of mutations) {
-        recoveredPostMutations.push([mutation, () => __Post(mutation)]);
-      }
-      return recoveredPostMutations;
-    }
-    const doOncePost = useRef(true)
-    if (doOncePost.current) {
-      doOncePost.current = false
-      recoveredPostMutations.current = recoverAndPurgePostMutations()
-    }
-
-    // User facing state that only includes the pending mutations that
-    // have not been observed.
-    const [unobservedPendingPostMutations, setUnobservedPendingPostMutations] =
-      useState<__resembleMutation<PostRequest>[]>([]);
-
-    useEffect(() => {
-      shouldClearFailedPostMutations.current = true;
-    }, [failedPostMutations]);
-
-    async function __Post(
-      mutation: __resembleMutation<PostRequest>
-    ): Promise<__resembleResponseOrError<PostResponse>> {
-      try {
-        // Invariant that we won't yield to event loop before pushing to
-        // runningPostMutations
-        runningPostMutations.current.push(mutation)
-        return _Mutation<PostRequest, PostResponse>(
-          // Invariant here is that we use the '/package.service.method'.
-          //
-          // See also 'resemble/helpers.py'.
-          "/chat.v1.Chat.Post",
-          mutation,
-          mutation.request,
-          mutation.idempotencyKey,
-          setUnobservedPendingPostMutations,
-          abortController,
-          shouldClearFailedPostMutations,
-          setFailedPostMutations,
-          runningPostMutations,
-          flushMutations,
-          queuedMutations,
-          PostRequest,
-          PostResponse.fromJson
-        );
-      } finally {
-        runningPostMutations.current = runningPostMutations.current.filter(
-          ({ idempotencyKey }) => mutation.idempotencyKey !== idempotencyKey
-        );
-
-        __resemblePopMutationMaybeFromLocalStorage(
-          localStorageKeyRef.current,
-          "Post",
-          (mutationRequest: __resembleMutation<Request>) =>
-            mutationRequest.idempotencyKey !== mutation.idempotencyKey
-        );
-
-
-      }
-    }
-    async function _Post(mutation: __resembleMutation<PostRequest>) {
-      setUnobservedPendingPostMutations(
-        (mutations) => [...mutations, mutation]
-      )
-
-      // NOTE: we only run one mutation at a time so that we provide a
-      // serializable experience for the end user but we will
-      // eventually support mutations in parallel when we have strong
-      // eventually consistent writers.
-      if (
-        hasRunningMutations() ||
-        queuedMutations.current.length > 0 ||
-        flushMutations.current !== undefined
-      ) {
-        const deferred = new __resembleReactDeferred<__resembleResponseOrError<PostResponse>>(() =>
-          __Post(mutation)
-        );
-
-        // Add to localStorage here.
-        queuedPostMutations.current.push([mutation, () => deferred.start()]);
-        queuedMutations.current.push(() => {
-          for (const [, run] of queuedPostMutations.current) {
-            queuedPostMutations.current.shift();
-            run();
-            break;
-          }
-        });
-        // Maybe add to localStorage.
-        __resemblePushMutationMaybeToLocalStorage(localStorageKeyRef.current, "Post", mutation);
-
-        return deferred.promise;
-      } else {
-        // NOTE: we'll add this mutation to `runningPostMutations` in `__Post`
-        // without yielding to event loop so that we are guaranteed atomicity with checking `hasRunningMutations()`.
-        return await __Post(mutation);
-      }
-    }
-
-    async function Post(
-      partialRequest: __bufbuildProtobufPartialMessage<PostRequest>, optimistic_metadata?: any
-    ): Promise<__resembleResponseOrError<PostResponse>> {
-      const idempotencyKey = uuidv4();
-      const request = partialRequest instanceof PostRequest ? partialRequest : new PostRequest(partialRequest);
-
-      const mutation = {
-        request,
-        idempotencyKey,
-        optimistic_metadata,
-        isLoading: false, // Won't start loading if we're flushing mutations.
-      };
-
-      return _Post(mutation);
-    }
 
     useEffect(() => {
       if (abortController === undefined ) {
@@ -366,18 +191,7 @@ function hasRunningMutations(): boolean {
       }
       const loop = async () => {
         await __resembleRetryForever(async () => {
-          try {// Wait for any mutations to complete before starting to
-            // read so that we read the latest state including those
-            // mutations.
-            if (runningPostMutations.current.length > 0) {
-              // TODO(benh): check invariant
-              // 'flushMutations.current !== undefined' but don't
-              // throw an error since that will just retry, instead
-              // add support for "bailing" from a 'retry' by calling a
-              // function passed into the lambda that 'retry' takes.
-              await flushMutations.current?.wait();
-            }
-
+          try {
 
             const responses = ReactQuery(
               __resembleQueryRequest.create({
@@ -400,7 +214,6 @@ function hasRunningMutations(): boolean {
                 observedIdempotencyKeys.current,
                 (observedIdempotencyKey) =>
                   [
-                  ...runningPostMutations.current,
                   ].some(
                     (mutation) =>
                       observedIdempotencyKey === mutation.idempotencyKey
@@ -423,33 +236,6 @@ function hasRunningMutations(): boolean {
                   break;
                 }
               }
-
-              setUnobservedPendingPostMutations(
-              (mutations) =>
-                mutations
-                  .filter(
-                    (mutation) =>
-                      // Only keep mutations that are queued, pending or
-                      // recovered.
-                      queuedPostMutations.current.some(
-                        ([queuedPostMutation]) =>
-                          mutation.idempotencyKey ===
-                          queuedPostMutation.idempotencyKey
-                      ) ||
-                      runningPostMutations.current.some(
-                        (runningPostMutations) =>
-                          mutation.idempotencyKey ===
-                          runningPostMutations.idempotencyKey
-                      )
-                  )
-                  .filter(
-                    (mutation) =>
-                      // Only keep mutations whose effects haven't been observed.
-                      !observedIdempotencyKeys.current.has(
-                        mutation.idempotencyKey
-                      )
-                  )
-              )
 
 
               setResponse(GetAllResponse.fromBinary(response.response));
@@ -494,160 +280,12 @@ function hasRunningMutations(): boolean {
       isLoading,
       error,
       mutations: {
-        Post,
       },
-      pendingPostMutations: unobservedPendingPostMutations,
-      failedPostMutations,
-      recoveredPostMutations: recoveredPostMutations.current.map(
-        ([mutation, run]) => ({ ...mutation, run: run })
-      ),
     };
   };
 
 
-  const Post = async (partialRequest: __bufbuildProtobufPartialMessage<PostRequest> = {}) => {
-    const request = partialRequest instanceof PostRequest ? partialRequest : new PostRequest(partialRequest);
-    const requestBody = request.toJson();
-    // Invariant here is that we use the '/package.service.method' path and
-    // HTTP 'POST' method (we need 'POST' because we send an HTTP body).
-    //
-    // See also 'resemble/helpers.py'.
-    const response = await fetch(
-      newRequest(requestBody, "/chat.v1.Chat.Post", "POST"));
 
-    return await response.json();
-  };
-
-
-async function _Mutation<
-    Request extends
-PostRequest,
-    Response extends    PostResponse  >(
-    path: string,
-    mutation: __resembleMutation<Request>,
-    request: Request,
-    idempotencyKey: string,
-    setUnobservedPendingMutations: Dispatch<
-      SetStateAction<__resembleMutation<Request>[]>
-    >,
-    abortController: AbortController | undefined,
-    shouldClearFailedMutations: MutableRefObject<boolean>,
-    setFailedMutations: Dispatch<SetStateAction<__resembleMutation<Request>[]>>,
-    runningMutations: MutableRefObject<__resembleMutation<Request>[]>,
-    flushMutations: MutableRefObject<__resembleReactEvent | undefined>,
-    queuedMutations: MutableRefObject<Array<() => void>>,
-    requestType: { new (request: Request): Request },
-    responseTypeFromJson: (json: any) => Response
-  ): Promise<__resembleResponseOrError<Response>> {
-
-    try {
-      return await __resembleRetryForever(
-        async () => {
-          try {
-            setUnobservedPendingMutations(
-              (mutations) => {
-                return mutations.map((mutation) => {
-                  if (mutation.idempotencyKey === idempotencyKey) {
-                    return { ...mutation, isLoading: true };
-                  }
-                  return mutation;
-                });
-              }
-            );
-            const req: Request =
-              request instanceof requestType
-                ? request
-                : new requestType(request);
-
-            const response = await fetch(
-              newRequest(req.toJson(), path, "POST", idempotencyKey),
-              { signal: abortController?.signal }
-            );
-
-            if (!response.ok && response.headers.has("grpc-status")) {
-              const grpcStatus = response.headers.get("grpc-status");
-              let grpcMessage = response.headers.get("grpc-message");
-              const error = new Error(
-                `'chat.v1.Chat' for '${id}' responded ` +
-                  `with status ${grpcStatus}` +
-                  `${grpcMessage !== null ? ": " + grpcMessage : ""}`
-              );
-
-              if (shouldClearFailedMutations.current) {
-                shouldClearFailedMutations.current = false;
-                setFailedMutations([
-                  { request, idempotencyKey, isLoading: false, error },
-                ]);
-              } else {
-                setFailedMutations((failedMutations) => [
-                  ...failedMutations,
-                  { request, idempotencyKey, isLoading: false, error },
-                ]);
-              }
-              setUnobservedPendingMutations(
-                (mutations) =>
-                  mutations.filter(
-                    (mutation) => mutation.idempotencyKey !== idempotencyKey
-                  )
-              );
-
-              return { error } as __resembleResponseOrError<Response>;
-            }
-            if (!response.ok) {
-              throw new Error("Failed to fetch");
-            }
-            const jsonResponse = await response.json();
-            return {
-              response: responseTypeFromJson(jsonResponse),
-            };
-          } catch (e: unknown) {
-            setUnobservedPendingMutations(
-              (mutations) =>
-                mutations.map((mutation) => {
-                  if (mutation.idempotencyKey === idempotencyKey) {
-                    return { ...mutation, error: e, isLoading: false };
-                  } else {
-                    return mutation;
-                  }
-                })
-            );
-
-            if (abortController?.signal.aborted) {
-              // TODO(benh): instead of returning 'undefined' as a
-              // means of knowing that we've aborted provide a way
-              // of "bailing" from a 'retry' by calling a function
-              // passed into the lambda that 'retry' takes.
-              return { error: new Error("Aborted") };
-            } else {
-              throw e;
-            }
-          }
-        },
-        {
-          maxBackoffSeconds: 3,
-        }
-      );
-    } finally {
-      // NOTE: we deliberately DO NOT remove from
-      // 'unobservedPendingMutations' but instead wait
-      // for a response first so that we don't cause a render
-      // before getting the updated state from the server.
-
-      if (
-        flushMutations.current !== undefined &&
-        runningMutations.current.length === 0
-      ) {
-        flushMutations.current.set();
-      } else {
-        // Dequeue 1 queue and run 1 mutation from it.
-        for (const run of queuedMutations.current) {
-          queuedMutations.current.shift();
-          run();
-          break;
-        }
-      }
-    }
-  }
 
   async function* ReactQuery(
     request: __resembleIQueryRequest,
@@ -731,7 +369,6 @@ PostRequest,
   return {
     GetAll,
     useGetAll,
-    Post,
   };
 };
 

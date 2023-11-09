@@ -4,36 +4,65 @@
 // @ts-nocheck
 
 import type { BinaryReadOptions, FieldList, JsonReadOptions, JsonValue, PartialMessage, PlainMessage } from "@bufbuild/protobuf";
-import { Message, proto3 } from "@bufbuild/protobuf";
+import { Message as Message$1, proto3 } from "@bufbuild/protobuf";
 
 /**
- * @generated from message chat.v1.ChatState
+ * @generated from message chat.v1.ChatRoomState
  */
-export declare class ChatState extends Message<ChatState> {
+export declare class ChatRoomState extends Message$1<ChatRoomState> {
   /**
-   * @generated from field: repeated string chats = 1;
+   * @generated from field: repeated chat.v1.Message messages = 1;
    */
-  chats: string[];
+  messages: Message[];
 
-  constructor(data?: PartialMessage<ChatState>);
+  constructor(data?: PartialMessage<ChatRoomState>);
 
   static readonly runtime: typeof proto3;
-  static readonly typeName = "chat.v1.ChatState";
+  static readonly typeName = "chat.v1.ChatRoomState";
   static readonly fields: FieldList;
 
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ChatState;
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ChatRoomState;
 
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ChatState;
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): ChatRoomState;
 
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ChatState;
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): ChatRoomState;
 
-  static equals(a: ChatState | PlainMessage<ChatState> | undefined, b: ChatState | PlainMessage<ChatState> | undefined): boolean;
+  static equals(a: ChatRoomState | PlainMessage<ChatRoomState> | undefined, b: ChatRoomState | PlainMessage<ChatRoomState> | undefined): boolean;
+}
+
+/**
+ * @generated from message chat.v1.Message
+ */
+export declare class Message extends Message$1<Message> {
+  /**
+   * @generated from field: string from_user = 1;
+   */
+  fromUser: string;
+
+  /**
+   * @generated from field: string string = 2;
+   */
+  string: string;
+
+  constructor(data?: PartialMessage<Message>);
+
+  static readonly runtime: typeof proto3;
+  static readonly typeName = "chat.v1.Message";
+  static readonly fields: FieldList;
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): Message;
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): Message;
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): Message;
+
+  static equals(a: Message | PlainMessage<Message> | undefined, b: Message | PlainMessage<Message> | undefined): boolean;
 }
 
 /**
  * @generated from message chat.v1.GetAllRequest
  */
-export declare class GetAllRequest extends Message<GetAllRequest> {
+export declare class GetAllRequest extends Message$1<GetAllRequest> {
   constructor(data?: PartialMessage<GetAllRequest>);
 
   static readonly runtime: typeof proto3;
@@ -52,7 +81,7 @@ export declare class GetAllRequest extends Message<GetAllRequest> {
 /**
  * @generated from message chat.v1.GetAllResponse
  */
-export declare class GetAllResponse extends Message<GetAllResponse> {
+export declare class GetAllResponse extends Message$1<GetAllResponse> {
   /**
    * @generated from field: repeated string chats = 1;
    */
@@ -71,48 +100,5 @@ export declare class GetAllResponse extends Message<GetAllResponse> {
   static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): GetAllResponse;
 
   static equals(a: GetAllResponse | PlainMessage<GetAllResponse> | undefined, b: GetAllResponse | PlainMessage<GetAllResponse> | undefined): boolean;
-}
-
-/**
- * @generated from message chat.v1.PostRequest
- */
-export declare class PostRequest extends Message<PostRequest> {
-  /**
-   * @generated from field: string message = 1;
-   */
-  message: string;
-
-  constructor(data?: PartialMessage<PostRequest>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "chat.v1.PostRequest";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PostRequest;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PostRequest;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PostRequest;
-
-  static equals(a: PostRequest | PlainMessage<PostRequest> | undefined, b: PostRequest | PlainMessage<PostRequest> | undefined): boolean;
-}
-
-/**
- * @generated from message chat.v1.PostResponse
- */
-export declare class PostResponse extends Message<PostResponse> {
-  constructor(data?: PartialMessage<PostResponse>);
-
-  static readonly runtime: typeof proto3;
-  static readonly typeName = "chat.v1.PostResponse";
-  static readonly fields: FieldList;
-
-  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): PostResponse;
-
-  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): PostResponse;
-
-  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): PostResponse;
-
-  static equals(a: PostResponse | PlainMessage<PostResponse> | undefined, b: PostResponse | PlainMessage<PostResponse> | undefined): boolean;
 }
 

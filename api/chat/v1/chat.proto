@@ -5,7 +5,7 @@ package chat.v1;
 import "resemble/v1alpha1/options.proto";
 
 service Chat {
-  option (resemble.v1alpha1.service).state = "ChatState";
+  option (resemble.v1alpha1.service).state = "ChatRoomState";
 
   // returns chat
   rpc GetAll(GetAllRequest) returns (GetAllResponse) {
@@ -13,25 +13,31 @@ service Chat {
     };
   }
 
-  rpc Post(PostRequest) returns (PostResponse) {
-    option (resemble.v1alpha1.method).writer = {
-    };
-  }
+  // rpc Post(PostRequest) returns (PostResponse) {
+  //   option (resemble.v1alpha1.method).writer = {
+  //   };
+  // }
 
-  rpc Create(CreateRequest) returns (CreateResponse) {
-    option (resemble.v1alpha.method).writer = {
-      constructor: true,
-    };
-  }
+  // rpc Create(CreateRequest) returns (CreateResponse) {
+  //   option (resemble.v1alpha1.method).writer = {
+  //     constructor: true,
+  //   };
+  // }
 }
 
-message CreateRequest {}
-
-message CreateResponse {}
-
-message ChatState {
-  repeated string chats = 1;
+message ChatRoomState {
+  repeated Message messages = 1;
 }
+
+message Message {
+  string from_user = 1;
+  string string = 2;
+}
+
+// message CreateRequest {}
+
+// message CreateResponse {}
+
 
 message GetAllRequest {
 }
@@ -40,9 +46,9 @@ message GetAllResponse {
   repeated string chats = 1;
 }
 
-message PostRequest {
-  string message = 1;
-}
+// message PostRequest {
+//   string message = 1;
+// }
 
-message PostResponse {
-}
+// message PostResponse {
+// }

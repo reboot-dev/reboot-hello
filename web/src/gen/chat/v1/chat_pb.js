@@ -6,12 +6,23 @@
 import { proto3 } from "@bufbuild/protobuf";
 
 /**
- * @generated from message chat.v1.ChatState
+ * @generated from message chat.v1.ChatRoomState
  */
-export const ChatState = proto3.makeMessageType(
-  "chat.v1.ChatState",
+export const ChatRoomState = proto3.makeMessageType(
+  "chat.v1.ChatRoomState",
   () => [
-    { no: 1, name: "chats", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 1, name: "messages", kind: "message", T: Message, repeated: true },
+  ],
+);
+
+/**
+ * @generated from message chat.v1.Message
+ */
+export const Message = proto3.makeMessageType(
+  "chat.v1.Message",
+  () => [
+    { no: 1, name: "from_user", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "string", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ],
 );
 
@@ -31,23 +42,5 @@ export const GetAllResponse = proto3.makeMessageType(
   () => [
     { no: 1, name: "chats", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
   ],
-);
-
-/**
- * @generated from message chat.v1.PostRequest
- */
-export const PostRequest = proto3.makeMessageType(
-  "chat.v1.PostRequest",
-  () => [
-    { no: 1, name: "message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
-  ],
-);
-
-/**
- * @generated from message chat.v1.PostResponse
- */
-export const PostResponse = proto3.makeMessageType(
-  "chat.v1.PostResponse",
-  [],
 );
 

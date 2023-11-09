@@ -1,6 +1,6 @@
 from chat.v1.chat_rsm import (
     Chat,
-    ChatState,
+    ChatRoomState,
     GetAllRequest,
     GetAllResponse
 )
@@ -11,9 +11,9 @@ class ChatServicer(Chat.Interface):
       async def GetAll(
         self,
         context: ReaderContext,
-        state: ChatState,
+        state: ChatRoomState,
         request: GetAllRequest,
       ) -> GetAllResponse:
         return GetAllResponse(
-            chats=state.chats,
+            ChatRoomState=state.ChatRoomState,
             )
