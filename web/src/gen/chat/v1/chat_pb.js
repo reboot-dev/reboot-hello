@@ -27,6 +27,22 @@ export const Message = proto3.makeMessageType(
 );
 
 /**
+ * @generated from message chat.v1.CreateRequest
+ */
+export const CreateRequest = proto3.makeMessageType(
+  "chat.v1.CreateRequest",
+  [],
+);
+
+/**
+ * @generated from message chat.v1.CreateResponse
+ */
+export const CreateResponse = proto3.makeMessageType(
+  "chat.v1.CreateResponse",
+  [],
+);
+
+/**
  * @generated from message chat.v1.GetAllRequest
  */
 export const GetAllRequest = proto3.makeMessageType(

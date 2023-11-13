@@ -18,11 +18,11 @@ service Chat {
   //   };
   // }
 
-  // rpc Create(CreateRequest) returns (CreateResponse) {
-  //   option (resemble.v1alpha1.method).writer = {
-  //     constructor: true,
-  //   };
-  // }
+  rpc Create(CreateRequest) returns (CreateResponse) {
+    option (resemble.v1alpha1.method).writer = {
+      constructor: true,
+    };
+  }
 }
 
 message ChatRoomState {
@@ -34,9 +34,9 @@ message Message {
   string string = 2;
 }
 
-// message CreateRequest {}
+message CreateRequest {}
 
-// message CreateResponse {}
+message CreateResponse {}
 
 
 message GetAllRequest {

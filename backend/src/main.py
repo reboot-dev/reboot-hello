@@ -7,14 +7,14 @@ from resemble.aio.workflows import Workflow
 
 logging.basicConfig(level=logging.INFO)
 
-EXAMPLE_CHAT_ID = 'greeter-hello-world'
+EXAMPLE_CHAT_ID = 'test'
 
 
 async def initialize(workflow: Workflow):
-    greeter = Chat(EXAMPLE_CHAT_ID)
+    chat = Chat(EXAMPLE_CHAT_ID)
 
-    # Implicitly construct greeter upon first write.
-    await greeter.Greet(workflow, greeting="Hello, World!")
+    # Implicitly construct chat upon first write.
+    await chat.Create(workflow)
 
 
 async def main():

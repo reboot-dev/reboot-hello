@@ -17,3 +17,10 @@ class ChatServicer(Chat.Interface):
         return GetAllResponse(
             ChatRoomState=state.ChatRoomState,
             )
+
+      async def Create(
+        self,
+        context: WriterContext,
+        request: CreateRequest,
+      ) -> CreateResponse:
+          return Create

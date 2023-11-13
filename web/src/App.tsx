@@ -1,70 +1,28 @@
 import { useEffect } from "react";
 import css from "./App.module.css";
-import { Chat } from "./Chat";
-import ChatBox from "./ChatBox";
-import MessageComp from "./Message";
-import { ClearRequest, PostRequest } from "./gen/chat_pb";
+import { Chat } from "./gen/chat/v1/chat_rsm_react";
 
 function App() {
-  const { useGetAll } = Chat("chatroom");
+  const { useGetAll } = Chat( {id : "test"} );
 
   const {
     response,
     isLoading,
-    mutations: { Post },
-    pendingPostMutations,
-    failedPostMutations,
-    recoveredPostMutations,
+    // mutations: { Post },
   } = useGetAll({ storeMutationsLocallyWithKey: "chatroom-post-mutations" });
-  useEffect(() => {
-    for (const mutation of failedPostMutations) {
-      alert(`${mutation.error}`);
-    }
-  }, [failedPostMutations]);
 
-  const postMessage = async (contents: string) => {
-    const postRequest = new PostRequest({
-      message: { fromUser: "Riley", contents: contents },
-    });
-    await Post(postRequest);
-  };
-
-  if (response === undefined) return <div>Loading...</div>;
+  console.log('response: ', response)
 
   return (
     <div>
       {isLoading ? "Loading..." : ""}
       <div className={css.messagesPage}>
-        <div className={css.messagesContainer}>
-          {response.messages.map((message) => (
-            <MessageComp
-              key={message.fromUser + message.contents}
-              fromUser={message.fromUser}
-              contents={message.contents}
-              optimistic={false}
-            />
-          ))}
-          {pendingPostMutations
-            .map((mutation): [PostRequest, boolean, unknown] => [
-              mutation.request,
-              mutation.isLoading,
-              mutation.error,
-            ])
-            .filter((mutation): mutation is [PostRequest, boolean, unknown] => {
-              return mutation[0].message !== undefined;
-            })
-            .map(([request, isLoading, error]) => (
-              <MessageComp
-                key={`${request.message?.fromUser} ${request.message?.contents}`}
-                fromUser={`${request.message?.fromUser}`}
-                contents={`${request.message?.contents}`}
-                optimistic={true}
-                isLoading={isLoading}
-                error={error}
-              />
-            ))}
-        </div>
-        <ChatBox postMessage={postMessage} />
+        chat box div
+        {
+        response ?
+        <>loading</> :
+        <> response is {response}</>
+        }
       </div>
     </div>
   );
