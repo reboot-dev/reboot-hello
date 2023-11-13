@@ -11,7 +11,7 @@ import { proto3 } from "@bufbuild/protobuf";
 export const ChatRoomState = proto3.makeMessageType(
   "chat.v1.ChatRoomState",
   () => [
-    { no: 1, name: "messages", kind: "message", T: Message, repeated: true },
+    { no: 1, name: "chats", kind: "message", T: Message, repeated: true },
   ],
 );
 
@@ -56,7 +56,7 @@ export const GetAllRequest = proto3.makeMessageType(
 export const GetAllResponse = proto3.makeMessageType(
   "chat.v1.GetAllResponse",
   () => [
-    { no: 1, name: "chats", kind: "scalar", T: 9 /* ScalarType.STRING */, repeated: true },
+    { no: 1, name: "chats", kind: "message", T: Message, repeated: true },
   ],
 );
 

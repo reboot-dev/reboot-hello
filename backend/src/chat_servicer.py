@@ -1,6 +1,8 @@
 from chat.v1.chat_rsm import (
     Chat,
     ChatRoomState,
+    CreateRequest,
+    CreateResponse,
     GetAllRequest,
     GetAllResponse
 )
@@ -15,7 +17,7 @@ class ChatServicer(Chat.Interface):
         request: GetAllRequest,
       ) -> GetAllResponse:
         return GetAllResponse(
-            ChatRoomState=state.ChatRoomState,
+            chats=state.chats,
             )
 
       async def Create(
@@ -23,4 +25,5 @@ class ChatServicer(Chat.Interface):
         context: WriterContext,
         request: CreateRequest,
       ) -> CreateResponse:
-          return Create
+          state = ChatRoomState()
+          return Chat.CreateEffects(state=state, response=CreateResponse())

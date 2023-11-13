@@ -11,9 +11,9 @@ import { Message as Message$1, proto3 } from "@bufbuild/protobuf";
  */
 export declare class ChatRoomState extends Message$1<ChatRoomState> {
   /**
-   * @generated from field: repeated chat.v1.Message messages = 1;
+   * @generated from field: repeated chat.v1.Message chats = 1;
    */
-  messages: Message[];
+  chats: Message[];
 
   constructor(data?: PartialMessage<ChatRoomState>);
 
@@ -121,9 +121,9 @@ export declare class GetAllRequest extends Message$1<GetAllRequest> {
  */
 export declare class GetAllResponse extends Message$1<GetAllResponse> {
   /**
-   * @generated from field: repeated string chats = 1;
+   * @generated from field: repeated chat.v1.Message chats = 1;
    */
-  chats: string[];
+  chats: Message[];
 
   constructor(data?: PartialMessage<GetAllResponse>);
 

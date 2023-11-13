@@ -26,7 +26,7 @@ service Chat {
 }
 
 message ChatRoomState {
-  repeated Message messages = 1;
+  repeated Message chats = 1;
 }
 
 message Message {
@@ -43,7 +43,7 @@ message GetAllRequest {
 }
 
 message GetAllResponse {
-  repeated string chats = 1;
+  repeated Message chats = 1;
 }
 
 // message PostRequest {

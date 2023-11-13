@@ -9,7 +9,7 @@ function App() {
     response,
     isLoading,
     // mutations: { Post },
-  } = useGetAll({ storeMutationsLocallyWithKey: "chatroom-post-mutations" });
+  } = useGetAll();
 
   console.log('response: ', response)
 
