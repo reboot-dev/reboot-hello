@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package hello.v1;
+
+import "resemble/v1alpha1/options.proto";
+
+////////////////////////////////////////////////////////////////////////
+
+service Hello {
+  option (resemble.v1alpha1.service).state = "HelloState";
+
+  // Returns the current list of recorded messages.
+  rpc Messages(MessagesRequest) returns (MessagesResponse) {
+    option (resemble.v1alpha1.method).reader = {
+    };
+  }
+
+  // Adds a new message to the list of recorded messages.
+  rpc Send(SendRequest) returns (SendResponse) {
+    option (resemble.v1alpha1.method).writer = {
+    };
+  }
+}
+
+message HelloState {
+  repeated string messages = 2;
+}
+
+message MessagesRequest {}
+
+message MessagesResponse {
+  repeated string messages = 1;
+}
+
+message SendRequest {
+  string message = 1;  // E.g. "Hello, World".
+}
+
+message SendResponse {
+}

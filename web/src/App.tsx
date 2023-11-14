@@ -1,50 +1,48 @@
 import { FC, useState } from "react";
 import css from "./App.module.css";
-import { Greeter } from "./gen/hello_world/v1/greeter_rsm_react";
+import { Hello } from "./gen/hello/v1/hello_rsm_react";
 // We can choose any id we want because the state will be constructed when we
 // make the first .writer call.
-const GREETER_ID = "greeter-hello-world";
+const STATE_MACHINE_ID = "resemble-hello";
 
-const Greeting: FC<{ text: string }> = ({ text }) => {
-  return <div className={css.greeting}>{text}</div>;
+const Message: FC<{ text: string }> = ({ text }) => {
+  return <div className={css.message}>{text}</div>;
 };
 
 const App = () => {
   // State of the input component.
-  const [greetingMessage, setGreetingMessage] = useState("Hello, Resemble!");
+  const [message, setMessage] = useState("Hello, Resemble!");
 
-  const { useGreetings } = Greeter({ id: GREETER_ID });
+  const { useMessages } = Hello({ id: STATE_MACHINE_ID });
   const {
     response,
-    mutations: { Greet },
-  } = useGreetings();
+    mutations: { Send },
+  } = useMessages();
 
   const handleClick = () => {
-    Greet({ greeting: greetingMessage }).then(() => setGreetingMessage(""));
+    Send({ message: message }).then(() => setMessage(""));
   };
 
   return (
-    <div className={css.greetings}>
+    <div className={css.messages}>
       <input
         type="text"
         className={css.textInput}
-        onChange={(e) => setGreetingMessage(e.target.value)}
-        value={greetingMessage}
+        onChange={(e) => setMessage(e.target.value)}
+        value={message}
         placeholder="<your message here>"
       />
       <button
-        className={
-          greetingMessage === "" ? css.buttonDisabled : css.buttonEnabled
-        }
+        className={message === "" ? css.buttonDisabled : css.buttonEnabled}
         onClick={handleClick}
-        disabled={greetingMessage === ""}
+        disabled={message === ""}
       >
-        Greet
+        Send
       </button>
       {response !== undefined &&
-        response.greetings.length > 0 &&
-        response.greetings.map((greeting: string) => (
-          <Greeting text={greeting} key={greeting} />
+        response.messages.length > 0 &&
+        response.messages.map((message: string) => (
+          <Message text={message} key={message} />
         ))}
     </div>
   );

@@ -1,6 +1,6 @@
 /* Styles by @sowg: https://codepen.io/sowg/pen/qBXexaZ */
 
-.greetings {
+.messages {
   width: 300px;
   margin: 0 auto;
 }
@@ -17,7 +17,7 @@
   color: #e91e63;
 }
 
-.greeting {
+.message {
   appearance: none;
   border: 0.2em solid #e91e63;
   background: hsl(0 0 0/0);
