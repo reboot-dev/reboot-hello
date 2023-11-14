@@ -7,7 +7,7 @@ import {
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
-const client = new ResembleClient("http://127.0.0.1:9991");
+const client = new ResembleClient("https://localhost.direct:9991");
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

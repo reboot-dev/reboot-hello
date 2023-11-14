@@ -26,11 +26,11 @@ import {
 } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
-  ChatRoomState, 
-	Message, 
-	CreateRequest, 
-	CreateResponse, 
-	GetAllRequest, 
+  ChatRoomState,
+	Message,
+	CreateRequest,
+	CreateResponse,
+	GetAllRequest,
 	GetAllResponse,
 } from "./chat_pb";
 
@@ -654,6 +654,7 @@ CreateRequest,
     request: __resembleIQueryRequest,
     signal: AbortSignal
   ): AsyncGenerator<__resembleIQueryResponse, void, unknown> {
+    console.log('ReactQuery - request is : ', request)
     const response = await fetch(
       newRequest(__resembleQueryRequest.toJson(request), "/query", "POST"),
       { signal: signal }

@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import css from "./App.module.css";
 import { Chat } from "./gen/chat/v1/chat_rsm_react";
+import React from "react";
 
 function App() {
-  const { useGetAll } = Chat( {id : "test"} );
+  const { useGetAll } = Chat( {id : "test"} ); // storeMutationsLocallyInNamespace = ?
 
   const {
     response,
     isLoading,
-    // mutations: { Post },
+    mutations: { Create },
   } = useGetAll();
 
   console.log('response: ', response)
