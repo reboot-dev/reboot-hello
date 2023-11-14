@@ -36,7 +36,7 @@ are hosted in the cloud for you.
 > [!IMPORTANT]
 > You must connect your local VSCode to the codespace, you can not use VSCode in a browser window.
 
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/reboot-dev/resemble-hello-world)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/reboot-dev/resemble-hello)
 <br>
 (Right-Click to open in new tab or window)
 
@@ -58,12 +58,12 @@ Clone this repository:
 <!-- TODO: fetch this snippet from a test. -->
 
 ```shell
-git clone https://github.com/reboot-dev/resemble-hello-world.git
+git clone https://github.com/reboot-dev/resemble-hello.git
 ```
 
 Open the Dev Container:
 
-- In VSCode, open the `resemble-hello-world` folder you've cloned.
+- In VSCode, open the `resemble-hello` folder you've cloned.
 - Press: Ctrl+Shift+P (Linux / Windows) or Command+Shift+P (Mac)
 - Type/Select: `Dev Containers: Reopen In Container`
 
@@ -82,8 +82,8 @@ We've created a [Docker container](ghcr.io/reboot-dev/resemble-standalone) that 
 Clone this repository:
 
 ```shell
-git clone https://github.com/reboot-dev/resemble-hello-world.git
-cd resemble-hello-world/
+git clone https://github.com/reboot-dev/resemble-hello.git
+cd resemble-hello/
 ```
 
 Run the container:
@@ -140,8 +140,8 @@ You must have the following tools installed:
 Clone this repository:
 
 ```shell
-git clone https://github.com/reboot-dev/resemble-hello-world.git
-cd resemble-hello-world/
+git clone https://github.com/reboot-dev/resemble-hello.git
+cd resemble-hello/
 ```
 
 ### Create and activate a virtual environment
@@ -150,8 +150,8 @@ Create a new Python virtual environment in which to install Resemble
 requirements and run an application:
 
 ```sh
-python -m venv ./.resemble-hello-world-venv
-source ./.resemble-hello-world-venv/bin/activate
+python -m venv ./.resemble-hello-venv
+source ./.resemble-hello-venv/bin/activate
 ```
 
 To learn more about why virtual environments are a best practice for Python
