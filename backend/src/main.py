@@ -18,7 +18,10 @@ async def initialize(workflow: Workflow):
 
 
 async def main():
-    application = Application(servicers=[HelloServicer],)
+    Application(
+        servicers=[HelloServicer],
+        initialize=initialize,
+    )
 
     logging.info('👋 Hello, World? Hello, Resemble! 👋')
 
