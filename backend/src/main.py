@@ -14,7 +14,8 @@ async def initialize(workflow: Workflow):
     chat = Chat(EXAMPLE_CHAT_ID)
 
     # Implicitly construct chat upon first write.
-    await chat.Create(workflow)
+    test = await chat.Post(workflow, message='test message')
+    print('after await..', test)
 
 
 async def main():

@@ -13,10 +13,10 @@ service Chat {
     };
   }
 
-  // rpc Post(PostRequest) returns (PostResponse) {
-  //   option (resemble.v1alpha1.method).writer = {
-  //   };
-  // }
+  rpc Post(PostRequest) returns (PostResponse) {
+    option (resemble.v1alpha1.method).writer = {
+    };
+  }
 
   rpc Create(CreateRequest) returns (CreateResponse) {
     option (resemble.v1alpha1.method).writer = {
@@ -46,9 +46,9 @@ message GetAllResponse {
   repeated Message chats = 1;
 }
 
-// message PostRequest {
-//   string message = 1;
-// }
+message PostRequest {
+  string message = 1;
+}
 
-// message PostResponse {
-// }
+message PostResponse {
+}

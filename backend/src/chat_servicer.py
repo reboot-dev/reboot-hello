@@ -4,7 +4,9 @@ from chat.v1.chat_rsm import (
     CreateRequest,
     CreateResponse,
     GetAllRequest,
-    GetAllResponse
+    GetAllResponse,
+    PostRequest,
+    PostResponse
 )
 from resemble.aio.contexts import ReaderContext, WriterContext
 
@@ -16,6 +18,7 @@ class ChatServicer(Chat.Interface):
         state: ChatRoomState,
         request: GetAllRequest,
       ) -> GetAllResponse:
+        print('getAll request', request)
         return GetAllResponse(
             chats=state.chats,
             )
@@ -25,5 +28,16 @@ class ChatServicer(Chat.Interface):
         context: WriterContext,
         request: CreateRequest,
       ) -> CreateResponse:
-          state = ChatRoomState()
+          print('getAll request', request)
+          state = ChatRoomState(chats=[])
           return Chat.CreateEffects(state=state, response=CreateResponse())
+
+      async def Post(
+        context: WriterContext,
+        state: ChatRoomState,
+        request: GetAllRequest,
+      ) -> Chat.PostEffects:
+          print('Post request in servicer')
+          message = request.message
+          state.chats.extend([message])
+          return Chat.PostEffects([state.chats.extend([message])])

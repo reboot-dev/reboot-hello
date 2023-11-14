@@ -3,7 +3,7 @@ import App from "./App";
 import {
   ResembleClient,
   ResembleClientProvider,
-} from "./ResembleClientProvider";
+} from "@reboot-dev/resemble-react";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
