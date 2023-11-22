@@ -23,7 +23,7 @@ service Hello {
 }
 
 message HelloState {
-  repeated string messages = 2;
+  repeated string messages = 1;
 }
 
 message MessagesRequest {}
@@ -36,5 +36,4 @@ message SendRequest {
   string message = 1;  // E.g. "Hello, World".
 }
 
-message SendResponse {
-}
+message SendResponse {}
