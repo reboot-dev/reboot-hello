@@ -14,18 +14,19 @@ ls -l api/ backend/src/ web/ 2> /dev/null > /dev/null || {
 
 # Create and activate a virtual environment so that we don't pollute the
 # system's Python installation.
-python -m venv ./.hello-venv
-source ./.hello-venv/bin/activate
+python -m venv ./.resemble-hello-venv
+source ./.resemble-hello-venv/bin/activate
 
-# Use the published Resemble pip packages by default, but allow the test system
+# Use the published Resemble pip package by default, but allow the test system
 # to override them with a different value.
-REBOOT_RESEMBLE_PACKAGE=${REBOOT_RESEMBLE_PACKAGE:-"reboot-resemble"}
+REBOOT_RESEMBLE_WHL_PACKAGE=${REBOOT_RESEMBLE_WHL_PACKAGE:-"reboot-resemble"}
 
-# Manually install the Resemble packages before installing the requirements.txt.
-# This allows us to install unreleased versions of the Resemble packages during
-# tests; the requirements.txt refers to the released versions, but it will skip
-# packages that have already been installed.
-pip install $REBOOT_RESEMBLE_PACKAGE
+# Manually install the Resemble pip package before installing the
+# requirements.txt. This allows us to install unreleased versions of
+# the Resemble package during tests; the requirements.txt refers to
+# the released versions, but it will skip packages that have already
+# been installed.
+pip install $REBOOT_RESEMBLE_WHL_PACKAGE
 
 pip install -r backend/src/requirements.txt
 
@@ -35,5 +36,5 @@ mypy backend/
 
 pytest backend/
 
-# Clean up
-rm -rf ./.hello-venv
+# Clean up.
+rm -rf ./.resemble-hello-venv
