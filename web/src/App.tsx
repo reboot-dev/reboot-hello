@@ -9,8 +9,13 @@ function App() {
   const {
     response,
     isLoading,
-    mutations: { Create },
+    mutations: { Post }, // any write methods exposed via mutations
   } = useGetAll();
+
+  useEffect(() => {
+    console.log('initial render..')
+
+  },[])
 
   console.log('response: ', response)
 
