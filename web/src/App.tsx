@@ -4,7 +4,6 @@ import { Chat } from "./gen/chat/v1/chat_rsm_react";
 import React from "react";
 
 interface Message {
-  id: number;
   from_user: string;
   text: string;
 }
