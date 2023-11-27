@@ -40,8 +40,6 @@ class ChatServicer(Chat.Interface):
         request: PostRequest,
       ) -> Chat.PostEffects:
           print('Post request in servicer', request)
-          # message = request.message
-          # from_user = 'ed'
           obj1 = Message(from_user='ed', string=request.message)
           state.chats.extend([obj1])
           return Chat.PostEffects(state=state, response=PostResponse())

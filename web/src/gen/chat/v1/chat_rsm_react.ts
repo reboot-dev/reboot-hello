@@ -36,27 +36,141 @@ import {
 	PostResponse,
 } from "./chat_pb";
 
+// Additionally re-export all messages from the pb module.
+export {
+  ChatRoomState, 
+	Message, 
+	CreateRequest, 
+	CreateResponse, 
+	GetAllRequest, 
+	GetAllResponse, 
+	PostRequest, 
+	PostResponse,
+};
+
 // Check if safari. Print warning, if yes.
 // TODO(riley): fix chaos streaming for Safari.
+//
+// TODO(riley): move this all into helpers.ts.
 
 const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
-if (isSafari) {
+let warnings: { [key: string]: string } = {};
+
+function renderWarnings() {
   const html = document.documentElement;
-  const warningEl = document.createElement('div');
-  warningEl.style.cssText =
-  `position:absolute;top:0;left:0;width:200px;border:1px solid black;margin:4px;
-  padding:4px;font-family:sans-serif;border-radius:4px`;
 
-  const warningText = `Some features of this application may not work as
-  intended on Safari. A fix is coming soon! Consider using Firefox or Chrome in
-  the meantime.`
+  // Remove previously rendered warnings so that we compute the proper
+  // offsets for layout.
+  //
+  // TODO(benh): put all of these in a containing `div` so we can just
+  // remove it instead?
+  for (const warning in warnings) {
+    const warningElement = document.getElementById(warning);
+    if (warningElement !== null) {
+      html.removeChild(warningElement);
+    }
+  }
 
-  warningEl.innerText = warningText
-  html.appendChild(warningEl)
-  console.log(warningText)
+  let warningsShown = 0;
+
+  for (const warning in warnings) {
+    const warningElement = document.createElement("div");
+    warningElement.setAttribute("id", warning);
+
+    // Positioning: left-top corner but place each warning to the right of the previous.
+    const messageWidth = 300;
+    const leftOffset = warningsShown * messageWidth;
+    // More positioning: add a little margin, hover above ~everything (z-index).
+    // Looks: red border, white background.
+    // Content: text, slightly padded.
+    warningElement.style.cssText =
+    `position:absolute;top:0px;left:${leftOffset}px;margin:4px;width:300px;z-index:100000;
+    border:3px solid red;border-radius:4px;background-color:white;
+    padding:4px;font-family:sans-serif`;
+
+    warningElement.innerHTML = "⚠ " + warnings[warning];
+    html.appendChild(warningElement);
+    warningsShown++;
+  }
 }
 
+function addWarning({ messageHtml, id }: { messageHtml: string, id: string }) {
+  console.warn(messageHtml);
+  warnings[id] = messageHtml;
+  renderWarnings();
+}
+
+function removeWarning({ id }: { id: string }) {
+  if (id in warnings) {
+    delete warnings[id];
+
+    const warningElement = document.getElementById(id);
+
+    if (warningElement !== null) {
+      const html = document.documentElement;
+      html.removeChild(warningElement);
+    }
+
+    renderWarnings();
+  }
+}
+
+if (isSafari) {
+  const warningText = `Some features of this application may not work as
+  intended on Safari. A fix is coming soon! Consider using Firefox or Chrome in
+  the meantime.`;
+  addWarning({ messageHtml: warningText, id: "isSafari" });
+}
+
+async function guardedFetch(request: Request, options: any = {}) {
+  try {
+    const response = await fetch(request, options);
+
+    // If no exception was thrown while doing a fetch for
+    // `localhost.direct` then we must be able to reach it,
+    // so if we previously had displayed a warning stop
+    // displaying it now.
+    //
+    // Likely what has happened is the server we are trying
+    // to fetch from restarted.
+    if (request.url.startsWith("https://localhost.direct") && "guardedFetch" in warnings) {
+      removeWarning({ id: "guardedFetch"});
+    }
+
+    return response;
+  } catch (error) {
+    // The fetch failed due to some network error.
+    if (request.url.startsWith("https://localhost.direct") && !("guardedFetch" in warnings)) {
+      // One possible reason for the error is that the user's ISP doesn't let
+      // the user resolve `localhost.direct`. We'd like to warn the user that
+      // this is a possibility.
+      //
+      // We unfortunately can't distinguish between a DNS resolution error and any
+      // other kind of network error, even though the user's console shows that
+      // information; see:
+      //   https://bugs.chromium.org/p/chromium/issues/detail?id=718447
+      // Therefore our error message has to be somewhat generic.
+      const endpoint = request.url.split("/")[2];  // e.g. "localhost.direct:9991"
+      const warningText = `Hi! We hope you're enjoying the Resemble dev experience.
+      Looks like we couldn't connect to '${endpoint}', which should resolve to
+      '${endpoint.replace("localhost.direct", "127.0.0.1")}'. This may be due
+      to one of the following reasons:<br>
+      <li>Your backend application is not running.</li>
+      <li>Your backend application is running, but not on 127.0.0.1 (e.g.,
+          you're using a Codespace in the cloud), and you no longer have connectivity
+          (bad Wi-Fi? flaky network? or problems with your port forwarder?)</li>
+      <li>Your backend appllication is running, but on a different port.</li>
+      <li>Your ISP's DNS server does not allow you to resolve the domain
+          'localhost.direct'; see
+          <a href="https://reboot-dev.github.io/respect/docs/known_issues">
+          "Known Issues"</a> for more information.</li>
+      `
+      addWarning({ messageHtml: warningText, id: "guardedFetch" });
+    }
+    throw error;
+  }
+}
 
 // Start of service specific code.
 ///////////////////////////////////////////////////////////////////////////
@@ -159,7 +273,7 @@ export const Chat = ({ id, storeMutationsLocallyInNamespace}: SettingsParams): C
     // HTTP 'POST' method (we need 'POST' because we send an HTTP body).
     //
     // See also 'resemble/helpers.py'.
-    const response = await fetch(
+    const response = await guardedFetch(
       newRequest(requestBody, "/chat.v1.Chat.GetAll", "POST"));
 
     if (!response.ok && response.headers.has("grpc-status")) {
@@ -198,15 +312,17 @@ export const Chat = ({ id, storeMutationsLocallyInNamespace}: SettingsParams): C
     const [abortController, setAbortController] = useState<AbortController | undefined>();
 
     useEffect(() => {
-      setAbortController(new AbortController())
+      if (abortController === undefined) {
+        setAbortController(new AbortController());
+      }
       return () => {
         abortController?.abort();
       };
-    }, []);
+    }, [abortController]);
 
     const request = partialRequest instanceof GetAllRequest
         ? partialRequest
-        : new GetAllRequest(partialRequest)
+        : new GetAllRequest(partialRequest);
 
     // NOTE: using a ref for the 'request' and 'settings' (below) so
     // that it doesn't get changed after the first time calling 'usePing'.
@@ -533,7 +649,7 @@ function hasRunningMutations(): boolean {
 
     useEffect(() => {
       if (abortController === undefined ) {
-        return
+        return;
       }
       const loop = async () => {
         await __resembleRetryForever(async () => {
@@ -717,7 +833,7 @@ function hasRunningMutations(): boolean {
     // HTTP 'POST' method (we need 'POST' because we send an HTTP body).
     //
     // See also 'resemble/helpers.py'.
-    const response = await fetch(
+    const response = await guardedFetch(
       newRequest(requestBody, "/chat.v1.Chat.Post", "POST"));
 
     return await response.json();
@@ -730,7 +846,7 @@ function hasRunningMutations(): boolean {
     // HTTP 'POST' method (we need 'POST' because we send an HTTP body).
     //
     // See also 'resemble/helpers.py'.
-    const response = await fetch(
+    const response = await guardedFetch(
       newRequest(requestBody, "/chat.v1.Chat.Create", "POST"));
 
     return await response.json();
@@ -777,7 +893,7 @@ PostRequest    |CreateRequest,
                 ? request
                 : new requestType(request);
 
-            const response = await fetch(
+            const response = await guardedFetch(
               newRequest(req.toJson(), path, "POST", idempotencyKey),
               { signal: abortController?.signal }
             );
@@ -871,7 +987,7 @@ PostRequest    |CreateRequest,
     request: __resembleIQueryRequest,
     signal: AbortSignal
   ): AsyncGenerator<__resembleIQueryResponse, void, unknown> {
-    const response = await fetch(
+    const response = await guardedFetch(
       newRequest(__resembleQueryRequest.toJson(request), "/query", "POST"),
       { signal: signal }
     );
@@ -934,14 +1050,6 @@ PostRequest    |CreateRequest,
             throw e;
           }
         }
-      }
-    }
-
-    while (true) {
-      const { value, done } = await reader.read();
-      if (done) {
-        break;
-      } else {
       }
     }
   }

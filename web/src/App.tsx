@@ -42,11 +42,18 @@ function App() {
     console.log("initial render..");
   }, []);
 
-  console.log("response:", response);
+  console.log(response)
 
   return (
     <div>
-      {isLoading ? "Loading..." : ""}
+      {response && response.chats.length > 1 ? response.chats.map( (chat, i) => {
+        return(
+        <div key={i}>
+          {chat.string}
+        </div>
+        )
+      }
+      ) : ""}
       <div className={css.messageInput}>
         <input
           type="text"
