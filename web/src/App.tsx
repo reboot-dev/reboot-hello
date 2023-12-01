@@ -8,13 +8,13 @@ interface Message {
   text: string;
 }
 
-interface ChatRoomState {
-  chats: Message[];
-}
+// interface ChatRoomState {
+//   chats: Message[];
+// }
 
-interface PostRequest {
-  message: string;
-}
+// interface PostRequest {
+//   message: string;
+// }
 
 function App() {
   const [message, setMessage] = useState("");
