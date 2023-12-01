@@ -1,0 +1,65 @@
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Adjust this height as needed */
+}
+
+/* Container for the chat log */
+.chatLog {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow-y: auto; /* Enable scrolling for long chat logs */
+}
+
+/* Style for sent messages */
+.sentMessage {
+  align-self: flex-end;
+  margin: 5px 0;
+}
+
+/* Style for received messages */
+.receivedMessage {
+  align-self: flex-start;
+  margin: 5px 0;
+}
+
+/* Style for message bubbles */
+.messageBubble {
+  background-color: #007bff; /* Blue color for sent messages */
+  color: white;
+  padding: 8px 12px;
+  border-radius: 15px;
+  max-width: 70%; /* Adjust as needed based on your design */
+}
+
+/* Input and send button */
+.messageInput {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f5f5f5;
+}
+
+.messageInput input {
+  flex: 1;
+  margin-right: 10px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.messageInput button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.messageInput button:hover {
+  background-color: #0056b3;
+}
