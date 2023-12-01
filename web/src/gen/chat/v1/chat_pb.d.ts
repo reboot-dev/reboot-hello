@@ -149,6 +149,11 @@ export declare class PostRequest extends Message$1<PostRequest> {
    */
   message: string;
 
+  /**
+   * @generated from field: string from_user = 2;
+   */
+  fromUser: string;
+
   constructor(data?: PartialMessage<PostRequest>);
 
   static readonly runtime: typeof proto3;

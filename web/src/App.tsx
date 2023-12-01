@@ -33,7 +33,7 @@ function App() {
 
   const handleSendMessage = () => {
     if (message) {
-      Post({ message });
+      Post({ fromUser: 'ed', message });
       setMessage("");
     }
   };
@@ -46,10 +46,10 @@ function App() {
 
   return (
     <div>
-      {response && response.chats.length > 1 ? response.chats.map( (chat, i) => {
+      {response && response.chats.length > 0 ? response.chats.map( (chat, i) => {
         return(
         <div key={i}>
-          {chat.string}
+          {chat.string} from {chat.fromUser}
         </div>
         )
       }

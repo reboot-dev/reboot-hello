@@ -67,6 +67,7 @@ export const PostRequest = proto3.makeMessageType(
   "chat.v1.PostRequest",
   () => [
     { no: 1, name: "message", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "from_user", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ],
 );
 

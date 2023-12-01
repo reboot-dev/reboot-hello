@@ -48,6 +48,7 @@ message GetAllResponse {
 
 message PostRequest {
   string message = 1;
+  string from_user = 2;
 }
 
 message PostResponse {
