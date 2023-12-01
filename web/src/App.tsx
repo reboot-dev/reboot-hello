@@ -25,7 +25,11 @@ function App() {
 
   const handleSendMessage = () => {
     if (message) {
-      Post({ fromUser: 'ed', message });
+      if (message === 'other user') {
+        Post({ fromUser: 'friend', message });
+      } else {
+        Post({ fromUser: 'ed', message });
+      }
       setMessage("");
     }
   };
@@ -37,19 +41,31 @@ function App() {
   console.log(response)
 
   return (
-    <div>
-      {response && response.chats.length > 0 ? response.chats.map( (chat, i) => {
-        return(
-        <div
-          key={i}
-          className={
-            chat.fromUser === "ed" ? styles.sentMessage : styles.receivedMessage
-          }>
-            <div className={styles.messageBubble}>{chat.string}</div>
+    <div className={styles.chatContainer}>
+      {response && response.chats.length > 0 ? (
+        <div className={styles.chatLog}>
+          {response.chats.map((chat, i: number) => (
+            <div key={i}>
+              {chat.fromUser !== "ed" && ( // Check if the sender is not 'ed'
+                <div className={styles.senderName}>
+                  {chat.fromUser}
+                </div>
+              )}
+              <div
+                className={
+                  chat.fromUser === "ed"
+                    ? styles.sentMessage
+                    : styles.receivedMessage
+                }
+              >
+                <div className={styles.messageBubble}>{chat.string}</div>
+              </div>
+            </div>
+          ))}
         </div>
-        )
-      }
-      ) : ""}
+      ) : (
+        ""
+      )}
       <div className={styles.messageInput}>
         <input
           type="text"
@@ -61,6 +77,7 @@ function App() {
       </div>
     </div>
   );
+
 }
 
 export default App;
