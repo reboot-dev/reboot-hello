@@ -45,7 +45,8 @@ function App() {
       {response && response.chats.length > 0 ? (
         <div className={styles.chatLog}>
           {response.chats.map((chat, i: number) => (
-            <div key={i}>
+            <div key={i}
+              className={styles.chatList}>
               {chat.fromUser !== "ed" && ( // Check if the sender is not 'ed'
                 <div className={styles.senderName}>
                   {chat.fromUser}

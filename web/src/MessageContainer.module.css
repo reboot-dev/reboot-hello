@@ -12,6 +12,12 @@
   overflow-y: auto; /* Enable scrolling for long chat logs */
 }
 
+/* div for each */
+.chatList {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Style for sent messages */
 .sentMessage {
   align-self: flex-end;
