@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { KeyboardEvent, useEffect, useState } from "react";
 import { Chat } from "./gen/chat/v1/chat_rsm_react";
 import React from "react";
 import styles from "./ChatContainer.module.css";
