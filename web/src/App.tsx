@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Chat } from "./gen/chat/v1/chat_rsm_react";
 import React from "react";
-import styles from "./MessageContainer.module.css";
+import styles from "./ChatContainer.module.css";
+import ChatContainer from "./ChatContainer";
 
 interface Message {
   from_user: string;
@@ -11,6 +12,7 @@ interface Message {
 function App() {
   const [message, setMessage] = useState("");
   const { useGetAll } = Chat({ id: "test" });
+  const RECIEVER = 'ed';
 
   const {
     response,
@@ -28,7 +30,7 @@ function App() {
       if (message === 'other user') {
         Post({ fromUser: 'friend', message });
       } else {
-        Post({ fromUser: 'ed', message });
+        Post({ fromUser: RECIEVER, message });
       }
       setMessage("");
     }
@@ -43,27 +45,7 @@ function App() {
   return (
     <div className={styles.chatContainer}>
       {response && response.chats.length > 0 ? (
-        <div className={styles.chatLog}>
-          {response.chats.map((chat, i: number) => (
-            <div key={i}
-              className={styles.chatList}>
-              {chat.fromUser !== "ed" && ( // Check if the sender is not 'ed'
-                <div className={styles.senderName}>
-                  {chat.fromUser}
-                </div>
-              )}
-              <div
-                className={
-                  chat.fromUser === "ed"
-                    ? styles.sentMessage
-                    : styles.receivedMessage
-                }
-              >
-                <div className={styles.messageBubble}>{chat.string}</div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <ChatContainer chats={response.chats} receiver={RECIEVER} />
       ) : (
         ""
       )}
