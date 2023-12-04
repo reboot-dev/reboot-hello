@@ -8,6 +8,15 @@ interface Message {
 
 function ChatContainer({ receiver, chats }: { receiver: string; chats: any[] }) {
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const scrollToBottom = () => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom(); // Scroll to the bottom on initial load
+  }, [chats]);
 
   const generateMessage = (chat: Message, i: number) => {
     let avatarInitials = chat.fromUser[0]
@@ -33,16 +42,6 @@ function ChatContainer({ receiver, chats }: { receiver: string; chats: any[] }) 
       )
     }
   }
-
-  const scrollToBottom = () => {
-    if (chatEndRef.current) {
-      chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  useEffect(() => {
-    scrollToBottom(); // Scroll to the bottom on initial load
-  }, [chats]);
 
   return (
     <div className={styles.chatLog}>
