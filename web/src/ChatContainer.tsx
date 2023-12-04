@@ -8,25 +8,23 @@ interface Message {
 function ChatContainer({ receiver, chats }: { receiver: string; chats: any[] }) {
 
   const generateMessage = (chat: Message, i: number) => {
-    if (chat.fromUser === 'ed') {
+    let avatarInitials = chat.fromUser[0]
+    if (chat.fromUser === receiver) {
       return (
-        <div key={i} className={styles.chatList}>
-          <div
-            className={styles.sentMessage}
-          >
-            <div className={styles.messageBubble}>
-              {chat.string}
-            </div>
+        <div className={styles.sentMessage}>
+          <div className={styles.messageBubble}>
+            {chat.string}
           </div>
         </div>
       )
     } else {
       return (
-        <div key={i} className={styles.chatList}>
-          <div className={styles.receivedMessage}>
-            <div className={styles.receivedMessage}>
-              {chat.fromUser}
-            </div>
+        <div className={styles.receivedMessage}>
+          <div className={styles.receivedMessageSenderName}>
+            {chat.fromUser}
+          </div>
+          <div className={styles.recievedMessageAndAvatar}>
+            <div className={styles.avatarBubble}>{avatarInitials}</div>
             <div className={styles.messageBubble}>{chat.string}</div>
           </div>
         </div>
@@ -37,22 +35,6 @@ function ChatContainer({ receiver, chats }: { receiver: string; chats: any[] }) 
   return (
     <div className={styles.chatLog}>
       {chats.map((chat, i: number) => (
-        // <div key={i} className={styles.chatList}>
-        //   {chat.fromUser !== "ed" && ( // Check if the sender is not 'ed'
-        //   <div>
-        //     {chat.fromUser}
-        //   </div>
-        //   )}
-        //   <div
-        //     className={
-        //       chat.fromUser === "ed"
-        //         ? styles.sentMessage
-        //         : styles.receivedMessage
-        //     }
-        //   >
-        //     <div className={styles.messageBubble}>{chat.string}</div>
-        //   </div>
-        // </div>
         <div key={i} className={styles.chatList}>
         {generateMessage(chat, i)}
         </div>

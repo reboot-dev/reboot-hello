@@ -1,13 +1,8 @@
-import { KeyboardEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Chat } from "./gen/chat/v1/chat_rsm_react";
 import React from "react";
 import styles from "./ChatContainer.module.css";
 import ChatContainer from "./ChatContainer";
-
-interface Message {
-  from_user: string;
-  text: string;
-}
 
 function App() {
   const [message, setMessage] = useState("");
@@ -25,22 +20,24 @@ function App() {
     setMessage(event.target.value);
   };
 
+  function getRandomInt(max: number) {
+    return Math.floor(Math.random() * max);
+  }
+
   const handleSendMessage = () => {
+    let num = getRandomInt(5); // using a random number to mock another user
+
     if (message) {
-      if (message === 'other user') {
-        Post({ fromUser: 'friend', message });
+      if (num <= 2) {
+        Post({ fromUser: 'other user', message });
+      } else if ( num === 3){
+        Post({ fromUser: 'rare user', message });
       } else {
         Post({ fromUser: RECIEVER, message });
       }
       setMessage("");
     }
   };
-
-  useEffect(() => {
-    console.log("initial render..");
-  }, []);
-
-  console.log(response)
 
   return (
     <div className={styles.chatContainer}>
@@ -60,7 +57,6 @@ function App() {
       </div>
     </div>
   );
-
 }
 
 export default App;
