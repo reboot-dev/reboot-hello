@@ -19,7 +19,6 @@ class ChatServicer(Chat.Interface):
         state: ChatRoomState,
         request: GetAllRequest,
       ) -> GetAllResponse:
-        print('getAll ')
         return GetAllResponse(
             chats=state.chats,
             )
@@ -29,7 +28,6 @@ class ChatServicer(Chat.Interface):
         context: WriterContext,
         request: CreateRequest,
       ) -> Chat.CreateEffects:
-          print('Create')
           state = ChatRoomState(chats=[])
           return Chat.CreateEffects(state=state, response=CreateResponse())
 
@@ -39,7 +37,6 @@ class ChatServicer(Chat.Interface):
         state: ChatRoomState,
         request: PostRequest,
       ) -> Chat.PostEffects:
-          print('Post request in servicer')
           obj1 = Message(from_user=request.from_user, string=request.message)
           state.chats.extend([obj1])
           return Chat.PostEffects(state=state, response=PostResponse())

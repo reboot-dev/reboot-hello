@@ -28,7 +28,7 @@ function App() {
     let num = getRandomInt(5); // using a random number to mock another user
 
     if (message) {
-      if (num <= 2) {
+      if (num === 2) {
         Post({ fromUser: 'other user', message });
       } else if ( num === 3){
         Post({ fromUser: 'rare user', message });
