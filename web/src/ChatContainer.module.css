@@ -46,8 +46,12 @@
   align-items: center;
   padding: 10px;
   background-color: #f5f5f5;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
+/* Adjust input and button styles */
 .messageInput input {
   flex: 1;
   margin-right: 10px;
