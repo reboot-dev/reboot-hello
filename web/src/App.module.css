@@ -29,6 +29,16 @@
   font-family: sans-serif;
 }
 
+.pendingMessage {
+  border: 0.2em solid #a9a9a9;
+  color: #a9a9a9;
+}
+
+.pendingMessageIsLoading {
+  border: 0.2em solid #a9a9a9;
+  color: #e91e63;
+}
+
 .buttonDisabled,
 .buttonEnabled {
   float: right;
