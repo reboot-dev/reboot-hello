@@ -26,6 +26,9 @@ class HelloServicer(Hello.Interface):
         state: HelloState,
         request: SendRequest,
     ) -> Hello.SendEffects:
+        # Mimic latency by sleeping.
+        await asyncio.sleep(0.5)
+
         message = request.message
         state.messages.extend([message])
         return Hello.SendEffects(state=state, response=SendResponse())

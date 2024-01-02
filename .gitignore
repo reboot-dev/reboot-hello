@@ -1,14 +1,17 @@
-# Any virtualenv directories.
-.*-venv
-
 # Directory created from using the 'rsm' CLI tool.
-.rsm
+.rsm/
 
-# Generated code.
-/api/**/*.py
-/api/**/*.js
-/api/**/*.ts
+# Any virtualenv directories.
+.*-venv/
 
 # Temporary directories produced by `pytest`.
 __pycache__/
 .pytest_cache/
+
+web/node_modules/
+web/dist/
+
+# Generated code.
+api/**/*.py
+web/src/gen/**/*.js
+web/src/gen/**/*.ts

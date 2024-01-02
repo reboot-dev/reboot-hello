@@ -11,6 +11,12 @@ filegroup(
             # are not part of the "source code" of this repository.
             ".resemble-hello-venv/**/*",
             ".pytest_cache/**/*",
+            "api/gen/**/*.js",
+            "web/node_modules/**/*",
+            "web/dist/**/*",
+            "web/src/gen/**/*.js",
+            "web/src/gen/**/*.ts",
+            "web/package-lock.json",
         ],
     ),
     visibility = ["//visibility:public"],
