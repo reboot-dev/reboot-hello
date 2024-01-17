@@ -20,7 +20,12 @@
   ],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [3000, 9991]
+  "forwardPorts": [
+    // The HTTP port exposed by default in examples.
+    3000,
+    // The gRPC backend port exposed by default in examples.
+    9991
+  ]
 
   // Uncomment the next line to run commands after the container is created.
   // "postCreateCommand": "cat /etc/os-release",

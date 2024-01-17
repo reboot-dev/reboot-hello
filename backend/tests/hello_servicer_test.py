@@ -9,9 +9,10 @@ class TestHello(unittest.IsolatedAsyncioTestCase):
 
     async def asyncSetUp(self) -> None:
         self.rsm = Resemble()
+        await self.rsm.start()
 
     async def asyncTearDown(self) -> None:
-        await self.rsm.down()
+        await self.rsm.stop()
 
     async def test_hello(self) -> None:
         await self.rsm.up(servicers=[HelloServicer])
