@@ -10,7 +10,6 @@ from resemble.aio.workflows import Workflow
 class TestGreeter(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self) -> None:
         self.rsm = Resemble()
-
     async def asyncTearDown(self) -> None:
         await self.rsm.down()
 
