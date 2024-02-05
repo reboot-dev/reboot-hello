@@ -8,13 +8,14 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
 const client = new ResembleClient("https://localhost.direct:9991");
+// const myBearerToken =
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
 root.render(
-  <ResembleClientProvider client={client}>
+  <ResembleClientProvider client={client} token={'bear'}>
     <App />
   </ResembleClientProvider>
 );
