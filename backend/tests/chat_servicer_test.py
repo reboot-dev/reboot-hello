@@ -1,8 +1,6 @@
 import unittest
-from chat.v1.chat_rsm import Chat, GetAllResponse, PostRequest, PostResponse
+from chat.v1.chat_rsm import Chat, GetAllResponse, PostResponse
 from chat_servicer import ChatServicer
-# from greeter_servicer import GreeterServicer
-# from hello_world.v1.greeter_rsm import Greeter, GreetResponse
 from resemble.aio.tests import Resemble
 from resemble.aio.workflows import Workflow
 
@@ -10,8 +8,10 @@ from resemble.aio.workflows import Workflow
 class TestGreeter(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self) -> None:
         self.rsm = Resemble()
+        await self.rsm.start()
+
     async def asyncTearDown(self) -> None:
-        await self.rsm.down()
+        await self.rsm.stop()
 
     async def test_chat_servicer(self) -> None:
         await self.rsm.up(servicers=[ChatServicer])
