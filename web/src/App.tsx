@@ -2,8 +2,10 @@ import {  SetStateAction , useState } from "react";
 import { useChat } from "./gen/chat/v1/chat_rsm_react";
 import styles from "./ChatContainer.module.css";
 import ChatContainer from "./ChatContainer";
+import Login from "./Login";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [message, setMessage] = useState("");
   const { useGetAll, mutators } = useChat({ id: "(singleton)" });
   const RECIEVER = 'ed';
@@ -36,6 +38,10 @@ function App() {
     }
   };
 
+  if (!isLoggedIn) {
+    return <Login onLogin={() => setIsLoggedIn(true)} />;
+  }
+  
   return (
     <div className={styles.chatContainer}>
       {response && response.chats.length > 0 && (
