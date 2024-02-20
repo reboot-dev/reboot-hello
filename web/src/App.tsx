@@ -9,7 +9,6 @@ function App() {
   const [message, setMessage] = useState("");
   const [username, setUsername] = useState<string>("");;
   const { useGetAll, mutators } = useChat({ id: "(singleton)" });
-  const RECIEVER = 'ed';
 
   const {
     response,
@@ -20,21 +19,9 @@ function App() {
     setMessage(event.target.value);
   };
 
-  function getRandomInt(max: number) {
-    return Math.floor(Math.random() * max);
-  }
-
   const handleSendMessage = () => {
-    let num = getRandomInt(5); // using a random number to mock another user
-
     if (message) {
-      if (num === 2) {
-        mutators.post({ fromUser: 'other user', message });
-      } else if ( num === 3){
-        mutators.post({ fromUser: 'rare user', message });
-      } else {
-        mutators.post({ fromUser: username, message });
-      }
+      mutators.post({ fromUser: username, message });
       setMessage("");
     }
   };
@@ -42,7 +29,7 @@ function App() {
   const handleLogin = (username: string) => {
     setUsername(username); // Set the username in the state
     setIsLoggedIn(true);
-    console.log('username is ', username)
+    // console.log('username is ', username)
   };
 
   if (!isLoggedIn) {
