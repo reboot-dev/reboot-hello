@@ -7,6 +7,7 @@ import Login from "./Login";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [message, setMessage] = useState("");
+  const [username, setUsername] = useState<string>("");;
   const { useGetAll, mutators } = useChat({ id: "(singleton)" });
   const RECIEVER = 'ed';
 
@@ -32,20 +33,26 @@ function App() {
       } else if ( num === 3){
         mutators.post({ fromUser: 'rare user', message });
       } else {
-        mutators.post({ fromUser: RECIEVER, message });
+        mutators.post({ fromUser: username, message });
       }
       setMessage("");
     }
   };
 
+  const handleLogin = (username: string) => {
+    setUsername(username); // Set the username in the state
+    setIsLoggedIn(true);
+    console.log('username is ', username)
+  };
+
   if (!isLoggedIn) {
-    return <Login onLogin={() => setIsLoggedIn(true)} />;
+    return <Login onLogin={handleLogin} />;
   }
-  
+
   return (
     <div className={styles.chatContainer}>
       {response && response.chats.length > 0 && (
-        <ChatContainer chats={response.chats} receiver={RECIEVER} />
+        <ChatContainer chats={response.chats} username={username} />
       )}
       <div className={styles.messageInput}>
         <input

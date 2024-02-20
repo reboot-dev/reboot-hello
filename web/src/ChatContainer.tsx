@@ -6,7 +6,7 @@ interface Message {
   contents: string;
 }
 
-function ChatContainer({ receiver, chats }: { receiver: string; chats: any[] }) {
+function ChatContainer({ username, chats }: { username: string; chats: any[] }) {
   const chatEndRef = useRef<HTMLDivElement>(null);
   const scrollToBottom = () => {
     if (chatEndRef.current) {
@@ -21,7 +21,7 @@ function ChatContainer({ receiver, chats }: { receiver: string; chats: any[] }) 
 
   const generateMessage = (chat: Message, i: number) => {
     let avatarInitials = chat.fromUser[0]
-    if (chat.fromUser === receiver) {
+    if (chat.fromUser === username) {
       return (
         <div className={styles.sentMessage}>
           <div className={styles.messageBubble}>
