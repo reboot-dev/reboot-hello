@@ -15,7 +15,6 @@ function ChatContainer({ username, chats }: { username: string; chats: any[] }) 
   };
 
   useEffect(() => {
-    console.log('chats: ', chats)
     scrollToBottom(); // Scroll to the bottom on initial load
   }, [chats]);
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./Login.module.css";
 
 type OnLoginCallback = (username: string) => void;
 
@@ -20,15 +21,17 @@ function Login({ onLogin }: Props) {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
+    <div className={styles.loginContainer}>
+      <div className={styles.loginInput}>
+        <h2>Login</h2>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <button onClick={handleLogin}>Login</button>
+      </div>
     </div>
   );
 }
