@@ -3,6 +3,35 @@
   flex-direction: column;
   justify-content: flex-end;
   height: 100vh;
+  background-color: red;
+}
+
+.header {
+  background-color: rgb(149, 31, 133);
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  color: white;
+}
+
+.header h1 {
+  margin-left: 40vw;
+}
+
+.header button {
+  background-color: #0056b3;
+  color: white;
+  flex-grow: 0;
+  margin: 25px;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.header button:hover {
+  background-color: #4586cb;
 }
 
 /* Container for the chat log */
@@ -11,6 +40,7 @@
   flex-direction: column;
   padding: 10px;
   overflow-y: auto; /* Enable scrolling for long chat logs */
+  background-color: white;
 }
 
 /* div for each message*/

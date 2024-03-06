@@ -55,7 +55,10 @@ function App() {
 
   return (
     <div className={styles.chatContainer}>
-      <button onClick={handleLogout}>Logout</button>
+      <header className={styles.header}>
+        <h1>Resemble</h1>
+        <button onClick={handleLogout}>Logout</button>
+      </header>
       {response && response.chats.length > 0 && (
         <ChatContainer chats={response.chats} username={username} />
       )}
