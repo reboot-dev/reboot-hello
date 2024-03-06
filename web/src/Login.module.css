@@ -2,13 +2,13 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: antiquewhite;
+  background-color: rgb(149, 31, 133);
   height: 100vh;
 }
 
 .loginContainer {
   text-align: center;
-  background-color: antiquewhite;
+  background-color: rgb(149, 31, 133);
   height: 40vh;
 }
 
