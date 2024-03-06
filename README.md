@@ -123,9 +123,9 @@ Now you're ready to [run the application](#run-the-application)!
 ## Install prerequisites manually
 
 > [!IMPORTANT]
-> Resemble backends currently can run **on x86_64 Linux** machines with
+> Resemble backends currently can **only run on x86 Linux** machines with
 > `glibc>=2.35` (Ubuntu Jammy and other equivalent-generation Linux
-> distributions), and **on arm64/x86_64 MacOS**, where `MacOS>=13.0` and `Xcode>=14.3`. If you have a machine that doesn't fit this requirement, we
+> distributions). If you have a machine that doesn't fit this requirement, we
 > suggest using one of the approaches discussed above.
 ### Prerequisites
 
@@ -217,3 +217,28 @@ Now you can run the tests using `pytest`:
 ```sh
 pytest backend/
 ```
+
+### Running on the Resemble Cloud
+
+Pick a public Docker registry you can push images to. Determine the name you'd
+like the image to have in that registry. For example:
+`ghcr.io/your-github-username/resemble-hello`.
+
+Then, run the following to build and push your `resemble-hello` container:
+```
+export IMAGE_NAME=<the name you picked>
+./build.sh --push $IMAGE_NAME
+```
+
+The `build.sh` script, when used with `--push`, will print an appropriate `rsm
+cloud up` command. For example:
+```
+Push complete!
+
+To run your image on the Resemble Cloud, run:
+
+  rsm cloud up --image-name=ghcr.io/your-github-username/resemble-hello@sha256:ed9b9ffe98abcdef9371aa6e01baa6e1c80fff07085fdb14a25767746558818e --api-key=YOUR_API_KEY
+```
+
+Execute that `rsm cloud up` command to have your pushed Resemble container run
+on the Resemble Cloud! 🎉

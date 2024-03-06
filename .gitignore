@@ -13,5 +13,9 @@ web/dist/
 
 # Generated code.
 api/**/*.py
+api/**/*.pyi
 web/src/gen/**/*.js
 web/src/gen/**/*.ts
+
+# Binary artifacts produced only during Resemble library development.
+.unpublished-resemble-wheel/*.whl
