@@ -13,7 +13,7 @@ function ChatContainer({ username, chats }: { username: string; chats: any[] }) 
       chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
-
+ 
   useEffect(() => {
     scrollToBottom(); // Scroll to the bottom on initial load
   }, [chats]);
