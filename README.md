@@ -123,9 +123,10 @@ Now you're ready to [run the application](#run-the-application)!
 ## Install prerequisites manually
 
 > [!IMPORTANT]
-> Resemble backends currently can **only run on x86 Linux** machines with
+> Resemble backends currently can **on x86_64 Linux** machines with
 > `glibc>=2.35` (Ubuntu Jammy and other equivalent-generation Linux
-> distributions). If you have a machine that doesn't fit this requirement, we
+> distributions), and **on arm64/x86_64 MacOS**, where `MacOS>=13.0` and
+> `Xcode>=14.3`. If you have a machine that doesn't fit this requirement, we
 > suggest using one of the approaches discussed above.
 ### Prerequisites
 
@@ -242,3 +243,27 @@ To run your image on the Resemble Cloud, run:
 
 Execute that `rsm cloud up` command to have your pushed Resemble container run
 on the Resemble Cloud! 🎉
+
+To make calls to the application that just started, get the endpoint URL from
+message output to the console.
+
+```sh
+Application starting; you application will be available at:
+
+<somelongstring>.<application_id>.resemble.cloud:9991
+```
+
+To build a version of the frontend that can talk to the deployed app, replace
+value passed to the `ResembleClient` in `web/serc/index.tsx`:
+
+```tsx
+const client = new ResembleClient(
+  "<somelongstring>.<application_id>.resemble.cloud:9991")
+;
+```
+
+Then run `npm run build`.
+
+Once built, this front end can be deployed to any static hosting provider like
+S3, Vercel, Cloudflare or Firebase hosting.
+
