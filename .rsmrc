@@ -34,17 +34,18 @@ protoc --output-directory=api/
 # Find '.proto' files in 'api/'.
 protoc api/
 
-# Tell `rsm` to output react generated files into web app src.
-protoc -- --resemble_react_out=web/src/gen
+# Tell `rsm` where to output its generated files.
+# The paths are different for backend and frontend code.
+protoc -- --resemble_python_out=backend/api --resemble_react_out=web/src/api
 
 # Watch if any generated files are modified.
-dev --watch=api/**/*.py
+dev --watch=backend/api/**/*.py
 
 # Watch if any of our source files are modified.
 dev --watch=backend/src/**/*.py
 
 # PYTHONPATH must be explicitly set to pick up generated code.
-dev --env=PYTHONPATH=api/
+dev --env=PYTHONPATH=backend/api/
 
 # Tell `rsm` that this is a Python application.
 dev --python
