@@ -11,7 +11,7 @@ For the impatient:
 
 ### Overview
 
-This repository contains an example application written using Resemble.
+This repository contains a simple example application written using Resemble.
 
 The '.proto' files can be found in the `api/` directory, grouped into
 subdirectories by proto package, while backend specific code can be
@@ -151,8 +151,8 @@ Create a new Python virtual environment in which to install Resemble
 requirements and run an application:
 
 ```sh
-python -m venv ./.resemble-hello-venv
-source ./.resemble-hello-venv/bin/activate
+python -m venv ./.venv
+source ./.venv/bin/activate
 ```
 
 To learn more about why virtual environments are a best practice for Python
@@ -267,3 +267,7 @@ Then run `npm run build`.
 Once built, this front end can be deployed to any static hosting provider like
 S3, Vercel, Cloudflare or Firebase hosting.
 
+<!--
+TODO: introduce an `rsm grpcurl` (or `rsm call` or ...) that lets us explore
+our backend in another terminal by calling RPCs.
+-->

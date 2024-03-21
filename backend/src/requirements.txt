@@ -1,3 +1,3 @@
-reboot-resemble>=0.5.2
+reboot-resemble>=0.5.3
 pytest>=7.4.2
 types-protobuf>=4.24.0.20240129

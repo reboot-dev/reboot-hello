@@ -1,6 +1,6 @@
 import { FC, useState } from "react";
 import css from "./App.module.css";
-import { useHello } from "./gen/hello/v1/hello_rsm_react";
+import { useHello } from "./api/hello/v1/hello_rsm_react";
 // We can choose any id we want because the state will be constructed when we
 // make the first .writer call.
 const STATE_MACHINE_ID = "resemble-hello";
