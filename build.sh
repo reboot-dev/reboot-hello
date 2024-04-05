@@ -36,7 +36,7 @@ DOCKER_IMAGE_NAME=${POSITIONAL_ARGS[0]}
 
 # The following is a little helper for developers working on the Resemble
 # library. You likely won't need it if you're just using Resemble.
-if [ -n "$REBOOT_RESEMBLE_WHL_FILE" ]; then
+if [ -v REBOOT_RESEMBLE_WHL_FILE ]; then
   # Place the wheel package in a place where the Docker build process can
   # reach it. That means placing it in the build context, meaning the
   # directory containing the `Dockerfile`, or a subdirectory. We'll create
