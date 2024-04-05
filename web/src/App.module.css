@@ -39,6 +39,12 @@
   color: #e91e63;
 }
 
+.informationText {
+  text-align: center;
+  color: #a9a9a9;
+  font-family: Sans-Serif;
+}
+
 .buttonDisabled,
 .buttonEnabled {
   float: right;

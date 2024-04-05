@@ -52,6 +52,15 @@ RUN mkdir $NVM_DIR && \
 # Our container will run as `root`, so the root user must load `nvm` on login.
 RUN echo ". $NVM_DIR/nvm.sh" >> /root/.bashrc
 
+### Our application.
+
+# First ONLY copy and install the requirements, so that changes outside
+# `requirements.txt` don't force a re-install of all dependencies.
+#
+# Note that this will install the Resemble library and CLI.
+COPY requirements.lock requirements.txt
+RUN pip install -r requirements.txt
+
 ### Unpublished Resemble package.
 # If you plan to use this Dockerfile for your own project, you may omit this
 # section; it is useful only for Reboot's internal development. Outside of
@@ -70,17 +79,9 @@ COPY .unpublished-*-wheel/*.whl .unpublished-resemble-wheel/
 # If `.unpublished-resemble-wheel/` was empty or did not exist, the following
 # `ls` will fail and instead of `pip install` we'll run `echo`, which means this
 # RUN has no effects in that case.
-RUN (ls ./.unpublished-resemble-wheel/*.whl && pip install ./.unpublished-resemble-wheel/*.whl) \
+RUN (ls ./.unpublished-resemble-wheel/*.whl && pip install --force-reinstall ./.unpublished-resemble-wheel/*.whl) \
   || echo "No unpublished wheels to install."
-
-### Our application.
-
-# First ONLY copy and install the requirements, so that changes outside
-# `requirements.txt` don't force a re-install of all dependencies.
-#
-# Note that this will install the Resemble library and CLI.
-COPY backend/src/requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+### End of interlude.
 
 # Next, copy the API definition and generate Resemble code. This step is also
 # separate so it is only repeated if the `api/` code changes.

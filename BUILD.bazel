@@ -11,6 +11,7 @@ filegroup(
             # Files that may be created by activity in this directory, such
             # as manually following the steps of the `README.md` file, but which
             # are not part of the "source code" of this repository.
+            ".venv/**/*",
             ".resemble-hello-venv/**/*",
             ".pytest_cache/**/*",
             "api/gen/**/*.js",
