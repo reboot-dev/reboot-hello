@@ -25,8 +25,8 @@
 # `.rsmrc` as the working directory so that any paths that we specify
 # below are relative to it.
 protoc --working-directory=.
-dev --working-directory=.
-dev --protoc-watch
+dev run --working-directory=.
+dev run --protoc-watch
 
 # Generate code from our '.proto' files in 'api/'.
 protoc --output-directory=api/
@@ -39,19 +39,23 @@ protoc api/
 protoc -- --resemble_python_out=backend/api --resemble_react_out=web/src/api
 
 # Watch if any generated files are modified.
-dev --watch=backend/api/**/*.py
+dev run --watch=backend/api/**/*.py
 
 # Watch if any of our source files are modified.
-dev --watch=backend/src/**/*.py
+dev run --watch=backend/src/**/*.py
 
 # PYTHONPATH must be explicitly set to pick up generated code.
-dev --env=PYTHONPATH=backend/api/
+dev run --env=PYTHONPATH=backend/api/
 
 # Tell `rsm` that this is a Python application.
-dev --python
+dev run --python
 
 # Save state between chaos restarts.
-dev --name=hello
+dev run --name=hello
 
 # Run the application!
-dev backend/src/main.py
+dev run backend/src/main.py
+
+# When running `rsm dev expunge`, the state we want to remove is that of the
+# "hello" application, since that's what we were running with `rsm dev run`.
+dev expunge --name=hello

@@ -31,7 +31,7 @@ const App = () => {
   const [message, setMessage] = useState("Hello, Resemble!");
 
   const { useMessages, mutators } = useHello({ id: STATE_MACHINE_ID });
-  const { response /* , isLoading */ } = useMessages();
+  const { response, isLoading } = useMessages();
 
   const handleClick = () => {
     mutators.send({ message: message });
@@ -59,10 +59,13 @@ const App = () => {
       >
         Send
       </button>
-      {response !== undefined &&
+      {(response !== undefined &&
         response.messages.length > 0 &&
         response.messages.map((message: string) => (
           <Message text={message} key={message} />
+        ))) ||
+        (response !== undefined && response.messages.length == 0 && (
+          <p className={css.informationText}>No messages yet!</p>
         ))}
       {/*
         Optimistically render each send. Each pending mutation on
@@ -73,6 +76,13 @@ const App = () => {
       {mutators.send.pending.map(({ request: { message }, isLoading }) => (
         <PendingMessage text={message} isLoading={isLoading} key={message} />
       ))}
+      {/*
+        If we're loading our first response, show the user a loading message,
+        so that they don't just see an emtpy screen.
+      */}
+      {isLoading && response === undefined && (
+        <p className={css.informationText}>Loading...</p>
+      )}
     </div>
   );
 };

@@ -12,7 +12,9 @@ const root = ReactDOM.createRoot(
 );
 // Use TLS (via localhost.direct) so we get the advantage of HTTP/2
 // multiplexing.
-const client = new ResembleClient("https://localhost.direct:9991");
+const client = new ResembleClient(
+  process.env.REACT_APP_REBOOT_RESEMBLE_ENDPOINT as string
+);
 
 root.render(
   <React.StrictMode>

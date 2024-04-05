@@ -1,5 +1,5 @@
 # Directory created from using the 'rsm' CLI tool.
-.rsm/
+/.rsm/
 
 # The recommended virtualenv directory.
 /.venv/
