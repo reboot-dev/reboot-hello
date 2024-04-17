@@ -1,7 +1,6 @@
 #!/bin/bash
 
 set -e # Exit if a command exits with an error.
-set -u # Treat expanding an unset variable as an error.
 set -x # Echo executed commands to help debug failures.
 
 # Check that this script has been invoked with the right working directory, by
@@ -21,7 +20,7 @@ done
 
 # Use the published Resemble pip package by default, but allow the test system
 # to override them with a different value.
-if [ -v REBOOT_RESEMBLE_WHL_FILE ]; then
+if [ -n "$REBOOT_RESEMBLE_WHL_FILE" ]; then
   # Install the `reboot-resemble` package from the specified path explicitly, over-
   # writing the version from `pyproject.toml`.
   rye remove --no-sync reboot-resemble
@@ -44,7 +43,7 @@ pytest backend/
 # We will only do this if this machine has the `docker` command installed. That
 # means this is skipped on e.g. GitHub's Mac OS X runners.
 if command -v docker &> /dev/null; then
-  if [ -v REBOOT_RESEMBLE_WHL_FILE ]; then
+  if [ -n "$REBOOT_RESEMBLE_WHL_FILE" ]; then
     # If `REBOOT_RESEMBLE_WHL_FILE` is set, have it refer to an absolute non-symlink
     # (= canonical) path.
     REBOOT_RESEMBLE_WHL_FILE=$(readlink --canonicalize $REBOOT_RESEMBLE_WHL_FILE)
