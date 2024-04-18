@@ -1,12 +1,12 @@
 [project]
 requires-python = ">= 3.10"
 dependencies = [
-  "reboot-resemble>=0.5.8",
+  "reboot-resemble>=0.5.9",
 ]
 
 [tool.rye]
 dev-dependencies = [
-  "reboot-resemble>=0.5.8",
+  "reboot-resemble>=0.5.9",
   "mypy>=1.2.0",
   "pytest>=7.4.2",
   "types-protobuf>=4.24.0.20240129",
