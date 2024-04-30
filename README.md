@@ -145,13 +145,11 @@ Application starting; your application will be available at:
 <application_id>.prod1.resemble.cloud:9991
 ```
 
-To build a version of the frontend that can talk to the deployed app, replace
-value passed to the `ResembleClient` in `web/src/index.tsx`:
+To build a version of the frontend that can talk to the deployed app, update
+the `REACT_APP_REBOOT_RESEMBLE_ENDPOINT` value in `web/.env`:
 
 ```tsx
-const client = new ResembleClient(
-  "<application_id>.prod1.resemble.cloud:9991")
-;
+REACT_APP_REBOOT_RESEMBLE_ENDPOINT=https://<application_id>.prod1.resemble.cloud:9991
 ```
 
 Then, in the `web/` directory, run `npm run build`.

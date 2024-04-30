@@ -62,7 +62,7 @@ grpcio-status==1.56.2
     # via reboot-resemble
 grpcio-tools==1.56.2
     # via reboot-resemble
-idna==3.6
+idna==3.7
     # via requests
     # via yarl
 jinja2==3.1.2
@@ -95,12 +95,12 @@ protobuf==4.25.2
     # via reboot-resemble
 psutil==5.9.5
     # via reboot-resemble
-pyasn1==0.5.1
+pyasn1==0.6.0
     # via pyasn1-modules
     # via rsa
-pyasn1-modules==0.3.0
+pyasn1-modules==0.4.0
     # via google-auth
-pycparser==2.21
+pycparser==2.22
     # via cffi
 pyjwt==2.8.0
     # via reboot-resemble
@@ -112,7 +112,7 @@ python-dateutil==2.9.0.post0
 pyyaml==6.0.1
     # via kubernetes
     # via kubernetes-asyncio
-reboot-resemble==0.5.8
+reboot-resemble==0.5.9
 requests==2.31.0
     # via kubernetes
     # via requests-oauthlib
@@ -120,7 +120,7 @@ requests-oauthlib==2.0.0
     # via kubernetes
 rsa==4.9
     # via google-auth
-setuptools==69.2.0
+setuptools==69.5.1
     # via grpcio-tools
     # via kubernetes
     # via kubernetes-asyncio
@@ -130,7 +130,7 @@ six==1.16.0
     # via python-dateutil
 smmap==5.0.1
     # via gitdb
-types-protobuf==4.24.0.20240311
+types-protobuf==5.26.0.20240422
     # via mypy-protobuf
 typing-extensions==4.9.0
     # via reboot-resemble
@@ -141,7 +141,7 @@ urllib3==1.26.15
     # via requests
 watchdog==4.0.0
     # via reboot-resemble
-websocket-client==1.7.0
+websocket-client==1.8.0
     # via kubernetes
 websockets==12.0
     # via reboot-resemble

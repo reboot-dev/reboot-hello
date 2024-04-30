@@ -83,7 +83,7 @@ markupsafe==2.1.5
 multidict==6.0.5
     # via aiohttp
     # via yarl
-mypy==1.9.0
+mypy==1.2.0
 mypy-extensions==1.0.0
     # via mypy
 mypy-protobuf==3.5.0
@@ -123,7 +123,7 @@ python-dateutil==2.9.0.post0
 pyyaml==6.0.1
     # via kubernetes
     # via kubernetes-asyncio
-reboot-resemble==0.5.8
+reboot-resemble==0.5.9
 requests==2.31.0
     # via kubernetes
     # via requests-oauthlib
