@@ -24,6 +24,9 @@
 # Find '.proto' files in 'api/'.
 protoc api/
 
+# Generate code for a Python backend and React frontend.
+protoc --generate=python,react
+
 # Tell `rsm` where to output its generated files.
 # The paths are different for backend and frontend code.
 protoc -- --resemble_python_out=backend/api --resemble_react_out=web/src/api
@@ -31,7 +34,6 @@ protoc -- --resemble_python_out=backend/api --resemble_react_out=web/src/api
 # Watch if any generated or source files are modified.
 dev run --watch=backend/api/**/*.py
 dev run --watch=backend/src/**/*.py
-dev run --protoc-watch
 
 # PYTHONPATH must be explicitly set to pick up generated code.
 dev run --env=PYTHONPATH=backend/api/
@@ -39,12 +41,11 @@ dev run --env=PYTHONPATH=backend/api/
 # Tell `rsm` that this is a Python application.
 dev run --python
 
-# Save state between chaos restarts.
+# Set the application name for commands that require it.
+cloud up --name=hello
+cloud down --name=hello
+dev expunge --name=hello
 dev run --name=hello
 
 # Run the application!
 dev run backend/src/main.py
-
-# When running `rsm dev expunge`, the state we want to remove is that of the
-# "hello" application, since that's what we were running with `rsm dev run`.
-dev expunge --name=hello

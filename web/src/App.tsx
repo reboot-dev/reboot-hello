@@ -33,8 +33,13 @@ const App = () => {
   const { useMessages, mutators } = useHello({ id: STATE_MACHINE_ID });
   const { response } = useMessages();
 
-  const handleClick = () => {
-    mutators.send({ message: message });
+  const handleClick = async () => {
+    const { aborted } = await mutators.send({ message: message });
+    if (aborted !== undefined) {
+      console.warn(aborted.error.getType());
+      console.warn(aborted.message);
+    }
+
     setMessage("");
   };
 

@@ -54,6 +54,8 @@ RUN echo ". $NVM_DIR/nvm.sh" >> /root/.bashrc
 
 ### Our application.
 
+WORKDIR /app
+
 # First ONLY copy and install the requirements, so that changes outside
 # `requirements.txt` don't force a re-install of all dependencies.
 #
@@ -100,4 +102,4 @@ RUN bash -i -c "rsm protoc"
 COPY backend/src/ backend/src/
 
 # Running the application requires that we set the PYTHONPATH correctly.
-CMD PYTHONPATH=api/ python3 backend/src/main.py
+CMD PYTHONPATH=backend/api/ python3 backend/src/main.py
