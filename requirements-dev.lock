@@ -93,6 +93,8 @@ oauthlib==3.2.2
 packaging==23.1
     # via pytest
     # via reboot-resemble
+pathspec==0.12.1
+    # via reboot-resemble
 pluggy==1.4.0
     # via pytest
 protobuf==4.25.2
@@ -123,7 +125,7 @@ python-dateutil==2.9.0.post0
 pyyaml==6.0.1
     # via kubernetes
     # via kubernetes-asyncio
-reboot-resemble==0.5.9
+reboot-resemble==0.6.0
 requests==2.31.0
     # via kubernetes
     # via requests-oauthlib
