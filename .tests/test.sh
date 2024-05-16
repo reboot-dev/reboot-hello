@@ -38,6 +38,16 @@ mypy backend/
 
 pytest backend/
 
+if [ -n "$EXPECTED_RSM_DEV_OUTPUT_FILE" ]; then
+  actual_output_file=$(mktemp)
+  rsm dev run --terminate-after-health-check > "$actual_output_file"
+  if ! diff -u "$EXPECTED_RSM_DEV_OUTPUT_FILE" "$actual_output_file"; then
+    echo "The actual output does not match the expected output."
+    exit 1
+  fi
+  rm "$actual_output_file"
+fi
+
 # Confirm that we can build the Docker image.
 #
 # We will only do this if this machine has the `docker` command installed. That

@@ -7,29 +7,38 @@
   // Features to add to the dev container. More info: https://containers.dev/features.
   // "features": {}
 
-  // The following VS Code extensions are nice to have when developing on this example.
-  "extensions": [
-    // Python support.
-    "ms-python.python",
-    // Automatically do import sorting in Python.
-    "ms-python.isort",
-    // Protocol buffer support.
-    "zxh404.vscode-proto3",
-    // Prettier code formatter.
-    "esbenp.prettier-vscode"
-  ],
+  // The following VS Code extensions are nice to have when developing on this
+  // Resemble application.
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // Python support.
+        "ms-python.python",
+        // Automatically do import sorting in Python.
+        "ms-python.isort",
+        // Protocol buffer support.
+        "zxh404.vscode-proto3",
+        // Prettier code formatter.
+        "esbenp.prettier-vscode",
+        // Static type checking for Python.
+        "ms-python.mypy-type-checker",
+        // YAPF code formatter for Python.
+        "eeyore.yapf"
+      ]
+    }
+  },
 
-  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // Use 'forwardPorts' to make a list of ports inside the container available
+  // locally.
   "forwardPorts": [
     // The HTTP port exposed by default in examples.
     3000,
     // The gRPC backend port exposed by default in examples.
-    9991
+    9991,
+    // The backend port hosting the 'inspect' service.
+    9992
   ]
 
   // Uncomment the next line to run commands after the container is created.
   // "postCreateCommand": "cat /etc/os-release",
-
-  // Configure tool-specific properties.
-  // "customizations": {},
 }

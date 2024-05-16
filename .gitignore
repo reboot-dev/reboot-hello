@@ -14,6 +14,7 @@ web/dist/
 # Generated code.
 backend/api/
 web/src/api/
+boilerplate/
 
 # Binary artifacts produced only during Resemble library development.
 .unpublished-resemble-wheel/*.whl
