@@ -24,15 +24,13 @@
 # Find '.proto' files in 'api/'.
 protoc api/
 
-# Generate code for a Python backend and React frontend.
-protoc --generate=python,react
-
 # Put boilerplate files in 'boilerplate/'.
 protoc --boilerplate=boilerplate/
 
 # Tell `rsm` where to output its generated files.
 # The paths are different for backend and frontend code.
-protoc -- --resemble_python_out=backend/api --resemble_react_out=web/src/api
+protoc --python=backend/api/
+protoc --react=web/src/api
 
 # Watch if any generated or source files are modified.
 dev run --watch=backend/api/**/*.py
