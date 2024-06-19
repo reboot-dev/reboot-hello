@@ -6,9 +6,13 @@ import "resemble/v1alpha1/options.proto";
 
 ////////////////////////////////////////////////////////////////////////
 
-service Hello {
-  option (resemble.v1alpha1.service).state = "HelloState";
+message Hello {
+  option (.resemble.v1alpha1.state) = {
+  };
+  repeated string messages = 1;
+}
 
+service HelloInterface {
   // Returns the current list of recorded messages.
   rpc Messages(MessagesRequest) returns (MessagesResponse) {
     option (resemble.v1alpha1.method).reader = {
@@ -20,10 +24,6 @@ service Hello {
     option (resemble.v1alpha1.method).writer = {
     };
   }
-}
-
-message HelloState {
-  repeated string messages = 1;
 }
 
 message MessagesRequest {}

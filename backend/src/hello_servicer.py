@@ -1,7 +1,6 @@
 import asyncio
 from hello.v1.hello_rsm import (
     Hello,
-    HelloState,
     MessagesRequest,
     MessagesResponse,
     SendRequest,
@@ -15,7 +14,7 @@ class HelloServicer(Hello.Interface):
     async def Messages(
         self,
         context: ReaderContext,
-        state: HelloState,
+        state: Hello.State,
         request: MessagesRequest,
     ) -> MessagesResponse:
         return MessagesResponse(messages=state.messages)
@@ -23,7 +22,7 @@ class HelloServicer(Hello.Interface):
     async def Send(
         self,
         context: WriterContext,
-        state: HelloState,
+        state: Hello.State,
         request: SendRequest,
     ) -> Hello.SendEffects:
         # Mimic latency by sleeping.
