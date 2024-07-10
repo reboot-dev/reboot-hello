@@ -1,4 +1,4 @@
-FROM ubuntu:jammy-20230804
+FROM envoyproxy/envoy:v1.30.2
 
 ### Resemble requirements.
 # Resemble is built on Python and Node.js, so we need to install those.
@@ -6,8 +6,6 @@ FROM ubuntu:jammy-20230804
 # Ubuntu Jammy's default Python version is 3.10, which is also Resemble's
 # minimum Python version.
 ARG PYTHON_VERSION=3.10
-
-ARG REBOOT_RESEMBLE_WHL_FILE
 
 # Installs:
 # * `curl` to support installation of `nvm` (below).
@@ -101,5 +99,12 @@ RUN bash -i -c "rsm protoc"
 # Now copy the rest of the source code.
 COPY backend/src/ backend/src/
 
-# Running the application requires that we set the PYTHONPATH correctly.
-CMD PYTHONPATH=backend/api/ python3 backend/src/main.py
+# Prevent Envoy's default entrypoint from dropping user privileges to the
+# `envoy` user; some serving platforms (e.g. Fly.io) mount volumes in the
+# expectation that we are `root`.
+ENTRYPOINT []
+
+# Run `rsm serve` to get a production app!
+# It is assumed that the `PORT` variable is provided at runtime (some platforms
+# already do so by default).
+CMD rsm serve --port=$PORT
