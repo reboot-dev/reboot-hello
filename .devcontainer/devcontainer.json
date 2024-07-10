@@ -34,9 +34,7 @@
     // The HTTP port exposed by default in examples.
     3000,
     // The gRPC backend port exposed by default in examples.
-    9991,
-    // The backend port hosting the 'inspect' service.
-    9992
+    9991
   ]
 
   // Uncomment the next line to run commands after the container is created.

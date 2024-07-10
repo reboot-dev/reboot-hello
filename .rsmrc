@@ -36,9 +36,6 @@ protoc --react=web/src/api
 dev run --watch=backend/api/**/*.py
 dev run --watch=backend/src/**/*.py
 
-# PYTHONPATH must be explicitly set to pick up generated code.
-dev run --env=PYTHONPATH=backend/api/
-
 # Tell `rsm` that this is a Python application.
 dev run --python
 
@@ -47,6 +44,18 @@ cloud up --name=hello
 cloud down --name=hello
 dev expunge --name=hello
 dev run --name=hello
+serve --name=hello
 
 # Run the application!
 dev run backend/src/main.py
+
+# When serving, store state in the `/app/state/` directory. This is where we
+# must make sure to mount a persistent storage volume.
+serve --directory=/app/state/
+
+# Leave TLS termination to the external load balancer; expose a non-SSL port to
+# that loadbalancer.
+serve --tls=external
+
+# Run the application!
+serve backend/src/main.py

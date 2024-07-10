@@ -14,7 +14,7 @@ async def initialize(workflow: Workflow):
     hello = Hello.lookup(EXAMPLE_STATE_MACHINE_ID)
 
     # Implicitly construct state machine upon first write.
-    await hello.idempotently("initialize").Send(
+    await hello.idempotently().Send(
         workflow,
         message="Hello, World!",
     )
