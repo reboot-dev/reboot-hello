@@ -10,7 +10,7 @@ For the impatient:
 
 This repository contains a simple example application written using Resemble.
 
-The [Resemble '.proto' definition](https://docs.reboot.dev/docs/model/overview#generated-code)
+The [Resemble '.proto' definition](https://docs.reboot.dev/docs/learn/overview#generated-code)
 can be found in the `api/` directory, grouped into
 subdirectories by proto package, while backend specific code can be
 found in `backend/` and web specific code in `web/`.
@@ -119,20 +119,19 @@ Pick a public Docker registry you can push images to. Determine the name you'd
 like the image to have in that registry. For example:
 `ghcr.io/your-github-username/resemble-hello`.
 
-Then, run the following to build and push your `resemble-hello` container:
+#### Build and push the Docker image like you're used to.
+
 ```shell
-export IMAGE_NAME=<the name you picked>
-./build.sh --push $IMAGE_NAME
+export IMAGE_NAME=yourregistry.io/yourname/yourproject/yourappname
+docker build --tag $IMAGE_NAME .
+docker push $IMAGE_NAME
 ```
 
-The `build.sh` script, when used with `--push`, will print an appropriate `rsm
-cloud up` command. For example:
-```
-Push complete!
-
-To run your image on the Resemble Cloud, run:
-
-  rsm cloud up --image-name=ghcr.io/your-github-username/resemble-hello@sha256:ed9b9ffe98abcdef9371aa6e01baa6e1c80fff07085fdb14a25767746558818e --api-key=YOUR_API_KEY
+#### Launch the image on the Resemble cloud
+Include the image's SHA in its name, so that it is unambiguous exactly which version of the image you're choosing.
+```sh
+export IMAGE_NAME_WITH_SHA=$(docker inspect --format='{{index .RepoDigests 0}}' $IMAGE_NAME)
+rsm cloud up --image-name=$IMAGE_NAME_WITH_SHA --api-key=YOUR_API_KEY
 ```
 
 Execute that `rsm cloud up` command to have your pushed Resemble container run

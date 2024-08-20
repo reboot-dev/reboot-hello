@@ -11,6 +11,21 @@ ls -l api/ backend/src/ web/ 2> /dev/null > /dev/null || {
   exit 1
 }
 
+# MacOS tests can fail due to a race in `protoc` writing files to disk,
+# so now we check only occurences of the expected lines in the output.
+# See https://github.com/reboot-dev/respect/issues/3433
+check_lines_in_file() {
+  local expected="$1"
+  local actual="$2"
+
+  while IFS= read -r line; do
+    if ! grep -Fxq "$line" "$actual"; then
+      echo "Line $line is missing in the actual output."
+      exit 1
+    fi
+  done < "$expected"
+}
+
 # Convert symlinks to files that we need to mutate into copies.
 for file in "requirements.lock" "requirements-dev.lock" "pyproject.toml"; do
   cp "$file" "${file}.tmp"
@@ -28,6 +43,20 @@ if [ -n "$REBOOT_RESEMBLE_WHL_FILE" ]; then
   rye add --dev reboot-resemble --absolute --path=$REBOOT_RESEMBLE_WHL_FILE
 fi
 
+# Use the published Resemble npm package by default, but allow the test system
+# to override them with a different value.
+if [ -n "$REBOOT_RESEMBLE_NPM_PACKAGE" ]; then
+    export REBOOT_RESEMBLE_NPM_PACKAGE=$(realpath "$REBOOT_RESEMBLE_NPM_PACKAGE")
+  fi
+
+if [ -n "$REBOOT_RESEMBLE_API_NPM_PACKAGE" ]; then
+  export REBOOT_RESEMBLE_API_NPM_PACKAGE=$(realpath "$REBOOT_RESEMBLE_API_NPM_PACKAGE")
+fi
+
+if [ -n "$REBOOT_RESEMBLE_REACT_NPM_PACKAGE" ]; then
+  export REBOOT_RESEMBLE_REACT_NPM_PACKAGE=$(realpath "$REBOOT_RESEMBLE_REACT_NPM_PACKAGE")
+fi
+
 # Create and activate a virtual environment.
 rye sync --no-lock
 source .venv/bin/activate
@@ -40,30 +69,14 @@ pytest backend/
 
 if [ -n "$EXPECTED_RSM_DEV_OUTPUT_FILE" ]; then
   actual_output_file=$(mktemp)
+
   rsm dev run --terminate-after-health-check > "$actual_output_file"
-  if ! diff -u "$EXPECTED_RSM_DEV_OUTPUT_FILE" "$actual_output_file"; then
-    echo "The actual output does not match the expected output."
-    exit 1
-  fi
+
+  check_lines_in_file "$EXPECTED_RSM_DEV_OUTPUT_FILE" "$actual_output_file"
+
   rm "$actual_output_file"
 fi
 
-# Confirm that we can build the Docker image.
-#
-# We will only do this if this machine has the `docker` command installed. That
-# means this is skipped on e.g. GitHub's Mac OS X runners.
-if command -v docker &> /dev/null; then
-  if [ -n "$REBOOT_RESEMBLE_WHL_FILE" ]; then
-    # If `REBOOT_RESEMBLE_WHL_FILE` is set, have it refer to an absolute non-symlink
-    # (= canonical) path.
-    REBOOT_RESEMBLE_WHL_FILE=$(readlink --canonicalize $REBOOT_RESEMBLE_WHL_FILE)
-  fi
-  # Since Docker can't follow symlinks to files outside the build context, we
-  # can't build the Docker image in a directory where the Dockerfile is a symlink.
-  # That situation occurs when e.g. running this test on Bazel. Follow the symlink
-  # back to the original directory and build from there.
-  pushd $(dirname $(readlink --canonicalize ./Dockerfile))
-  ./build.sh "reboot-dev/resemble-hello"
-  popd
-fi
-
+# Deactivate the virtual environment, since we can run a test which may require
+# another virtual environment (currently we do that only in `all_tests.sh`).
+deactivate
