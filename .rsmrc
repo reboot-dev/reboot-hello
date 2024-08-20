@@ -53,6 +53,11 @@ dev run backend/src/main.py
 # must make sure to mount a persistent storage volume.
 serve --directory=/app/state/
 
+# The number of partitions of our data to create. Each partition runs as a
+# separate process, and so increasing the partition count requires more
+# cores.
+serve --partitions=4
+
 # Leave TLS termination to the external load balancer; expose a non-SSL port to
 # that loadbalancer.
 serve --tls=external

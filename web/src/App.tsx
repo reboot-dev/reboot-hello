@@ -30,11 +30,11 @@ const App = () => {
   // State of the input component.
   const [message, setMessage] = useState("Hello, Resemble!");
 
-  const { useMessages, mutators } = useHello({ id: STATE_MACHINE_ID });
+  const { useMessages, send } = useHello({ id: STATE_MACHINE_ID });
   const { response } = useMessages();
 
   const handleClick = async () => {
-    const { aborted } = await mutators.send({ message: message });
+    const { aborted } = await send({ message: message });
     if (aborted !== undefined) {
       console.warn(aborted.error.getType());
       console.warn(aborted.message);
@@ -74,11 +74,11 @@ const App = () => {
         ))}
       {/*
         Optimistically render each send. Each pending mutation on
-        `mutators.send.pending` will be removed when `response` has
+        `send.pending` will be removed when `response` has
         been received that includes the mutation's updates so you
         don't have to worry about mutators racing with readers!
         */}
-      {mutators.send.pending.map(({ request: { message }, isLoading }) => (
+      {send.pending.map(({ request: { message }, isLoading }) => (
         <PendingMessage text={message} isLoading={isLoading} key={message} />
       ))}
       {/*
