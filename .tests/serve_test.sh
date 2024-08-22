@@ -11,6 +11,25 @@ ls -l api/ backend/src/ web/ Dockerfile 2> /dev/null > /dev/null || {
   exit 1
 }
 
+get_reboot_resemble_version_from() {
+  version=$(egrep -o 'reboot-resemble==[.0-9]+' $1 | head -n 1)
+  if [ -z "$version" ]; then
+    echo "No resemble version found in $1."
+    exit 1
+  fi
+  echo $version
+}
+
+# During Resemble's release process, consumed versions (but not lockfiles) have
+# been updated everywhere. During that period, our image claims to consume a
+# a version which does not yet exist. Rather than adding a bunch of conditionals to
+# our Dockerfile, which would make it harder to grok, we skip this test while the
+# lockfile is out of sync. See #3495.
+if [[ $(get_reboot_resemble_version_from "pyproject.toml") != $(get_reboot_resemble_version_from "requirements.lock") ]]; then
+  echo "Lockfile does not match pyproject.toml: assuming we're mid-publish."
+  exit 0
+fi
+
 stop_container() {
   if [ -n "$container_id" ]; then
     docker stop "$container_id"
