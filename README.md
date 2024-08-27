@@ -13,7 +13,9 @@ This repository contains a simple example application written using Resemble.
 The [Resemble '.proto' definition](https://docs.reboot.dev/docs/learn/overview#generated-code)
 can be found in the `api/` directory, grouped into
 subdirectories by proto package, while backend specific code can be
-found in `backend/` and web specific code in `web/`.
+found in `backend/` and front end specific code in `web/`.
+
+_For more information on all of the Resemble examples, please [see the docs](https://docs.reboot.dev/docs/get_started/examples)._
 
 ## Prepare an environment by...
 
@@ -26,7 +28,7 @@ This repository includes a [Dev Container config](./.devcontainer/devcontainer.j
 
 1. Right-click to create a Codespace in a new tab or window:
     * [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/reboot-dev/resemble-hello)
-    * *Important*: In order to view the example's frontend, you must connect your local VSCode to the codespace: you cannot use VSCode in a browser window.
+    * *Important*: In order to view the example's front end, you must connect your local VSCode to the codespace: you cannot use VSCode in a browser window.
 2. Go to [https://github.com/codespaces](https://github.com/codespaces) and click the three dots next to the codespace you just created and then click `Open in Visual Studio Code`.
     * You can [set your default editor to VSCode for codespaces](https://docs.github.com/en/codespaces/customizing-your-codespace/setting-your-default-editor-for-github-codespaces) to avoid this step in the future. See [these instructions](https://docs.github.com/en/codespaces/developing-in-codespaces/opening-an-existing-codespace?tool=vscode) for more information.
 
@@ -40,8 +42,8 @@ Running directly on a host requires:
 - A platform of either:
    - `x86_64 Linux` with `glibc>=2.35` (Ubuntu Jammy and other equivalent-generation Linux distributions)
    - `arm64 or x86_64 MacOS` with `MacOS>=13.0` and `Xcode>=14.3`
-- [Rye](https://rye-up.com/)
-    - A tool to manage `python`, `pip`, and `venv`. If you are already familiar with Python [virtual environments](https://docs.python.org/3/library/venv.html), feel free to use your tool of choice with [`pyproject.toml`](./pyproject.toml). Python>=3.10 is required.
+- [Rye](https://rye-up.com/) - A tool to manage `python`, `pip`, and `venv`.
+   - If you are already familiar with Python [virtual environments](https://docs.python.org/3/library/venv.html), feel free to use your tool of choice with [`pyproject.toml`](./pyproject.toml). Python==3.10 is required.
 - Node.js
     - Including `npm`.
 - Docker
@@ -54,7 +56,7 @@ Now you're ready to [run the application](#run-the-application)!
 <a id="run-the-application"></a>
 ## Run the application
 
-### Backend via `rsm`
+### Backend
 
 Our backend is implemented in Python and we must install its dependencies before
 running it. The most notable of those dependencies is the `reboot-resemble` PyPI
@@ -78,7 +80,7 @@ Running `rsm dev run` will watch for file modifications and restart the
 application if necessary. See the `.rsmrc` file for flags and
 arguments that get expanded when running `rsm dev run`.
 
-### Front end via `npm`
+### Front end
 
 Similar to the backend, the front end has dependencies that need to be installed before running it. Open a separate terminal/shell and do:
 ```shell
@@ -86,9 +88,9 @@ cd web/
 npm install
 npm start
 ```
+
 If using VSCode, the page will load automatically.
 If not using VSCode, visit [http://127.0.0.1:3000](http://127.0.0.1:3000)`.
-
 ### Tests
 
 The application comes with backend tests.
@@ -112,7 +114,6 @@ Now you can run the tests using `pytest`:
 ```sh
 pytest backend/
 ```
-
 ### Running on the Reboot Cloud
 
 Pick a public Docker registry you can push images to. Determine the name you'd
@@ -146,7 +147,7 @@ Application starting; your application will be available at:
 <application_id>.prod1.resemble.cloud:9991
 ```
 
-To build a version of the frontend that can talk to the deployed app, update
+To build a version of the front end that can talk to the deployed app, update
 the `REACT_APP_REBOOT_RESEMBLE_ENDPOINT` value in `web/.env`:
 
 ```tsx
@@ -158,7 +159,3 @@ Then, in the `web/` directory, run `npm run build`.
 Once built, this front end can be deployed to any static hosting provider like
 S3, Vercel, Cloudflare or Firebase hosting.
 
-<!--
-TODO: introduce an `rsm grpcurl` (or `rsm call` or ...) that lets us explore
-our backend in another terminal by calling RPCs.
--->
