@@ -10,12 +10,12 @@ For the impatient:
 
 This repository contains a simple example application written using Resemble.
 
-The [Resemble '.proto' definition](https://docs.reboot.dev/docs/learn/overview#generated-code)
+The [Resemble '.proto' definition](https://docs.reboot.dev/develop/schema#code-generation)
 can be found in the `api/` directory, grouped into
 subdirectories by proto package, while backend specific code can be
 found in `backend/` and front end specific code in `web/`.
 
-_For more information on all of the Resemble examples, please [see the docs](https://docs.reboot.dev/docs/get_started/examples)._
+_For more information on all of the Resemble examples, please [see the docs](https://docs.reboot.dev/get_started/examples)._
 
 ## Prepare an environment by...
 
