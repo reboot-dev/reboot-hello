@@ -125,7 +125,7 @@ python-dateutil==2.9.0.post0
 pyyaml==6.0.1
     # via kubernetes
     # via kubernetes-asyncio
-reboot-resemble==0.13.1
+reboot-resemble==0.13.2
 requests==2.31.0
     # via kubernetes
     # via requests-oauthlib
@@ -156,6 +156,8 @@ urllib3==1.26.15
     # via kubernetes-asyncio
     # via reboot-resemble
     # via requests
+uuid7==0.1.0
+    # via reboot-resemble
 watchdog==4.0.0
     # via reboot-resemble
 websocket-client==1.7.0

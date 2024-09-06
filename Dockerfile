@@ -1,4 +1,4 @@
-FROM ghcr.io/reboot-dev/resemble-base:0.13.1
+FROM ghcr.io/reboot-dev/resemble-base:0.13.2
 
 WORKDIR /app
 
