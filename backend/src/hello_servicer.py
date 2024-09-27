@@ -1,11 +1,11 @@
-from hello.v1.hello_rsm import (
+from hello.v1.hello_rbt import (
     Hello,
     MessagesRequest,
     MessagesResponse,
     SendRequest,
     SendResponse,
 )
-from resemble.aio.contexts import ReaderContext, WriterContext
+from reboot.aio.contexts import ReaderContext, WriterContext
 
 
 class HelloServicer(Hello.Interface):

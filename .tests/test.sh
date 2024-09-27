@@ -6,7 +6,7 @@ set -x # Echo executed commands to help debug failures.
 # Check that this script has been invoked with the right working directory, by
 # checking that the expected subdirectories exist.
 ls -l api/ backend/src/ web/ 2> /dev/null > /dev/null || {
-  echo "ERROR: this script must be invoked from the root of the 'resemble-hello' repository."
+  echo "ERROR: this script must be invoked from the root of the 'reboot-hello' repository."
   echo "Current working directory is '$(pwd)'."
   exit 1
 }
@@ -33,46 +33,46 @@ for file in "requirements.lock" "requirements-dev.lock" "pyproject.toml"; do
   mv "${file}.tmp" "$file"
 done
 
-# Use the published Resemble pip package by default, but allow the test system
+# Use the published Reboot pip package by default, but allow the test system
 # to override them with a different value.
-if [ -n "$REBOOT_RESEMBLE_WHL_FILE" ]; then
-  # Install the `reboot-resemble` package from the specified path explicitly, over-
+if [ -n "$REBOOT_WHL_FILE" ]; then
+  # Install the `reboot` package from the specified path explicitly, over-
   # writing the version from `pyproject.toml`.
-  rye remove --no-sync reboot-resemble
-  rye remove --no-sync --dev reboot-resemble
-  rye add --dev reboot-resemble --absolute --path=$REBOOT_RESEMBLE_WHL_FILE
+  rye remove --no-sync reboot
+  rye remove --no-sync --dev reboot
+  rye add --dev reboot --absolute --path=$REBOOT_WHL_FILE
 fi
 
-# Use the published Resemble npm package by default, but allow the test system
+# Use the published Reboot npm package by default, but allow the test system
 # to override them with a different value.
-if [ -n "$REBOOT_RESEMBLE_NPM_PACKAGE" ]; then
-    export REBOOT_RESEMBLE_NPM_PACKAGE=$(realpath "$REBOOT_RESEMBLE_NPM_PACKAGE")
-  fi
-
-if [ -n "$REBOOT_RESEMBLE_API_NPM_PACKAGE" ]; then
-  export REBOOT_RESEMBLE_API_NPM_PACKAGE=$(realpath "$REBOOT_RESEMBLE_API_NPM_PACKAGE")
+if [ -n "$REBOOT_NPM_PACKAGE" ]; then
+  export REBOOT_NPM_PACKAGE=$(realpath "$REBOOT_NPM_PACKAGE")
 fi
 
-if [ -n "$REBOOT_RESEMBLE_REACT_NPM_PACKAGE" ]; then
-  export REBOOT_RESEMBLE_REACT_NPM_PACKAGE=$(realpath "$REBOOT_RESEMBLE_REACT_NPM_PACKAGE")
+if [ -n "$REBOOT_API_NPM_PACKAGE" ]; then
+  export REBOOT_API_NPM_PACKAGE=$(realpath "$REBOOT_API_NPM_PACKAGE")
+fi
+
+if [ -n "$REBOOT_REACT_NPM_PACKAGE" ]; then
+  export REBOOT_REACT_NPM_PACKAGE=$(realpath "$REBOOT_REACT_NPM_PACKAGE")
 fi
 
 # Create and activate a virtual environment.
 rye sync --no-lock
 source .venv/bin/activate
 
-rsm protoc
+rbt protoc
 
 mypy backend/
 
 pytest backend/
 
-if [ -n "$EXPECTED_RSM_DEV_OUTPUT_FILE" ]; then
+if [ -n "$EXPECTED_RBT_DEV_OUTPUT_FILE" ]; then
   actual_output_file=$(mktemp)
 
-  rsm dev run --terminate-after-health-check > "$actual_output_file"
+  rbt dev run --terminate-after-health-check > "$actual_output_file"
 
-  check_lines_in_file "$EXPECTED_RSM_DEV_OUTPUT_FILE" "$actual_output_file"
+  check_lines_in_file "$EXPECTED_RBT_DEV_OUTPUT_FILE" "$actual_output_file"
 
   rm "$actual_output_file"
 fi

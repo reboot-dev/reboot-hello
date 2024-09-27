@@ -1,7 +1,4 @@
-import {
-  ResembleClient,
-  ResembleClientProvider,
-} from "@reboot-dev/resemble-react";
+import { RebootClient, RebootClientProvider } from "@reboot-dev/reboot-react";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
@@ -12,15 +9,15 @@ const root = ReactDOM.createRoot(
 );
 // Use TLS (via dev.localhost.direct) so we get the advantage of HTTP/2
 // multiplexing.
-const client = new ResembleClient(
-  process.env.REACT_APP_REBOOT_RESEMBLE_ENDPOINT as string
+const client = new RebootClient(
+  process.env.REACT_APP_REBOOT_ENDPOINT as string
 );
 
 root.render(
   <React.StrictMode>
-    <ResembleClientProvider client={client}>
+    <RebootClientProvider client={client}>
       <App />
-    </ResembleClientProvider>
+    </RebootClientProvider>
   </React.StrictMode>
 );
 

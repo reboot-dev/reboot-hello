@@ -1,7 +1,7 @@
 # This `BUILD.bazel` file allows a `bazel` system (configured outside of this
 # repository) to use code in this directory and its subdirectories.
 
-load("@com_github_reboot_dev_respect//resemble/examples:rules.bzl", "write_templated_source_file")
+load("@com_github_reboot_dev_respect//reboot/examples:rules.bzl", "write_templated_source_file")
 
 filegroup(
     name = "everything",
@@ -12,7 +12,7 @@ filegroup(
             # as manually following the steps of the `README.md` file, but which
             # are not part of the "source code" of this repository.
             ".venv/**/*",
-            ".resemble-hello-venv/**/*",
+            ".reboot-hello-venv/**/*",
             ".pytest_cache/**/*",
             "api/gen/**/*.js",
             "web/node_modules/**/*",
@@ -27,7 +27,7 @@ filegroup(
 
 write_templated_source_file(
     name = "README_md",
-    src = "//resemble/examples:README.j2.md",
+    src = "//reboot/examples:README.j2.md",
     dest = "README.md",
-    input_yaml = "//resemble/examples:hello_README.md.yaml",
+    input_yaml = "//reboot/examples:hello_README.md.yaml",
 )

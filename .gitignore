@@ -1,5 +1,5 @@
-# Directory created from using the 'rsm' CLI tool.
-/.rsm/
+# Directory created from using the 'rbt' CLI tool.
+/.rbt/
 
 # The recommended virtualenv directory.
 /.venv/
@@ -16,5 +16,5 @@ backend/api/
 web/src/api/
 boilerplate/
 
-# Binary artifacts produced only during Resemble library development.
-.unpublished-resemble-wheel/*.whl
+# Binary artifacts produced only during Reboot library development.
+.unpublished-reboot-wheel/*.whl
