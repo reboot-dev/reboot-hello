@@ -2,12 +2,12 @@ syntax = "proto3";
 
 package hello.v1;
 
-import "resemble/v1alpha1/options.proto";
+import "rbt/v1alpha1/options.proto";
 
 ////////////////////////////////////////////////////////////////////////
 
 message Hello {
-  option (.resemble.v1alpha1.state) = {
+  option (.rbt.v1alpha1.state) = {
   };
   repeated string messages = 1;
 }
@@ -15,13 +15,13 @@ message Hello {
 service HelloInterface {
   // Returns the current list of recorded messages.
   rpc Messages(MessagesRequest) returns (MessagesResponse) {
-    option (resemble.v1alpha1.method).reader = {
+    option (rbt.v1alpha1.method).reader = {
     };
   }
 
   // Adds a new message to the list of recorded messages.
   rpc Send(SendRequest) returns (SendResponse) {
-    option (resemble.v1alpha1.method).writer = {
+    option (rbt.v1alpha1.method).writer = {
     };
   }
 }

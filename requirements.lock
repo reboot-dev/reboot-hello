@@ -8,146 +8,116 @@
 #   with-sources: false
 
 aiofiles==23.2.1
-    # via reboot-resemble
-aiohttp==3.8.5
+    # via reboot
+aiohappyeyeballs==2.4.1
+    # via aiohttp
+aiohttp==3.10.5
     # via kubernetes-asyncio
-    # via reboot-resemble
+    # via reboot
 aiosignal==1.3.1
     # via aiohttp
 async-timeout==4.0.3
     # via aiohttp
-attrs==23.2.0
+attrs==24.2.0
     # via aiohttp
-cachetools==5.3.3
-    # via google-auth
-certifi==2024.2.2
-    # via kubernetes
+certifi==2024.8.30
     # via kubernetes-asyncio
-    # via requests
 cffi==1.16.0
     # via cryptography
-charset-normalizer==3.3.2
-    # via aiohttp
-    # via requests
+    # via reboot
 colorama==0.4.6
-    # via reboot-resemble
+    # via reboot
 cryptography==42.0.2
-    # via reboot-resemble
+    # via reboot
 frozenlist==1.4.1
     # via aiohttp
     # via aiosignal
 gitdb==4.0.11
     # via gitpython
 gitpython==3.1.31
-    # via reboot-resemble
-google-auth==2.29.0
-    # via kubernetes
-googleapis-common-protos==1.61.0
+    # via reboot
+googleapis-common-protos==1.65.0
     # via grpcio-status
-    # via reboot-resemble
+    # via reboot
 grpc-interceptor==0.15.4
-    # via reboot-resemble
-grpcio==1.56.2
+    # via reboot
+grpcio==1.60.2
     # via grpc-interceptor
     # via grpcio-health-checking
     # via grpcio-reflection
     # via grpcio-status
     # via grpcio-tools
-    # via reboot-resemble
-grpcio-health-checking==1.56.2
-    # via reboot-resemble
-grpcio-reflection==1.56.2
-    # via reboot-resemble
-grpcio-status==1.56.2
-    # via reboot-resemble
-grpcio-tools==1.56.2
-    # via reboot-resemble
-idna==3.7
-    # via requests
+    # via reboot
+grpcio-health-checking==1.60.2
+    # via reboot
+grpcio-reflection==1.60.2
+    # via reboot
+grpcio-status==1.60.2
+    # via reboot
+grpcio-tools==1.60.2
+    # via reboot
+idna==3.10
     # via yarl
 jinja2==3.1.2
     # via jinja2-strcase
-    # via reboot-resemble
+    # via reboot
 jinja2-strcase==0.0.2
-    # via reboot-resemble
-kubernetes==24.2.0
-    # via reboot-resemble
-kubernetes-asyncio==24.2.2
-    # via reboot-resemble
+    # via reboot
+kubernetes-asyncio==31.1.0
+    # via reboot
 markupsafe==2.1.5
     # via jinja2
-multidict==6.0.5
+multidict==6.1.0
     # via aiohttp
     # via yarl
 mypy-protobuf==3.5.0
-    # via reboot-resemble
-oauthlib==3.2.2
-    # via requests-oauthlib
+    # via reboot
 packaging==23.1
-    # via reboot-resemble
+    # via reboot
 pathspec==0.12.1
-    # via reboot-resemble
-protobuf==4.25.2
+    # via reboot
+protobuf==4.25.4
     # via googleapis-common-protos
     # via grpcio-health-checking
     # via grpcio-reflection
     # via grpcio-status
     # via grpcio-tools
     # via mypy-protobuf
-    # via reboot-resemble
-psutil==5.9.5
-    # via reboot-resemble
-pyasn1==0.6.0
-    # via pyasn1-modules
-    # via rsa
-pyasn1-modules==0.4.0
-    # via google-auth
+    # via reboot
+psutil==6.0.0
+    # via reboot
 pycparser==2.22
     # via cffi
-pyjwt==2.8.0
-    # via reboot-resemble
+pyjwt==2.9.0
+    # via reboot
 pyprctl==0.1.3
-    # via reboot-resemble
+    # via reboot
 python-dateutil==2.9.0.post0
-    # via kubernetes
     # via kubernetes-asyncio
-pyyaml==6.0.1
-    # via kubernetes
+pyyaml==6.0.2
     # via kubernetes-asyncio
-reboot-resemble==0.13.2
-requests==2.31.0
-    # via kubernetes
-    # via requests-oauthlib
-requests-oauthlib==2.0.0
-    # via kubernetes
-rsa==4.9
-    # via google-auth
-setuptools==69.5.1
+    # via reboot
+reboot==0.15.0
+setuptools==75.1.0
     # via grpcio-tools
-    # via kubernetes
-    # via kubernetes-asyncio
 six==1.16.0
-    # via kubernetes
     # via kubernetes-asyncio
     # via python-dateutil
 smmap==5.0.1
     # via gitdb
-types-protobuf==5.26.0.20240422
+types-protobuf==5.28.0.20240924
     # via mypy-protobuf
 typing-extensions==4.9.0
-    # via reboot-resemble
+    # via multidict
+    # via reboot
 urllib3==1.26.15
-    # via kubernetes
     # via kubernetes-asyncio
-    # via reboot-resemble
-    # via requests
+    # via reboot
 uuid7==0.1.0
-    # via reboot-resemble
+    # via reboot
 watchdog==4.0.0
-    # via reboot-resemble
-websocket-client==1.8.0
-    # via kubernetes
-websockets==12.0
-    # via reboot-resemble
-yarl==1.9.4
+    # via reboot
+websockets==13.1
+    # via reboot
+yarl==1.12.1
     # via aiohttp

@@ -1,9 +1,9 @@
 import { FC, useState } from "react";
 import css from "./App.module.css";
-import { useHello } from "./api/hello/v1/hello_rsm_react";
+import { useHello } from "./api/hello/v1/hello_rbt_react";
 // We can choose any id we want because the state will be constructed when we
 // make the first .writer call.
-const STATE_MACHINE_ID = "resemble-hello";
+const STATE_MACHINE_ID = "reboot-hello";
 
 const Message: FC<{ text: string }> = ({ text }) => {
   return <div className={css.message}>{text}</div>;
@@ -28,7 +28,7 @@ const PendingMessage: FC<{ text: string; isLoading: boolean }> = ({
 
 const App = () => {
   // State of the input component.
-  const [message, setMessage] = useState("Hello, Resemble!");
+  const [message, setMessage] = useState("Hello, Reboot!");
 
   const { useMessages, send } = useHello({ id: STATE_MACHINE_ID });
   const { response } = useMessages();
@@ -69,7 +69,7 @@ const App = () => {
         response.messages.map((message: string) => (
           <Message text={message} key={message} />
         ))) ||
-        (response !== undefined && response.messages.length == 0 && (
+        (response !== undefined && response.messages.length === 0 && (
           <p className={css.informationText}>No messages yet!</p>
         ))}
       {/*

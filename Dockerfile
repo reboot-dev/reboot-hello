@@ -1,4 +1,4 @@
-FROM ghcr.io/reboot-dev/resemble-base:0.13.2
+FROM ghcr.io/reboot-dev/reboot-base:0.15.0
 
 WORKDIR /app
 
@@ -7,19 +7,19 @@ WORKDIR /app
 COPY requirements.lock requirements.txt
 RUN pip install -r requirements.txt
 
-# Next, copy the API definition and generate Resemble code. This step is also
+# Next, copy the API definition and generate Reboot code. This step is also
 # separate so it is only repeated if the `api/` code changes.
 COPY api/ api/
-COPY .rsmrc .rsmrc
+COPY .rbtrc .rbtrc
 
-# Run the Resemble code generators. We did copy all of `api/`, possibly
-# including generated code, but it's not certain that `rsm protoc` was run in
+# Run the Reboot code generators. We did copy all of `api/`, possibly
+# including generated code, but it's not certain that `rbt protoc` was run in
 # that folder before this build was started.
-RUN rsm protoc
+RUN rbt protoc
 # Now copy the rest of the source code.
 COPY backend/src/ backend/src/
 
-# Run `rsm serve` to get a production app!
+# Run `rbt serve` to get a production app!
 # It is assumed that the `PORT` variable is provided at runtime (some platforms
 # already do so by default).
-CMD rsm serve --port=$PORT
+CMD rbt serve --port=$PORT

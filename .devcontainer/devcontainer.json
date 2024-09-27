@@ -1,13 +1,13 @@
 // For format details, see https://aka.ms/devcontainer.json.
 {
-  "name": "Resemble Devcontainer",
-  "image": "ghcr.io/reboot-dev/resemble-devcontainer",
+  "name": "Reboot Devcontainer",
+  "image": "ghcr.io/reboot-dev/reboot-devcontainer",
   "remoteUser": "dev",
 
   "customizations": {
     "vscode": {
       // The following VS Code extensions are nice to have when developing on
-      // this Resemble application.
+      // this Reboot application.
       "extensions": [
         // Python support.
         "ms-python.python",

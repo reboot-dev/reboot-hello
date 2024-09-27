@@ -6,26 +6,26 @@ set -x # Echo executed commands to help debug failures.
 # Check that this script has been invoked with the right working directory, by
 # checking that the expected subdirectories exist.
 ls -l api/ backend/src/ web/ Dockerfile 2> /dev/null > /dev/null || {
-  echo "ERROR: this script must be invoked from the root of the 'resemble-hello' repository."
+  echo "ERROR: this script must be invoked from the root of the 'reboot-hello' repository."
   echo "Current working directory is '$(pwd)'."
   exit 1
 }
 
-get_reboot_resemble_version_from() {
-  version=$(egrep -o 'reboot-resemble==[.0-9]+' $1 | head -n 1)
+get_reboot_version_from() {
+  version=$(egrep -o 'reboot==[.0-9]+' $1 | head -n 1)
   if [ -z "$version" ]; then
-    echo "No resemble version found in $1."
+    echo "No reboot version found in $1."
     exit 1
   fi
   echo $version
 }
 
-# During Resemble's release process, consumed versions (but not lockfiles) have
+# During Reboot's release process, consumed versions (but not lockfiles) have
 # been updated everywhere. During that period, our image claims to consume a
 # a version which does not yet exist. Rather than adding a bunch of conditionals to
 # our Dockerfile, which would make it harder to grok, we skip this test while the
 # lockfile is out of sync. See #3495.
-if [[ $(get_reboot_resemble_version_from "pyproject.toml") != $(get_reboot_resemble_version_from "requirements.lock") ]]; then
+if [[ $(get_reboot_version_from "pyproject.toml") != $(get_reboot_version_from "requirements.lock") ]]; then
   echo "Lockfile does not match pyproject.toml: assuming we're mid-publish."
   exit 0
 fi
@@ -39,13 +39,16 @@ stop_container() {
 perform_curl() {
   local url="localhost:8787/hello.v1.HelloInterface/Messages"
   local headers=(
-    "-H" "x-resemble-service-name:hello.v1.HelloInterface"
-    "-H" "x-resemble-state-ref:hello.v1.Hello:resemble-hello"
+    "-H" "x-reboot-service-name:hello.v1.HelloInterface"
+    "-H" "x-reboot-state-ref:hello.v1.Hello:reboot-hello"
   )
   local actual_output_file="$1"
 
   # Discard the 'curl' exit code, since we want to continue even if the request fails.
-  http_status=$(curl -s -o "$actual_output_file" -w "%{http_code}" -XPOST $url "${headers[@]}" || true)
+  http_status=$(curl -v -s -o "$actual_output_file" -w "%{http_code}" -XPOST $url "${headers[@]}" || true)
+
+  # Print the output of 'curl' to aid in debugging.
+  cat "$actual_output_file"
 
   if [ "$http_status" -ne 200 ]; then
     return 1
@@ -65,8 +68,8 @@ if command -v docker &> /dev/null; then
   # That situation occurs when e.g. running this test on Bazel. Follow the symlink
   # back to the original directory and build from there.
   pushd $(dirname $(readlink --canonicalize ./Dockerfile))
-  # Build the "reboot-dev/resemble-hello" image.
-  image_name="reboot-dev/resemble-hello"
+  # Build the "reboot-dev/reboot-hello" image.
+  image_name="reboot-dev/reboot-hello"
   docker build -t $image_name .
   # Pick a port to run the container on. We can't use the default 9991, since in
   # tests on Reboot's GitHub Actions it is already in use by the devcontainer.
@@ -75,8 +78,18 @@ if command -v docker &> /dev/null; then
   actual_output_file=$(mktemp)
 
   # Try to reach the backend.
+  retries=0
   while ! perform_curl "$actual_output_file"; do
+    if [ "$retries" -ge 30 ]; then
+      # This is taking an unusually long time. Print the Docker logs to aid in
+      # debugging.
+      echo "###### Docker logs ######"
+      docker logs $container_id
+      echo "###### End Docker logs ######"
+      retries=0
+    fi
     sleep 1
+    retries=$((retries+1))
   done
 
   # Check the output.
