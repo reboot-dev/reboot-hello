@@ -7,7 +7,7 @@ import "rbt/v1alpha1/options.proto";
 ////////////////////////////////////////////////////////////////////////
 
 message Hello {
-  option (.rbt.v1alpha1.state) = {
+  option (rbt.v1alpha1.state) = {
   };
   repeated string messages = 1;
 }

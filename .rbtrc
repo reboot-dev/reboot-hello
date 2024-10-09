@@ -51,7 +51,7 @@ dev run --name=hello
 serve --name=hello
 
 # Run the application!
-dev run backend/src/main.py
+dev run --application=backend/src/main.py
 
 # Tell `rbt serve` that this is a Python application.
 serve --python
@@ -70,4 +70,4 @@ serve --partitions=4
 serve --tls=external
 
 # Run the application!
-serve backend/src/main.py
+serve --application=backend/src/main.py
