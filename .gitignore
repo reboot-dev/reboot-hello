@@ -4,7 +4,7 @@
 # The recommended virtualenv directory.
 /.venv/
 
-# Temporary directories produced by `pytest`.
+# Temporary directories produced by `python`.
 __pycache__/
 .pytest_cache/
 
