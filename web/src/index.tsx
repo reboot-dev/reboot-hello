@@ -7,10 +7,12 @@ import reportWebVitals from "./reportWebVitals";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 // Use TLS (via dev.localhost.direct) so we get the advantage of HTTP/2
 // multiplexing.
 const client = new RebootClient(
-  process.env.REACT_APP_REBOOT_ENDPOINT as string
+  (process.env.REACT_APP_REBOOT_ENDPOINT as string) ||
+    "https://dev.localhost.direct:9991"
 );
 
 root.render(
