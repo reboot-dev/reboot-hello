@@ -8,7 +8,7 @@ from hello.v1.hello_rbt import (
 from reboot.aio.contexts import ReaderContext, WriterContext
 
 
-class HelloServicer(Hello.Interface):
+class HelloServicer(Hello.Servicer):
 
     async def Messages(
         self,

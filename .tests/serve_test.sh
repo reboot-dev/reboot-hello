@@ -37,7 +37,7 @@ stop_container() {
 }
 
 perform_curl() {
-  local url="localhost:8787/hello.v1.HelloInterface/Messages"
+  local url="localhost:8787/hello.v1.HelloMethods/Messages"
   local headers=(
     "-H" "x-reboot-state-ref:hello.v1.Hello:reboot-hello"
   )

@@ -12,7 +12,7 @@ message Hello {
   repeated string messages = 1;
 }
 
-service HelloInterface {
+service HelloMethods {
   // Returns the current list of recorded messages.
   rpc Messages(MessagesRequest) returns (MessagesResponse) {
     option (rbt.v1alpha1.method).reader = {
