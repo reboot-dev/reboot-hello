@@ -32,10 +32,6 @@ cryptography==42.0.2
 frozenlist==1.4.1
     # via aiohttp
     # via aiosignal
-gitdb==4.0.11
-    # via gitpython
-gitpython==3.1.31
-    # via reboot
 googleapis-common-protos==1.65.0
     # via grpcio-status
     # via reboot
@@ -97,14 +93,12 @@ python-dateutil==2.9.0.post0
 pyyaml==6.0.2
     # via kubernetes-asyncio
     # via reboot
-reboot==0.17.0
+reboot==0.18.0
 setuptools==75.1.0
     # via grpcio-tools
 six==1.16.0
     # via kubernetes-asyncio
     # via python-dateutil
-smmap==5.0.1
-    # via gitdb
 types-protobuf==5.28.0.20240924
     # via mypy-protobuf
 typing-extensions==4.9.0

@@ -61,7 +61,12 @@ fi
 rye sync --no-lock
 source .venv/bin/activate
 
-rbt protoc
+# When running in a Bazel test, our `.rbtrc` file ends up in a very deep
+# directory structure, which can result in "path too long" errors from RocksDB.
+# Explicitly specify a shorter path.
+RBT_FLAGS="--state-directory=$(mktemp -d)"
+
+rbt $RBT_FLAGS protoc
 
 mypy backend/
 
@@ -70,7 +75,7 @@ pytest backend/
 if [ -n "$EXPECTED_RBT_DEV_OUTPUT_FILE" ]; then
   actual_output_file=$(mktemp)
 
-  rbt dev run --terminate-after-health-check > "$actual_output_file"
+  rbt $RBT_FLAGS dev run --terminate-after-health-check > "$actual_output_file"
 
   check_lines_in_file "$EXPECTED_RBT_DEV_OUTPUT_FILE" "$actual_output_file"
 
