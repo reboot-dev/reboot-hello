@@ -8,19 +8,19 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-// Use TLS (via dev.localhost.direct) so we get the advantage of HTTP/2
-// multiplexing.
-const client = new RebootClient(
-  (process.env.REACT_APP_REBOOT_ENDPOINT as string) ||
-    "https://dev.localhost.direct:9991"
-);
+if (process.env.REACT_APP_REBOOT_ENDPOINT === undefined) {
+  root.render("Please set 'REACT_APP_REBOOT_ENDPOINT' in '.env'");
+} else {
+  const client = new RebootClient(
+    process.env.REACT_APP_REBOOT_ENDPOINT as string
+  );
 
-root.render(
-  <React.StrictMode>
-    <RebootClientProvider client={client}>
-      <App />
-    </RebootClientProvider>
-  </React.StrictMode>
-);
-
+  root.render(
+    <React.StrictMode>
+      <RebootClientProvider client={client}>
+        <App />
+      </RebootClientProvider>
+    </React.StrictMode>
+  );
+}
 reportWebVitals();

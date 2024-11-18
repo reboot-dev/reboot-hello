@@ -48,26 +48,22 @@ cloud up --name=hello
 cloud down --name=hello
 dev expunge --name=hello
 dev run --name=hello
-serve --name=hello
+serve run --name=hello
 
 # Run the application!
 dev run --application=backend/src/main.py
 
 # Tell `rbt serve` that this is a Python application.
-serve --python
-
-# When serving, store state in the `/app/state/` directory. This is where we
-# must make sure to mount a persistent storage volume.
-serve --directory=/app/state/
+serve run --python
 
 # The number of partitions of our data to create. Each partition runs as a
-# separate process, and so increasing the partition count requires more
-# cores.
-serve --partitions=4
+# separate process, and so increasing the partition count requires more cores,
+# but also increases the number of concurrent requests that can be served.
+serve run --partitions=4
 
 # Leave TLS termination to the external load balancer; expose a non-SSL port to
 # that loadbalancer.
-serve --tls=external
+serve run --tls=external
 
 # Run the application!
-serve --application=backend/src/main.py
+serve run --application=backend/src/main.py
