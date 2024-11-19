@@ -1,4 +1,4 @@
-FROM ghcr.io/reboot-dev/reboot-base:0.18.0
+FROM ghcr.io/reboot-dev/reboot-base:0.19.0
 
 WORKDIR /app
 
@@ -19,7 +19,4 @@ RUN rbt protoc
 # Now copy the rest of the source code.
 COPY backend/src/ backend/src/
 
-# Run `rbt serve` to get a production app!
-# It is assumed that the `PORT` variable is provided at runtime (some platforms
-# already do so by default).
-CMD rbt serve --port=$PORT
+ENTRYPOINT ["rbt", "serve", "run"]

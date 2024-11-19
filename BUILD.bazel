@@ -1,7 +1,7 @@
 # This `BUILD.bazel` file allows a `bazel` system (configured outside of this
 # repository) to use code in this directory and its subdirectories.
 
-load("@com_github_reboot_dev_respect//reboot/examples:rules.bzl", "write_templated_source_file")
+load("@com_github_reboot_dev_mono//reboot/examples:rules.bzl", "write_templated_source_file")
 
 filegroup(
     name = "everything",

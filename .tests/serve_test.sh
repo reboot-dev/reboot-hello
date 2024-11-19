@@ -72,7 +72,14 @@ if command -v docker &> /dev/null; then
   docker build -t $image_name .
   # Pick a port to run the container on. We can't use the default 9991, since in
   # tests on Reboot's GitHub Actions it is already in use by the devcontainer.
-  container_id=$(docker run -e PORT=8787 -p8787:8787 --detach $image_name)
+  container_id=$( \
+    docker run \
+      --env=PORT=8787 \
+      -p8787:8787 \
+      --detach \
+      $image_name \
+      --state-directory=/app/state/ \
+  )
 
   actual_output_file=$(mktemp)
 

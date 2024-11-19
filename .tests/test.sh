@@ -13,7 +13,7 @@ ls -l api/ backend/src/ web/ 2> /dev/null > /dev/null || {
 
 # MacOS tests can fail due to a race in `protoc` writing files to disk,
 # so now we check only occurences of the expected lines in the output.
-# See https://github.com/reboot-dev/respect/issues/3433
+# See https://github.com/reboot-dev/mono/issues/3433
 check_lines_in_file() {
   local expected="$1"
   local actual="$2"
