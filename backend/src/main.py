@@ -19,16 +19,14 @@ async def initialize(context: ExternalContext):
         message="Hello, World!",
     )
 
-
-async def main():
-    application = Application(
-        servicers=[HelloServicer],
-        initialize=initialize,
-    )
-
     logging.info('👋 Hello, World? Hello, Reboot! 👋')
 
-    await application.run()
+
+async def main():
+    await Application(
+        servicers=[HelloServicer],
+        initialize=initialize,
+    ).run()
 
 
 if __name__ == '__main__':
