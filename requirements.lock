@@ -29,31 +29,39 @@ colorama==0.4.6
     # via reboot
 cryptography==42.0.2
     # via reboot
+deprecated==1.2.15
+    # via opentelemetry-api
+    # via opentelemetry-exporter-otlp-proto-grpc
+    # via opentelemetry-semantic-conventions
 frozenlist==1.4.1
     # via aiohttp
     # via aiosignal
 googleapis-common-protos==1.65.0
     # via grpcio-status
+    # via opentelemetry-exporter-otlp-proto-grpc
     # via reboot
 grpc-interceptor==0.15.4
     # via reboot
-grpcio==1.60.2
+grpcio==1.64.3
     # via grpc-interceptor
     # via grpcio-health-checking
     # via grpcio-reflection
     # via grpcio-status
     # via grpcio-tools
+    # via opentelemetry-exporter-otlp-proto-grpc
     # via reboot
-grpcio-health-checking==1.60.2
+grpcio-health-checking==1.64.3
     # via reboot
-grpcio-reflection==1.60.2
+grpcio-reflection==1.64.3
     # via reboot
-grpcio-status==1.60.2
+grpcio-status==1.64.3
     # via reboot
-grpcio-tools==1.60.2
+grpcio-tools==1.64.3
     # via reboot
 idna==3.10
     # via yarl
+importlib-metadata==8.5.0
+    # via opentelemetry-api
 jinja2==3.1.2
     # via jinja2-strcase
     # via reboot
@@ -68,17 +76,44 @@ multidict==6.1.0
     # via yarl
 mypy-protobuf==3.5.0
     # via reboot
+opentelemetry-api==1.28.1
+    # via opentelemetry-exporter-otlp-proto-grpc
+    # via opentelemetry-instrumentation
+    # via opentelemetry-instrumentation-grpc
+    # via opentelemetry-sdk
+    # via opentelemetry-semantic-conventions
+    # via reboot
+opentelemetry-exporter-otlp-proto-common==1.28.1
+    # via opentelemetry-exporter-otlp-proto-grpc
+opentelemetry-exporter-otlp-proto-grpc==1.28.1
+    # via reboot
+opentelemetry-instrumentation==0.49b1
+    # via opentelemetry-instrumentation-grpc
+opentelemetry-instrumentation-grpc==0.49b1
+    # via reboot
+opentelemetry-proto==1.28.1
+    # via opentelemetry-exporter-otlp-proto-common
+    # via opentelemetry-exporter-otlp-proto-grpc
+opentelemetry-sdk==1.28.1
+    # via opentelemetry-exporter-otlp-proto-grpc
+    # via reboot
+opentelemetry-semantic-conventions==0.49b1
+    # via opentelemetry-instrumentation
+    # via opentelemetry-instrumentation-grpc
+    # via opentelemetry-sdk
 packaging==23.1
+    # via opentelemetry-instrumentation
     # via reboot
 pathspec==0.12.1
     # via reboot
-protobuf==4.25.4
+protobuf==5.28.3
     # via googleapis-common-protos
     # via grpcio-health-checking
     # via grpcio-reflection
     # via grpcio-status
     # via grpcio-tools
     # via mypy-protobuf
+    # via opentelemetry-proto
     # via reboot
 psutil==6.0.0
     # via reboot
@@ -93,7 +128,7 @@ python-dateutil==2.9.0.post0
 pyyaml==6.0.2
     # via kubernetes-asyncio
     # via reboot
-reboot==0.19.0
+reboot==0.19.2
 setuptools==75.1.0
     # via grpcio-tools
 six==1.16.0
@@ -105,6 +140,7 @@ types-protobuf==5.28.0.20240924
     # via mypy-protobuf
 typing-extensions==4.9.0
     # via multidict
+    # via opentelemetry-sdk
     # via reboot
 urllib3==1.26.15
     # via kubernetes-asyncio
@@ -115,5 +151,11 @@ watchdog==4.0.0
     # via reboot
 websockets==13.1
     # via reboot
+wrapt==1.16.0
+    # via deprecated
+    # via opentelemetry-instrumentation
+    # via opentelemetry-instrumentation-grpc
 yarl==1.12.1
     # via aiohttp
+zipp==3.21.0
+    # via importlib-metadata
