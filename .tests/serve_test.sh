@@ -99,7 +99,7 @@ if command -v docker &> /dev/null; then
   done
 
   # Check the output.
-  if ! diff -u "$EXPECTED_CURL_OUTPUT_FILE" "$actual_output_file"; then
+  if ! diff -u "${SANDBOX_ROOT}$EXPECTED_CURL_OUTPUT_FILE" "$actual_output_file"; then
     echo "The actual output does not match the expected output."
     exit 1
   fi
