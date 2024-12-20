@@ -148,10 +148,10 @@ Application starting; your application will be available at:
 ```
 
 To build a version of the front end that can talk to the deployed app, update
-the `REACT_APP_REBOOT_ENDPOINT` value in `web/.env`:
+the `REACT_APP_REBOOT_URL` value in `web/.env`:
 
 ```tsx
-REACT_APP_REBOOT_ENDPOINT=https://<application_id>.prod1.rbt.cloud:9991
+REACT_APP_REBOOT_URL=https://<application_id>.prod1.rbt.cloud:9991
 ```
 
 Then, in the `web/` directory, run `npm run build`.
