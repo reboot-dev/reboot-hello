@@ -6,6 +6,8 @@
 #   features: []
 #   all-features: false
 #   with-sources: false
+#   generate-hashes: false
+#   universal: false
 
 aiofiles==23.2.1
     # via reboot
@@ -22,12 +24,12 @@ attrs==24.2.0
     # via aiohttp
 certifi==2024.8.30
     # via kubernetes-asyncio
-cffi==1.16.0
+cffi==1.17.1
     # via cryptography
     # via reboot
 colorama==0.4.6
     # via reboot
-cryptography==42.0.2
+cryptography==44.0.0
     # via reboot
 deprecated==1.2.15
     # via opentelemetry-api
@@ -128,7 +130,7 @@ python-dateutil==2.9.0.post0
 pyyaml==6.0.2
     # via kubernetes-asyncio
     # via reboot
-reboot==0.22.0
+reboot==0.23.0
 setuptools==75.1.0
     # via grpcio-tools
 six==1.16.0
@@ -147,7 +149,7 @@ urllib3==1.26.15
     # via reboot
 uuid7==0.1.0
     # via reboot
-watchdog==4.0.0
+watchdog==6.0.0
     # via reboot
 websockets==13.1
     # via reboot
