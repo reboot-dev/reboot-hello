@@ -11,7 +11,7 @@ EXAMPLE_STATE_MACHINE_ID = 'reboot-hello'
 
 
 async def initialize(context: ExternalContext):
-    hello = Hello.lookup(EXAMPLE_STATE_MACHINE_ID)
+    hello = Hello.ref(EXAMPLE_STATE_MACHINE_ID)
 
     # Implicitly construct state machine upon first write.
     await hello.idempotently().Send(

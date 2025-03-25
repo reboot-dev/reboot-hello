@@ -63,3 +63,5 @@ serve run --tls=external
 
 # Run the application!
 serve run --application=backend/src/main.py
+
+cloud logs --name=hello

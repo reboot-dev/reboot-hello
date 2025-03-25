@@ -18,7 +18,7 @@ class TestHello(unittest.IsolatedAsyncioTestCase):
 
         context = self.rbt.create_external_context(name=f"test-{self.id()}")
 
-        hello = Hello.lookup("testing-hello")
+        hello = Hello.ref("testing-hello")
 
         await hello.Send(context, message="Hello, World")
 
