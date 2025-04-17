@@ -1,6 +1,7 @@
 import unittest
 from hello.v1.hello_rbt import Hello, MessagesResponse
 from hello_servicer import HelloServicer
+from reboot.aio.applications import Application
 from reboot.aio.tests import Reboot
 
 
@@ -14,7 +15,7 @@ class TestHello(unittest.IsolatedAsyncioTestCase):
         await self.rbt.stop()
 
     async def test_hello(self) -> None:
-        await self.rbt.up(servicers=[HelloServicer])
+        await self.rbt.up(Application(servicers=[HelloServicer]))
 
         context = self.rbt.create_external_context(name=f"test-{self.id()}")
 

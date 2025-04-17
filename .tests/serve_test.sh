@@ -30,6 +30,20 @@ if [[ $(get_reboot_version_from "pyproject.toml") != $(get_reboot_version_from "
   exit 0
 fi
 
+# Use the published Reboot pip package by default, but allow the test system
+# to override it with a different value. This is important even when using the
+# `reboot-base` image with the `reboot` package already installed, since the
+# `requirements.lock` file in this example might be out of date with the version
+# of `reboot` used in that base image, and in particular may list the wrong
+# dependencies.
+if [ -n "$REBOOT_WHL_FILE" ]; then
+  # Install the `reboot` package from the specified path explicitly, over-
+  # writing the version from `pyproject.toml`.
+  rye remove --no-sync reboot
+  rye remove --no-sync --dev reboot
+  rye add --dev reboot --absolute --path="${SANDBOX_ROOT}$REBOOT_WHL_FILE"
+fi
+
 stop_container() {
   if [ -n "$container_id" ]; then
     docker stop "$container_id"

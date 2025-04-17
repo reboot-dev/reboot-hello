@@ -5,10 +5,14 @@ from hello.v1.hello_rbt import (
     SendRequest,
     SendResponse,
 )
+from reboot.aio.auth.authorizers import allow
 from reboot.aio.contexts import ReaderContext, WriterContext
 
 
 class HelloServicer(Hello.Servicer):
+
+    def authorizer(self):
+        return allow()
 
     async def Messages(
         self,
