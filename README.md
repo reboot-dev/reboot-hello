@@ -116,42 +116,29 @@ pytest backend/
 ```
 ### Running on the Reboot Cloud
 
-Pick a public Docker registry you can push images to. Determine the name you'd
-like the image to have in that registry. For example:
-`ghcr.io/your-github-username/reboot-hello`.
+This repository contains a `Dockerfile` that makes it possible to run this application on
+[the Reboot Cloud](https://cloud.reboot.dev/)! To use the Reboot Cloud you
+currently still need an invitation; sign up at https://cloud.reboot.dev/ to be considered.
 
-#### Build and push the Docker image like you're used to.
+Once you've received an invitation to use Reboot Cloud, you will also receive an
+API key. You can then run this application on Reboot Cloud as follows:
 
-```shell
-export IMAGE_NAME=yourregistry.io/yourname/yourproject/yourappname
-docker build --tag $IMAGE_NAME .
-docker push $IMAGE_NAME
+```console
+rbt cloud up --api-key=YOUR_API_KEY
 ```
 
-#### Launch the image on the Reboot cloud
-Include the image's SHA in its name, so that it is unambiguous exactly which version of the image you're choosing.
-```sh
-export IMAGE_NAME_WITH_SHA=$(docker inspect --format='{{index .RepoDigests 0}}' $IMAGE_NAME)
-rbt cloud up --image-name=$IMAGE_NAME_WITH_SHA --api-key=YOUR_API_KEY
-```
-
-Execute that `rbt cloud up` command to have your pushed Reboot container run
-on the Reboot Cloud! 🎉
-
-To make calls to the application that just started, get the endpoint URL from
-message output to the console.
+To make calls to the application that just started, find the application's URL
+in the output of `rbt cloud up`:
 
 ```sh
-Application starting; your application will be available at:
-
-<application_id>.prod1.rbt.cloud:9991
+'yourapp' is available at: YOUR_URL
 ```
 
-To build a version of the front end that can talk to the deployed app, update
-the `REACT_APP_REBOOT_URL` value in `web/.env`:
+Tell the front end to talk to it by updating the `REACT_APP_REBOOT_URL` value in
+`web/.env`:
 
 ```tsx
-REACT_APP_REBOOT_URL=https://<application_id>.prod1.rbt.cloud:9991
+REACT_APP_REBOOT_URL=YOUR_URL
 ```
 
 Then, in the `web/` directory, run `npm run build`.
