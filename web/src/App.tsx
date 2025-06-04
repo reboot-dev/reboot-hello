@@ -83,7 +83,7 @@ const App = () => {
       ))}
       {/*
         If we're loading our first response, show the user a loading message,
-        so that they don't just see an emtpy screen.
+        so that they don't just see an empty screen.
       */}
       {response === undefined && (
         <p className={css.informationText}>Loading...</p>
