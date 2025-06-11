@@ -13,7 +13,7 @@ This repository contains a simple example application written using Reboot.
 The [Reboot '.proto' definitions](https://docs.reboot.dev/develop/schema#code-generation)
 can be found in the `api/` directory, grouped into
 subdirectories by proto package, while backend specific code can be
-found in `backend/` and front end specific code in `web/`.
+found in `backend/` and front end specific code in `web/` and non-React front end in `reboot-non-react-web/`.
 
 _For more information on all of the Reboot examples, please [see the docs](https://docs.reboot.dev/get_started/examples)._
 
@@ -91,6 +91,20 @@ npm start
 
 If using VSCode, the page will load automatically.
 If not using VSCode, visit [http://127.0.0.1:3000](http://127.0.0.1:3000).
+
+### Non-React front end
+
+The non-React front end can be run in a similar way to the React front end,
+but it uses a different directory and port:
+
+```shell
+cd reboot-non-react-web/
+npm install
+npm run dev
+```
+
+Navigate to [http://127.0.0.1:5173](http://127.0.0.1:5173) to view the application.
+
 ### Tests
 
 The application comes with backend tests.
