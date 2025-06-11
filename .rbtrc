@@ -31,6 +31,7 @@ protoc --boilerplate=boilerplate/
 # The paths are different for backend and frontend code.
 protoc --python=backend/api/
 protoc --react=web/src/api
+protoc --web=web/src/api
 
 # Watch if any generated or source files are modified.
 dev run --watch=backend/api/**/*.py
