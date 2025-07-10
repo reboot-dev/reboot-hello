@@ -110,16 +110,16 @@ Navigate to [http://127.0.0.1:5173](http://127.0.0.1:5173) to view the applicati
 The application comes with backend tests.
 
 Before you run the tests, you'll
-need to ensure you've run `rbt protoc`.  If you've already run `rbt dev run`
-without modifying `.rbtrc`, `rbt protoc` will have been run for you as
+need to ensure you've run `rbt generate`.  If you've already run `rbt dev run`
+without modifying `.rbtrc`, `rbt generate` will have been run for you as
 part of that command.
 Otherwise, you can do it manually.
 
 ```sh
-rbt protoc
+rbt generate
 ```
 
-`rbt protoc` will automatically make required Reboot '.proto'
+`rbt generate` will automatically make required Reboot '.proto'
 dependencies like `rbt/v1alpha1/options.proto` available on the
 import path without you having to check them into your own repository.
 
