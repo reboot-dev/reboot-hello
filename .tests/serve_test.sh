@@ -89,10 +89,10 @@ if command -v docker &> /dev/null; then
   container_id=$( \
     docker run \
       --env=PORT=8787 \
+      --env=RBT_STATE_DIRECTORY=/app/state/ \
       -p8787:8787 \
       --detach \
       $image_name \
-      --state-directory=/app/state/ \
   )
 
   actual_output_file=$(mktemp)

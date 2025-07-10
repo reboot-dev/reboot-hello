@@ -37,7 +37,7 @@ source .venv/bin/activate
 # Explicitly specify a shorter path.
 RBT_FLAGS="--state-directory=$(mktemp -d)"
 
-rbt $RBT_FLAGS protoc
+rbt $RBT_FLAGS generate
 
 mypy backend/
 

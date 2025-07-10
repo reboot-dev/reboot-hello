@@ -1,4 +1,4 @@
-FROM ghcr.io/reboot-dev/reboot-base:0.28.0
+FROM ghcr.io/reboot-dev/reboot-base:0.29.1
 
 WORKDIR /app
 
@@ -13,10 +13,11 @@ COPY api/ api/
 COPY .rbtrc .rbtrc
 
 # Run the Reboot code generators. We did copy all of `api/`, possibly
-# including generated code, but it's not certain that `rbt protoc` was run in
+# including generated code, but it's not certain that `rbt generate` was run in
 # that folder before this build was started.
-RUN rbt protoc
+RUN rbt generate
+
 # Now copy the rest of the source code.
 COPY backend/src/ backend/src/
 
-ENTRYPOINT ["rbt", "serve", "run"]
+CMD ["rbt", "serve", "run"]

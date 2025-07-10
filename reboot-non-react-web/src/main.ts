@@ -1,8 +1,5 @@
 import { WebContext } from "@reboot-dev/reboot-web";
-import {
-  Hello,
-  MessagesResponse,
-} from "../../web/src/api/hello/v1/hello_rbt_web";
+import { Hello } from "../../web/src/api/hello/v1/hello_rbt_web";
 
 const root = document.getElementById("messages");
 const button = document.getElementById("button");
@@ -32,17 +29,17 @@ async function handleClick(element: HTMLInputElement) {
 
 async function bindToElement(
   element: HTMLElement,
-  generator: AsyncGenerator<MessagesResponse>
+  generator: AsyncGenerator<Hello.MessagesResponse>
 ) {
   for await (const response of generator) {
     element.innerHTML = `${response.messages
-      .map((msg) => `<div class="message">${msg}</div>`)
+      .map((msg: string) => `<div class="message">${msg}</div>`)
       .join("")}`;
   }
 }
 
 const [responses] = await hello.reactively().messages(context);
 
-bindToElement(root, responses);
+bindToElement(root!, responses);
 
 console.log("Hello Reboot Web example is running!");
