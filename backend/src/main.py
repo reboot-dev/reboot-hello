@@ -3,18 +3,18 @@ import logging
 from hello.v1.hello_rbt import Hello
 from hello_servicer import HelloServicer
 from reboot.aio.applications import Application
-from reboot.aio.external import ExternalContext
+from reboot.aio.external import InitializeContext
 
 logging.basicConfig(level=logging.INFO)
 
 EXAMPLE_STATE_MACHINE_ID = 'reboot-hello'
 
 
-async def initialize(context: ExternalContext):
+async def initialize(context: InitializeContext):
     hello = Hello.ref(EXAMPLE_STATE_MACHINE_ID)
 
     # Implicitly construct state machine upon first write.
-    await hello.idempotently().Send(
+    await hello.Send(
         context,
         message="Hello, World!",
     )

@@ -134,6 +134,7 @@ pycparser==2.22
     # via cffi
 pydantic==2.9.2
     # via fastapi
+    # via reboot
 pydantic-core==2.23.4
     # via pydantic
 pyjwt==2.8.0
@@ -145,7 +146,7 @@ python-dateutil==2.9.0.post0
 pyyaml==6.0.2
     # via kubernetes-asyncio
     # via reboot
-reboot==0.32.0
+reboot==0.33.0
 setuptools==75.1.0
     # via grpcio-tools
 six==1.16.0
@@ -175,7 +176,7 @@ tzlocal==5.3
 urllib3==1.26.15
     # via kubernetes-asyncio
     # via reboot
-uuid7==0.1.0
+uuid7-standard==1.1.0
     # via reboot
 uvicorn==0.34.0
     # via reboot
