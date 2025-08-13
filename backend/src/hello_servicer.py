@@ -17,17 +17,15 @@ class HelloServicer(Hello.Servicer):
     async def Messages(
         self,
         context: ReaderContext,
-        state: Hello.State,
         request: MessagesRequest,
     ) -> MessagesResponse:
-        return MessagesResponse(messages=state.messages)
+        return MessagesResponse(messages=self.state.messages)
 
     async def Send(
         self,
         context: WriterContext,
-        state: Hello.State,
         request: SendRequest,
     ) -> SendResponse:
         message = request.message
-        state.messages.extend([message])
+        self.state.messages.extend([message])
         return SendResponse()
