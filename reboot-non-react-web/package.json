@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@reboot-dev/reboot-web": "^0.34.0",
+    "@reboot-dev/reboot-web": "^0.35.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
