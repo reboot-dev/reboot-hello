@@ -70,6 +70,12 @@ grpcio-tools==1.64.3
     # via reboot
 h11==0.14.0
     # via uvicorn
+h2==4.3.0
+    # via reboot
+hpack==4.1.0
+    # via h2
+hyperframe==6.1.0
+    # via h2
 idna==3.10
     # via anyio
     # via yarl
@@ -146,7 +152,7 @@ python-dateutil==2.9.0.post0
 pyyaml==6.0.2
     # via kubernetes-asyncio
     # via reboot
-reboot==0.36.0
+reboot==0.37.1
 setuptools==75.1.0
     # via grpcio-tools
 six==1.16.0
