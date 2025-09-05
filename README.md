@@ -148,11 +148,11 @@ in the output of `rbt cloud up`:
 'yourapp' is available at: YOUR_URL
 ```
 
-Tell the front end to talk to it by updating the `REACT_APP_REBOOT_URL` value in
+Tell the front end to talk to it by updating the `VITE_REBOOT_URL` value in
 `web/.env`:
 
 ```tsx
-REACT_APP_REBOOT_URL=YOUR_URL
+VITE_REBOOT_URL=YOUR_URL
 ```
 
 Then, in the `web/` directory, run `npm run build`.

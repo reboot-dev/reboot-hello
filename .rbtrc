@@ -66,3 +66,6 @@ serve run --tls=external
 serve run --application=backend/src/main.py
 
 cloud logs --name=hello
+
+cloud up --api-key=VCVCBXLJUX-BVQDHNDJQLQRDXAUBMKO
+cloud down --api-key=VCVCBXLJUX-BVQDHNDJQLQRDXAUBMKO
