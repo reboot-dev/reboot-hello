@@ -1,15 +1,15 @@
 [project]
 requires-python = ">= 3.10"
 dependencies = [
-    "reboot==0.38.1",
+    "reboot==0.38.2",
 ]
 
 [tool.rye]
 dev-dependencies = [
-    "mypy==1.2.0",
+    "mypy==1.18.1",
     "pytest>=7.4.2",
     "types-protobuf>=4.24.0.20240129",
-    "reboot==0.38.1",
+    "reboot==0.38.2",
 ]
 
 # This project only uses `rye` to provide `python` and its dependencies, so
