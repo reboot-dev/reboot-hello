@@ -14,7 +14,7 @@ async def initialize(context: InitializeContext):
     hello = Hello.ref(EXAMPLE_STATE_MACHINE_ID)
 
     # Implicitly construct state machine upon first write.
-    await hello.Send(
+    await hello.send(
         context,
         message="Hello, World!",
     )

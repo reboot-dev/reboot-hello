@@ -21,14 +21,14 @@ class TestHello(unittest.IsolatedAsyncioTestCase):
 
         hello = Hello.ref("testing-hello")
 
-        await hello.Send(context, message="Hello, World")
+        await hello.send(context, message="Hello, World")
 
-        response: MessagesResponse = await hello.Messages(context)
+        response: MessagesResponse = await hello.messages(context)
         self.assertEqual(response.messages, ["Hello, World"])
 
-        await hello.Send(context, message="Hello, Reboot!")
-        await hello.Send(context, message="Hello, Peace of Mind!")
-        response = await hello.Messages(context)
+        await hello.send(context, message="Hello, Reboot!")
+        await hello.send(context, message="Hello, Peace of Mind!")
+        response = await hello.messages(context)
         self.assertEqual(
             response.messages,
             [
