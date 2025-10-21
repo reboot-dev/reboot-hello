@@ -40,8 +40,9 @@ Now you're ready to [run the application](#run-the-application)!
 Running directly on a host requires:
 
 - A platform of either:
-   - `x86_64 Linux` with `glibc>=2.31` (Ubuntu Focal and other equivalent-generation Linux distributions)
-   - `arm64 or x86_64 MacOS` with `MacOS>=13.0` and `Xcode>=14.3`
+   - Linux: `x86_64` or `arm64`, with `glibc>=2.35` (Ubuntu Jammy and other equivalent-generation distributions)
+   - Mac: `arm64` (Apple M1 and newer) with `MacOS>=14.0` and `Xcode>=15.2`
+   - ... or [talk to us](https://discord.gg/cRbdcS94Nr) if your desired platform isn't currently supported!
 - [Rye](https://rye-up.com/) - A tool to manage `python`, `pip`, and `venv`.
    - If you are already familiar with Python [virtual environments](https://docs.python.org/3/library/venv.html), feel free to use your tool of choice with [`pyproject.toml`](./pyproject.toml). Python >= 3.10 and < 3.13 is required.
 - Node.js
