@@ -1,5 +1,5 @@
 import unittest
-from hello.v1.hello_rbt import Hello, MessagesResponse
+from hello.v1.hello_rbt import Hello
 from hello_servicer import HelloServicer
 from reboot.aio.applications import Application
 from reboot.aio.tests import Reboot
@@ -23,7 +23,8 @@ class TestHello(unittest.IsolatedAsyncioTestCase):
 
         await hello.send(context, message="Hello, World")
 
-        response: MessagesResponse = await hello.messages(context)
+        response: Hello.MessagesResponse = await hello.messages(context)
+
         self.assertEqual(response.messages, ["Hello, World"])
 
         await hello.send(context, message="Hello, Reboot!")

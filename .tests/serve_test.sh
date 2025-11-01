@@ -90,6 +90,7 @@ if command -v docker &> /dev/null; then
     docker run \
       --env=PORT=8787 \
       --env=RBT_STATE_DIRECTORY=/app/state/ \
+      --env=RBT_SERVERS=2 \
       -p8787:8787 \
       --detach \
       $image_name \
