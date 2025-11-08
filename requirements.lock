@@ -143,7 +143,7 @@ pydantic==2.9.2
     # via reboot
 pydantic-core==2.23.4
     # via pydantic
-pyjwt==2.8.0
+pyjwt==2.10.1
     # via reboot
 pyprctl==0.1.3
     # via reboot
@@ -152,7 +152,7 @@ python-dateutil==2.9.0.post0
 pyyaml==6.0.2
     # via kubernetes-asyncio
     # via reboot
-reboot==0.39.1
+reboot==0.39.3
 setuptools==75.1.0
     # via grpcio-tools
 six==1.16.0
