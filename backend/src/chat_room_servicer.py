@@ -1,5 +1,5 @@
-from hello.v1.hello_rbt import (
-    Hello,
+from chat_room.v1.chat_room_rbt import (
+    ChatRoom,
     MessagesRequest,
     MessagesResponse,
     SendRequest,
@@ -9,7 +9,7 @@ from reboot.aio.auth.authorizers import allow
 from reboot.aio.contexts import ReaderContext, WriterContext
 
 
-class HelloServicer(Hello.Servicer):
+class ChatRoomServicer(ChatRoom.Servicer):
 
     def authorizer(self):
         return allow()

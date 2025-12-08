@@ -1,6 +1,6 @@
 import unittest
-from hello.v1.hello_rbt import Hello
-from hello_servicer import HelloServicer
+from chat_room.v1.chat_room_rbt import ChatRoom
+from chat_room_servicer import ChatRoomServicer
 from reboot.aio.applications import Application
 from reboot.aio.tests import Reboot
 
@@ -14,22 +14,21 @@ class TestHello(unittest.IsolatedAsyncioTestCase):
     async def asyncTearDown(self) -> None:
         await self.rbt.stop()
 
-    async def test_hello(self) -> None:
-        await self.rbt.up(Application(servicers=[HelloServicer]))
+    async def test_chat_room(self) -> None:
+        await self.rbt.up(Application(servicers=[ChatRoomServicer]))
 
         context = self.rbt.create_external_context(name=f"test-{self.id()}")
 
-        hello = Hello.ref("testing-hello")
+        chat_room = ChatRoom.ref("testing-chat-room")
 
-        await hello.send(context, message="Hello, World")
+        await chat_room.send(context, message="Hello, World")
 
-        response: Hello.MessagesResponse = await hello.messages(context)
-
+        response: ChatRoom.MessagesResponse = await chat_room.messages(context)
         self.assertEqual(response.messages, ["Hello, World"])
 
-        await hello.send(context, message="Hello, Reboot!")
-        await hello.send(context, message="Hello, Peace of Mind!")
-        response = await hello.messages(context)
+        await chat_room.send(context, message="Hello, Reboot!")
+        await chat_room.send(context, message="Hello, Peace of Mind!")
+        response = await chat_room.messages(context)
         self.assertEqual(
             response.messages,
             [

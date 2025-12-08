@@ -1,18 +1,18 @@
 syntax = "proto3";
 
-package hello.v1;
+package chat_room.v1;
 
 import "rbt/v1alpha1/options.proto";
 
 ////////////////////////////////////////////////////////////////////////
 
-message Hello {
+message ChatRoom {
   option (rbt.v1alpha1.state) = {
   };
   repeated string messages = 1;
 }
 
-service HelloMethods {
+service ChatRoomMethods {
   // Returns the current list of recorded messages.
   rpc Messages(MessagesRequest) returns (MessagesResponse) {
     option (rbt.v1alpha1.method).reader = {

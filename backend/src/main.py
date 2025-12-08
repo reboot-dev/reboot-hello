@@ -1,20 +1,20 @@
 import asyncio
 import logging
-from hello.v1.hello_rbt import Hello
-from hello_servicer import HelloServicer
+from chat_room.v1.chat_room_rbt import ChatRoom
+from chat_room_servicer import ChatRoomServicer
 from reboot.aio.applications import Application
 from reboot.aio.external import InitializeContext
 
 logging.basicConfig(level=logging.INFO)
 
-EXAMPLE_STATE_MACHINE_ID = 'reboot-hello'
+EXAMPLE_STATE_MACHINE_ID = 'reboot-chat-room'
 
 
 async def initialize(context: InitializeContext):
-    hello = Hello.ref(EXAMPLE_STATE_MACHINE_ID)
+    chat_room = ChatRoom.ref(EXAMPLE_STATE_MACHINE_ID)
 
     # Implicitly construct state machine upon first write.
-    await hello.send(
+    await chat_room.send(
         context,
         message="Hello, World!",
     )
@@ -24,7 +24,7 @@ async def initialize(context: InitializeContext):
 
 async def main():
     await Application(
-        servicers=[HelloServicer],
+        servicers=[ChatRoomServicer],
         initialize=initialize,
     ).run()
 

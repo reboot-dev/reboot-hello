@@ -12,7 +12,7 @@ filegroup(
             # as manually following the steps of the `README.md` file, but which
             # are not part of the "source code" of this repository.
             ".venv/**/*",
-            ".reboot-hello-venv/**/*",
+            ".reboot-chat-room-venv/**/*",
             ".pytest_cache/**/*",
             "api/gen/**/*.js",
             "web/node_modules/**/*",
@@ -29,5 +29,5 @@ write_templated_source_file(
     name = "README_md",
     src = "//reboot/examples:README.j2.md",
     dest = "README.md",
-    input_yaml = "//reboot/examples:hello_README.md.yaml",
+    input_yaml = "//reboot/examples:chat_room_README.md.yaml",
 )
