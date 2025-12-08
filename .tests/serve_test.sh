@@ -51,9 +51,9 @@ stop_container() {
 }
 
 perform_curl() {
-  local url="localhost:8787/hello.v1.HelloMethods/Messages"
+  local url="localhost:8787/chat_room.v1.ChatRoomMethods/Messages"
   local headers=(
-    "-H" "x-reboot-state-ref:hello.v1.Hello:reboot-hello"
+    "-H" "x-reboot-state-ref:chat_room.v1.ChatRoom:reboot-chat-room"
   )
   local actual_output_file="$1"
 

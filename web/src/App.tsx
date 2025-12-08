@@ -1,9 +1,9 @@
 import { FC, useState } from "react";
 import css from "./App.module.css";
-import { useHello } from "./api/hello/v1/hello_rbt_react";
+import { useChatRoom } from "./api/chat_room/v1/chat_room_rbt_react";
 // We can choose any id we want because the state will be constructed when we
 // make the first .writer call.
-const STATE_MACHINE_ID = "reboot-hello";
+const STATE_MACHINE_ID = "reboot-chat-room";
 
 const Message: FC<{ text: string }> = ({ text }) => {
   return <div className={css.message}>{text}</div>;
@@ -30,7 +30,7 @@ const App = () => {
   // State of the input component.
   const [message, setMessage] = useState("Hello, Reboot!");
 
-  const { useMessages, send } = useHello({ id: STATE_MACHINE_ID });
+  const { useMessages, send } = useChatRoom({ id: STATE_MACHINE_ID });
   const { response } = useMessages();
 
   const handleClick = async () => {

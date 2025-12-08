@@ -1,5 +1,5 @@
 import { WebContext } from "@reboot-dev/reboot-web";
-import { Hello } from "../../web/src/api/hello/v1/hello_rbt_web";
+import { ChatRoom } from "../../web/src/api/chat_room/v1/chat_room_rbt_web";
 
 const root = document.getElementById("messages");
 const button = document.getElementById("button");
@@ -7,7 +7,7 @@ const button = document.getElementById("button");
 const context = new WebContext({
   url: "http://localhost:9991",
 });
-const hello = Hello.ref("reboot-hello");
+const chatRoom = ChatRoom.ref("reboot-chat-room");
 
 button!.addEventListener("click", async () => {
   const inputElement = document.getElementById("input") as HTMLInputElement;
@@ -20,7 +20,7 @@ async function handleClick(element: HTMLInputElement) {
     return;
   }
 
-  await hello.send(context, {
+  await chatRoom.send(context, {
     message: message,
   });
 
@@ -29,7 +29,7 @@ async function handleClick(element: HTMLInputElement) {
 
 async function bindToElement(
   element: HTMLElement,
-  generator: AsyncGenerator<Hello.MessagesResponse>
+  generator: AsyncGenerator<ChatRoom.MessagesResponse>
 ) {
   for await (const response of generator) {
     element.innerHTML = `${response.messages
@@ -38,8 +38,8 @@ async function bindToElement(
   }
 }
 
-const [responses] = await hello.reactively().messages(context);
+const [responses] = await chatRoom.reactively().messages(context);
 
 bindToElement(root!, responses);
 
-console.log("Hello Reboot Web example is running!");
+console.log("Chat Room Reboot Web example is running!");
