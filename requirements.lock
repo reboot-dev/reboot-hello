@@ -152,7 +152,7 @@ python-dateutil==2.9.0.post0
 pyyaml==6.0.2
     # via kubernetes-asyncio
     # via reboot
-reboot==0.42.0
+reboot==0.43.0
 setuptools==75.1.0
     # via grpcio-tools
 six==1.16.0
