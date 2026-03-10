@@ -51,14 +51,26 @@ stop_container() {
 }
 
 perform_curl() {
-  local url="localhost:8787/chat_room.v1.ChatRoomMethods/Messages"
-  local headers=(
-    "-H" "x-reboot-state-ref:chat_room.v1.ChatRoom:reboot-chat-room"
+  local state_id="$1"
+  local method="$2"
+  local actual_output_file="$3"
+  local data="$4"
+  local url="localhost:8787/chat_room.v1.ChatRoomMethods/${method}"
+  local curl_args=(
+    -v -s
+    -o "$actual_output_file"
+    -w "%{http_code}"
+    -XPOST
+    -H "x-reboot-state-ref:chat_room.v1.ChatRoom:${state_id}"
   )
-  local actual_output_file="$1"
 
-  # Discard the 'curl' exit code, since we want to continue even if the request fails.
-  http_status=$(curl -v -s -o "$actual_output_file" -w "%{http_code}" -XPOST $url "${headers[@]}" || true)
+  if [ -n "$data" ]; then
+    curl_args+=(-H "Content-Type: application/json" -d "$data")
+  fi
+
+  # Discard the 'curl' exit code, since we want to
+  # continue even if the request fails.
+  http_status=$(curl "${curl_args[@]}" $url || true)
 
   # Print the output of 'curl' to aid in debugging.
   cat "$actual_output_file"
@@ -98,9 +110,10 @@ if command -v docker &> /dev/null; then
 
   actual_output_file=$(mktemp)
 
-  # Try to reach the backend.
+  # Try to reach the backend using the known state ID to
+  # wait for the server to be ready.
   retries=0
-  while ! perform_curl "$actual_output_file"; do
+  while ! perform_curl "reboot-chat-room" "Messages" "$actual_output_file"; do
     if [ "$retries" -ge 30 ]; then
       # This is taking an unusually long time. Print the Docker logs to aid in
       # debugging.
@@ -113,11 +126,43 @@ if command -v docker &> /dev/null; then
     retries=$((retries+1))
   done
 
-  # Check the output.
+  # Check the output of the known state ID.
   if ! diff -u "${SANDBOX_ROOT}$EXPECTED_CURL_OUTPUT_FILE" "$actual_output_file"; then
     echo "The actual output does not match the expected output."
     exit 1
   fi
+
+  # At this point we know the server is up and can respond to requests.
+  # Now we want to test that all servers in the cluster are reachable,
+  # by sending requests to 30 different random state IDs so that
+  # the load balancer distributes them across all servers.
+  # If all requests succeed, all servers should be reachable.
+  for i in $(seq 1 30); do
+    state_id=$(cat /proc/sys/kernel/random/uuid)
+    # First, send a message to construct the state.
+    if ! perform_curl "$state_id" "Send" "$actual_output_file" '{"message":"test"}'; then
+      echo "Send request to state ID '$state_id' failed."
+      echo "###### Docker logs ######"
+      docker logs $container_id
+      echo "###### End Docker logs ######"
+      exit 1
+    fi
+    # Then, read the messages back and verify the content.
+    if ! perform_curl "$state_id" "Messages" "$actual_output_file"; then
+      echo "Messages request to state ID '$state_id' failed."
+      echo "###### Docker logs ######"
+      docker logs $container_id
+      echo "###### End Docker logs ######"
+      exit 1
+    fi
+    # Verify the response contains the message we sent.
+    # Collapse whitespace since the JSON response is pretty-printed.
+    if ! tr -d ' \n' < "$actual_output_file" | grep -q '"messages":\["test"\]'; then
+      echo "Expected '\"messages\":[\"test\"]' in response for state ID '$state_id', got:"
+      cat "$actual_output_file"
+      exit 1
+    fi
+  done
 
   rm "$actual_output_file"
   popd
