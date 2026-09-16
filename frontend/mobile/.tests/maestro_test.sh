@@ -48,6 +48,23 @@ export ANDROID_HOME
 export ANDROID_SDK_ROOT="${ANDROID_HOME}"
 export PATH="${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/emulator:${HOME}/.maestro/bin:${PATH}"
 
+# Keep a degraded npm registry from consuming this test's budget.
+# `prefer-offline` takes any package already in the cache without
+# revalidating it against the registry, which covers the `.rbt`
+# packages the devcontainer image pre-caches; only what the cache
+# lacks is fetched at all. Those fetches are bounded three ways:
+# `fetch-timeout` (milliseconds) caps one attempt at a minute rather
+# than npm's five-minute default; `fetch-retries` is a count of
+# retries AFTER the first attempt, so three of them means four
+# attempts; and `fetch-retry-maxtimeout` caps the backoff between
+# attempts, which npm otherwise grows by a factor of ten up to a
+# minute. A wedged fetch therefore gives up after roughly five
+# minutes, well inside the fifteen a `large` test gets.
+export npm_config_prefer_offline=true
+export npm_config_fetch_timeout=60000
+export npm_config_fetch_retries=3
+export npm_config_fetch_retry_maxtimeout=20000
+
 # The long-running background processes redirect their output to these
 # files (so their detached children can't hold `bazel test`'s output
 # pipe open; see the emulator launch below). That redirection means a
@@ -170,6 +187,20 @@ adb wait-for-device
 until [ "$(adb shell getprop sys.boot_completed 2> /dev/null | tr -d '\r')" = "1" ]; do
   sleep 1
 done
+# `sys.boot_completed` flips when the system sends `BOOT_COMPLETED`,
+# not when its receivers are done with it. On this `google_apis` image
+# that broadcast fans out to Play Services and dozens of other manifest
+# receivers, which keeps the broadcast queues busy for another ~30s,
+# and package events for anything installed meanwhile queue up behind
+# it. Opening the project inside that window has had Android relaunch
+# Expo Go's activity mid-flow, as the delayed package events for its
+# own fresh install landed: the app re-ran, the onboarding sheet the
+# flow had just dismissed re-opened, and the flow's next tap hit the
+# sheet instead of the app. So wait for the queues to drain before
+# opening the project. The wait is bounded so that a device that never
+# goes quiet degrades to a fixed delay, which still outlasts the boot
+# storm, rather than eating the whole test budget.
+timeout 120 adb shell am wait-for-broadcast-idle > /dev/null || true
 
 # Load the app via Expo Go, pointed at the backend on the emulator's
 # host alias (`10.0.2.2`). `expo start --android` installs Expo Go and
